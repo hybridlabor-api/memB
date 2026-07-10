@@ -142,28 +142,28 @@ describe("Node OSS decay feature error notice", () => {
   let originalFetch: typeof global.fetch;
 
   beforeEach(() => {
-    originalMemBDir = process.env.MEM0_DIR;
-    originalTelemetry = process.env.MEM0_TELEMETRY;
-    originalSampleRate = process.env.MEM0_TELEMETRY_SAMPLE_RATE;
+    originalMemBDir = process.env.MEMB_DIR;
+    originalTelemetry = process.env.MEMB_TELEMETRY;
+    originalSampleRate = process.env.MEMB_TELEMETRY_SAMPLE_RATE;
     originalFetch = global.fetch;
 
-    process.env.MEM0_DIR = makeTempMemBDir();
-    process.env.MEM0_TELEMETRY = "true";
-    process.env.MEM0_TELEMETRY_SAMPLE_RATE = "1";
+    process.env.MEMB_DIR = makeTempMemBDir();
+    process.env.MEMB_TELEMETRY = "true";
+    process.env.MEMB_TELEMETRY_SAMPLE_RATE = "1";
     jest.resetModules();
   });
 
   afterEach(() => {
-    if (originalMemBDir === undefined) delete process.env.MEM0_DIR;
-    else process.env.MEM0_DIR = originalMemBDir;
+    if (originalMemBDir === undefined) delete process.env.MEMB_DIR;
+    else process.env.MEMB_DIR = originalMemBDir;
 
-    if (originalTelemetry === undefined) delete process.env.MEM0_TELEMETRY;
-    else process.env.MEM0_TELEMETRY = originalTelemetry;
+    if (originalTelemetry === undefined) delete process.env.MEMB_TELEMETRY;
+    else process.env.MEMB_TELEMETRY = originalTelemetry;
 
     if (originalSampleRate === undefined) {
-      delete process.env.MEM0_TELEMETRY_SAMPLE_RATE;
+      delete process.env.MEMB_TELEMETRY_SAMPLE_RATE;
     } else {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = originalSampleRate;
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = originalSampleRate;
     }
 
     global.fetch = originalFetch;
@@ -332,7 +332,7 @@ describe("Node OSS decay feature error notice", () => {
   });
 
   it("uses plain error and skips flag evaluation when telemetry is off", async () => {
-    process.env.MEM0_TELEMETRY = "False";
+    process.env.MEMB_TELEMETRY = "False";
     jest.resetModules();
 
     const { fetchMock, calls } = createFetchMock({ variant: "displayed" });

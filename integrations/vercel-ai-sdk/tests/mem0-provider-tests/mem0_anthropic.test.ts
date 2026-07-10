@@ -7,7 +7,7 @@ import { LanguageModelV3Prompt } from '@ai-sdk/provider';
 import { testConfig } from "../../config/test-config";
 import { createAnthropic } from "@ai-sdk/anthropic";
 
-describe("ANTHROPIC MEM0 Tests", () => {
+describe("ANTHROPIC MEMB Tests", () => {
   const { userId } = testConfig;
   jest.setTimeout(30000);
 

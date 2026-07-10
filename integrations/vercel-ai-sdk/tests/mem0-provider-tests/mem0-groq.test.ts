@@ -7,7 +7,7 @@ import { LanguageModelV3Prompt } from '@ai-sdk/provider';
 import { testConfig } from "../../config/test-config";
 import { createGroq } from "@ai-sdk/groq";
 
-describe("GROQ MEM0 Tests", () => {
+describe("GROQ MEMB Tests", () => {
   const { userId } = testConfig;
   jest.setTimeout(30000);
 

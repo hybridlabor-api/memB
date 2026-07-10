@@ -11,7 +11,7 @@ Quick-reference cheatsheet for developers working across both MemB SDKs.
 | Constructor | `MemoryClient(api_key="m0-xxx")` | `new MemoryClient({ apiKey: 'm0-xxx' })` |
 | Required param | `api_key` (positional or kwarg) | `apiKey` (in options object) |
 
-Both read from `MEM0_API_KEY` env var if no key provided.
+Both read from `MEMB_API_KEY` env var if no key provided.
 
 ## Method Naming
 

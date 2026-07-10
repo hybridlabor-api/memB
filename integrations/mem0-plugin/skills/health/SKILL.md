@@ -14,7 +14,7 @@ Run ALL checks, then display a single summary. Do not stop on the first failure.
 ### Check 1: API key
 
 ```bash
-_KEY="${MEM0_API_KEY:-${CLAUDE_PLUGIN_OPTION_MEM0_API_KEY:-}}"
+_KEY="${MEMB_API_KEY:-${CLAUDE_PLUGIN_OPTION_MEMB_API_KEY:-}}"
 [ -n "$_KEY" ] && echo "${_KEY:0:6}..." || echo "NOT_SET"
 ```
 
@@ -28,14 +28,14 @@ Resolve identity using the plugin's own resolver scripts to match what hooks use
 ```bash
 SCRIPT_DIR="${CLAUDE_PLUGIN_ROOT:-${CODEX_PLUGIN_ROOT:-${CURSOR_PLUGIN_ROOT:-}}}/scripts"
 source "$SCRIPT_DIR/_identity.sh" 2>/dev/null
-echo "user_id=${MEM0_RESOLVED_USER_ID:-}"
-echo "project_id=${MEM0_PROJECT_ID:-}"
-echo "branch=${MEM0_BRANCH:-}"
+echo "user_id=${MEMB_RESOLVED_USER_ID:-}"
+echo "project_id=${MEMB_PROJECT_ID:-}"
+echo "branch=${MEMB_BRANCH:-}"
 ```
 
 If `CLAUDE_PLUGIN_ROOT` is not available, fall back to:
-- `user_id`: from `MEM0_USER_ID` or `$USER`
-- `project_id`: from `MEM0_PROJECT_ID` or check `~/.memb/project_map.json` for `$PWD`
+- `user_id`: from `MEMB_USER_ID` or `$USER`
+- `project_id`: from `MEMB_PROJECT_ID` or check `~/.memb/project_map.json` for `$PWD`
 - `branch`: from `git branch --show-current`
 
 PASS if all three are non-empty. WARN if any falls back to defaults.

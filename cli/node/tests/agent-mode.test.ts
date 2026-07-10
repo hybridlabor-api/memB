@@ -23,7 +23,7 @@ function run(
 ): { stdout: string; stderr: string; exitCode: number } {
   const env = { ...process.env };
   for (const key of Object.keys(env)) {
-    if (key.startsWith("MEM0_")) delete env[key];
+    if (key.startsWith("MEMB_")) delete env[key];
   }
   if (opts.home) env.HOME = opts.home;
   if (opts.env) Object.assign(env, opts.env);
@@ -91,7 +91,7 @@ describe("argv preprocessing — --agent reaches init subcommand", () => {
     const result = run(["init", "--agent"], {
       home,
       env: {
-        MEM0_BASE_URL: "http://127.0.0.1:1", // blackhole
+        MEMB_BASE_URL: "http://127.0.0.1:1", // blackhole
         FORCE_COLOR: "0",
       },
     });
@@ -116,7 +116,7 @@ describe("JSON envelope on network failure", () => {
     const result = run(["init", "--agent", "--json"], {
       home,
       env: {
-        MEM0_BASE_URL: "http://127.0.0.1:1",
+        MEMB_BASE_URL: "http://127.0.0.1:1",
         FORCE_COLOR: "0",
       },
     });

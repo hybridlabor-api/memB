@@ -46,7 +46,7 @@ class NeptuneAnalyticsVector(VectorStoreBase):
     a serverless graph analytics service that supports vector operations.
     """
 
-    _COLLECTION_PREFIX = "MEM0_VECTOR_"
+    _COLLECTION_PREFIX = "MEMB_VECTOR_"
     _FIELD_N = 'n'
     _FIELD_ID = '~id'
     _FIELD_PROP = '~properties'

@@ -2,7 +2,7 @@
 
 REST API endpoints for the MemB Platform. Base URL: `https://api.memb.ai`
 
-All endpoints require: `Authorization: Token <MEM0_API_KEY>`
+All endpoints require: `Authorization: Token <MEMB_API_KEY>`
 
 ## Endpoints
 

@@ -59,15 +59,15 @@ If any deletions failed, report which ones and why.
 
 If the user says "undo last N memories" or "undo last write":
 
-1. Check the `MEM0_SESSION_ID` environment variable (set by the plugin's shell.env hook).
-2. If `MEM0_SESSION_ID` is set, call `search_memories` with:
+1. Check the `MEMB_SESSION_ID` environment variable (set by the plugin's shell.env hook).
+2. If `MEMB_SESSION_ID` is set, call `search_memories` with:
    - `query="recently added"`
-   - `filters={"AND": [{"user_id": "<active_user_id>"}, {"app_id": "<project_id>"}, {"metadata": {"session_id": "<MEM0_SESSION_ID>"}}]}`
+   - `filters={"AND": [{"user_id": "<active_user_id>"}, {"app_id": "<project_id>"}, {"metadata": {"session_id": "<MEMB_SESSION_ID>"}}]}`
    - `top_k=20`
 3. Sort results by creation time descending and show the last N entries (default 1). Ask for confirmation.
 4. Delete confirmed entries via `delete_memory`.
 
-If `MEM0_SESSION_ID` is not set or the search returns no results, tell the user: "No recent memory IDs tracked this session. Try `/memb-tour` to browse recent memories, or `/memb-forget <search query>` to find specific ones."
+If `MEMB_SESSION_ID` is not set or the search returns no results, tell the user: "No recent memory IDs tracked this session. Try `/memb-tour` to browse recent memories, or `/memb-forget <search query>` to find specific ones."
 
 ## Output formatting
 

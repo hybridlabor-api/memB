@@ -2,7 +2,7 @@
   "mcpServers": {
     "memb": {
       "url": "https://mcp.memb.ai/mcp",
-      "bearer_token_env_var": "MEM0_API_KEY"
+      "bearer_token_env_var": "MEMB_API_KEY"
     }
   }
 }

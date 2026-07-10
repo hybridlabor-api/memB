@@ -6,7 +6,7 @@ Imports CLAUDE.md, AGENTS.md, .cursorrules, .windsurfrules, memb.md
 into memb as project profile memories, skipping unchanged files via
 SHA-256 hashing.
 
-Input:  MEM0_CWD env var (optional, defaults to os.getcwd())
+Input:  MEMB_CWD env var (optional, defaults to os.getcwd())
 Output: stderr logs only (exit 0 always — must not block)
 """
 
@@ -31,7 +31,7 @@ _handler = logging.StreamHandler(sys.stderr)
 _handler.setFormatter(logging.Formatter("[memb-auto-import] %(message)s"))
 log.addHandler(_handler)
 
-if os.environ.get("MEM0_DEBUG"):
+if os.environ.get("MEMB_DEBUG"):
     _log_dir = os.path.expanduser("~/.memb")
     try:
         os.makedirs(_log_dir, exist_ok=True)
@@ -258,10 +258,10 @@ def post_memory(api_key: str, content: str, user_id: str, filename: str, project
 def main() -> None:
     api_key = resolve_api_key()
     if not api_key:
-        log.debug("MEM0_API_KEY not set, skipping auto-import")
+        log.debug("MEMB_API_KEY not set, skipping auto-import")
         return
 
-    cwd = os.environ.get("MEM0_CWD", "").strip() or os.getcwd()
+    cwd = os.environ.get("MEMB_CWD", "").strip() or os.getcwd()
     user_id = resolve_user_id()
     project_id = resolve_project_id(cwd)
     branch = resolve_branch(cwd)

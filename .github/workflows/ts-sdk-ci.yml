@@ -142,5 +142,5 @@ jobs:
       - name: Run integration tests (with cleanup)
         working-directory: memb-ts
         env:
-          MEM0_API_KEY: ${{ secrets.MEM0_API_KEY }}
+          MEMB_API_KEY: ${{ secrets.MEMB_API_KEY }}
         run: pnpm run test:integration

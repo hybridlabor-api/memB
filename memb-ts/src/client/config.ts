@@ -34,7 +34,7 @@ async function getNodeFs(): Promise<NodeFs | null> {
     const pathMod = (path as any).default ?? path;
     const osMod = (os as any).default ?? os;
     const cryptoMod = (crypto as any).default ?? crypto;
-    const dir = process.env.MEM0_DIR || pathMod.join(osMod.homedir(), ".memb");
+    const dir = process.env.MEMB_DIR || pathMod.join(osMod.homedir(), ".memb");
     return {
       fs: fsMod,
       path: pathMod,

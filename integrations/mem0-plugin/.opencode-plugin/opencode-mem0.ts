@@ -27,7 +27,7 @@ import {asScope, scopeSearchFilters, scopeWriteParams, resolveDefaultScope, SCOP
 import {parseProjectFromRemote} from "./project";
 
 async function getUserId(): Promise<string> {
-  if (process.env.MEM0_USER_ID) return process.env.MEM0_USER_ID;
+  if (process.env.MEMB_USER_ID) return process.env.MEMB_USER_ID;
   try {
     return userInfo().username;
   } catch {
@@ -36,7 +36,7 @@ async function getUserId(): Promise<string> {
 }
 
 async function getProjectId($: any): Promise<string> {
-  if (process.env.MEM0_APP_ID) return process.env.MEM0_APP_ID;
+  if (process.env.MEMB_APP_ID) return process.env.MEMB_APP_ID;
   // Prefer the git remote's owner/repo — stable across clones, worktrees, and
   // sub-directories (handles https + ssh, incl. custom host aliases).
   try {
@@ -258,7 +258,7 @@ function extractUserText(input: any, output: any): string {
 const MemBPlugin: Plugin = async (ctx) => {
   const {$, client} = ctx;
 
-  const apiKey = process.env.MEM0_API_KEY;
+  const apiKey = process.env.MEMB_API_KEY;
 
   if (!apiKey) {
     try {
@@ -267,7 +267,7 @@ const MemBPlugin: Plugin = async (ctx) => {
           service: "memb",
           level: "error",
           message:
-            "MEM0_API_KEY environment variable not set. Get one at https://app.memb.ai/dashboard/api-keys",
+            "MEMB_API_KEY environment variable not set. Get one at https://app.memb.ai/dashboard/api-keys",
         },
       });
     } catch {
@@ -385,11 +385,11 @@ Identity context (resolved at plugin startup):
       output: { env: Record<string, string> },
     ) => {
       if (output?.env) {
-        output.env.MEM0_USER_ID = userId;
-        output.env.MEM0_APP_ID = appId;
-        output.env.MEM0_SESSION_ID = sessionId;
-        output.env.MEM0_BRANCH = branch;
-        output.env.MEM0_GLOBAL_SEARCH = globalSearch ? "true" : "false";
+        output.env.MEMB_USER_ID = userId;
+        output.env.MEMB_APP_ID = appId;
+        output.env.MEMB_SESSION_ID = sessionId;
+        output.env.MEMB_BRANCH = branch;
+        output.env.MEMB_GLOBAL_SEARCH = globalSearch ? "true" : "false";
       }
     },
 

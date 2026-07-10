@@ -20,7 +20,7 @@ describe("captureEvent", () => {
     mockLoadConfig.mockReset();
     mockSaveConfig.mockReset();
     mockSpawn.mockReset();
-    delete process.env.MEM0_TELEMETRY;
+    delete process.env.MEMB_TELEMETRY;
   });
 
   it("pipes the telemetry context through stdin instead of argv", async () => {

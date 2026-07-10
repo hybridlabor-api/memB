@@ -84,7 +84,7 @@ def search_file_context(
     api_key: str, user_id: str, project_id: str, file_path: str, cwd: str
 ) -> str:
     """Search memb for memories related to a file path."""
-    global_search = os.environ.get("MEM0_GLOBAL_SEARCH", "false") == "true"
+    global_search = os.environ.get("MEMB_GLOBAL_SEARCH", "false") == "true"
     rel = relative_path(file_path, cwd)
     basename = os.path.basename(file_path)
 

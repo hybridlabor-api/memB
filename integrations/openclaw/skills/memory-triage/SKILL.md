@@ -7,7 +7,7 @@ description: >
   projects, and relationships. Loaded by the openclaw-memb plugin when skills mode is active.
 user-invocable: false
 metadata:
-  {"openclaw": {"always": false, "injected": true, "emoji": "🧠", "requires": {"env": ["MEM0_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY"], "bins": []}}}
+  {"openclaw": {"always": false, "injected": true, "emoji": "🧠", "requires": {"env": ["MEMB_API_KEY", "OPENAI_API_KEY", "ANTHROPIC_API_KEY"], "bins": []}}}
 ---
 
 # Memory Protocol

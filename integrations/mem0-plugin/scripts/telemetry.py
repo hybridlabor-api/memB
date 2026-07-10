@@ -10,7 +10,7 @@ CLI usage (called from hooks as a background subprocess):
                                     [--error_detected] [--file_paths_detected]
                                     [--source=<src>] [--tool=<name>]
 
-Opt-out: set MEM0_TELEMETRY=false (or 0/no/off) to disable all telemetry.
+Opt-out: set MEMB_TELEMETRY=false (or 0/no/off) to disable all telemetry.
 
 Never sends: user content, memory content, API keys, raw user/project IDs.
 Only sends: event type, platform, plugin version, anonymized hashes, counts.
@@ -61,15 +61,15 @@ def _sha256(value: str) -> str:
 
 def _distinct_id() -> str:
     """Stable anonymous ID: SHA-256 of API key if available, else SHA-256 of username."""
-    api_key = os.environ.get("MEM0_API_KEY") or os.environ.get("CLAUDE_PLUGIN_OPTION_MEM0_API_KEY") or ""
+    api_key = os.environ.get("MEMB_API_KEY") or os.environ.get("CLAUDE_PLUGIN_OPTION_MEMB_API_KEY") or ""
     if api_key:
         return hashlib.sha256(api_key.encode()).hexdigest()[:32]
-    user_id = os.environ.get("MEM0_RESOLVED_USER_ID") or os.environ.get("USER") or "unknown"
+    user_id = os.environ.get("MEMB_RESOLVED_USER_ID") or os.environ.get("USER") or "unknown"
     return _sha256(user_id)
 
 
 def detect_platform() -> str:
-    explicit = os.environ.get("MEM0_PLATFORM")
+    explicit = os.environ.get("MEMB_PLATFORM")
     if explicit:
         return explicit
     if os.environ.get("ANTIGRAVITY_PLUGIN_ROOT"):
@@ -86,11 +86,11 @@ def detect_platform() -> str:
 
 
 def is_enabled() -> bool:
-    return os.environ.get("MEM0_TELEMETRY", "true").lower() not in ("false", "0", "no", "off")
+    return os.environ.get("MEMB_TELEMETRY", "true").lower() not in ("false", "0", "no", "off")
 
 
 def build_posthog_payload(event_name: str, properties: dict | None = None) -> dict:
-    project_id = os.environ.get("MEM0_PROJECT_ID") or "unknown"
+    project_id = os.environ.get("MEMB_PROJECT_ID") or "unknown"
     plat = detect_platform()
     return {
         "api_key": POSTHOG_API_KEY,

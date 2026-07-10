@@ -48,7 +48,7 @@ change the app's logic. The developer asked to swap a backend, not to refactor t
 Work through these phases in order. Phases 1–4 produce the plan; phase 5 runs only after approval.
 
 ### Phase 0 — Prerequisite check
-The hosted SDK needs a memb API key (`MEM0_API_KEY`, obtainable at https://app.memb.ai). Confirm
+The hosted SDK needs a memb API key (`MEMB_API_KEY`, obtainable at https://app.memb.ai). Confirm
 the developer has one. You don't need the key value to write the plan, but flag in the plan that it
 must be set (in `.env` / secrets manager, never hardcoded) before execution and verification.
 
@@ -93,7 +93,7 @@ path calls that now make network round-trips, and **existing locally-stored memo
 over** (data migration is out of scope unless the developer asks — note it, don't silently attempt it).
 
 ### Phase 4 — Write the plan and stop
-Write the full plan to `MEM0_MIGRATION_PLAN.md` at the repo root, following the structure in
+Write the full plan to `MEMB_MIGRATION_PLAN.md` at the repo root, following the structure in
 `references/plan-template.md`. It must be concrete enough to execute from and honest about the gaps.
 Then **stop and present it for review.** Do not start editing code in the same turn — the whole
 point is that the developer reads and approves the plan first.
@@ -101,12 +101,12 @@ point is that the developer reads and approves the plan first.
 ### Phase 5 — Execute on approval (guided)
 Once the developer approves (they may ask for changes first — incorporate them), execute the plan:
 - Make the edits file by file, staying strictly within memb scope.
-- Update dependencies and env (`MEM0_API_KEY`; remove now-dead local-infra deps/services only if
+- Update dependencies and env (`MEMB_API_KEY`; remove now-dead local-infra deps/services only if
   they exist solely for memb and you're confident).
 - **Verify**, mirroring how you'd confirm any backend swap:
   - It imports / type-checks / byte-compiles.
   - A smoke test exercises `add` → `search`/`get_all` → `delete_all` against the hosted API with a
-    real `MEM0_API_KEY`, and the app's own entry point still runs.
+    real `MEMB_API_KEY`, and the app's own entry point still runs.
   - No local memb storage directory gets created anymore (e.g. a `.memb/`, local Qdrant path) —
     proof the memory really lives on the platform now.
 - Report what changed, what was verified, and any flagged concerns the developer still needs to act
@@ -117,4 +117,4 @@ Once the developer approves (they may ask for changes first — incorporate them
   TypeScript, plus dependency and env changes. Read during Phase 2–3.
 - `references/gotchas.md` — the things that aren't a clean 1:1 and need a human decision. Read
   during Phase 3 so the plan's "Concerns" section is complete.
-- `references/plan-template.md` — the exact structure for `MEM0_MIGRATION_PLAN.md`. Use in Phase 4.
+- `references/plan-template.md` — the exact structure for `MEMB_MIGRATION_PLAN.md`. Use in Phase 4.

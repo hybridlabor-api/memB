@@ -48,11 +48,11 @@ export function loadConfig(): MemBConfig {
     dream,
   };
 
-  if (process.env.MEM0_API_KEY) {
-    config.apiKey = process.env.MEM0_API_KEY;
+  if (process.env.MEMB_API_KEY) {
+    config.apiKey = process.env.MEMB_API_KEY;
   }
-  if (process.env.MEM0_USER_ID) {
-    config.userId = process.env.MEM0_USER_ID;
+  if (process.env.MEMB_USER_ID) {
+    config.userId = process.env.MEMB_USER_ID;
   }
 
   return config;

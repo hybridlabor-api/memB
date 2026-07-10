@@ -350,6 +350,6 @@ def test_main_unknown_subcommand_exits_zero():
         [sys.executable, os.path.join(SCRIPTS_DIR, "import_competing_tools.py"), "unknown"],
         capture_output=True,
         text=True,
-        env={**os.environ, "MEM0_API_KEY": ""},
+        env={**os.environ, "MEMB_API_KEY": ""},
     )
     assert result.returncode == 0

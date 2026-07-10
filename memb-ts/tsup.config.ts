@@ -46,7 +46,7 @@ const external = [
 ];
 
 const define = {
-  __MEM0_SDK_VERSION__: JSON.stringify(pkg.version),
+  __MEMB_SDK_VERSION__: JSON.stringify(pkg.version),
 };
 
 export default defineConfig([

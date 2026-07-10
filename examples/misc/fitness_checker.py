@@ -4,7 +4,7 @@ Uses MemB for memory and gpt-4.1-nano for image understanding.
 
 In order to run this file, you need to set up your MemB API at MemB platform and also need an OpenAI API key.
 export OPENAI_API_KEY="your_openai_api_key"
-export MEM0_API_KEY="your_memb_api_key"
+export MEMB_API_KEY="your_memb_api_key"
 """
 
 from agno.agent import Agent

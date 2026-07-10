@@ -3,7 +3,7 @@
     "memb": {
       "url": "https://mcp.memb.ai/mcp/",
       "headers": {
-        "Authorization": "Token ${env:MEM0_API_KEY}"
+        "Authorization": "Token ${env:MEMB_API_KEY}"
       }
     }
   }

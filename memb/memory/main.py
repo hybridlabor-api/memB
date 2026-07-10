@@ -50,7 +50,7 @@ from memb.memory.notices import (
 )
 from memb.memory.setup import memb_dir, setup_config
 from memb.memory.storage import SQLiteManager
-from memb.memory.telemetry import MEM0_TELEMETRY, capture_event
+from memb.memory.telemetry import MEMB_TELEMETRY, capture_event
 from memb.memory.utils import (
     extract_json,
     parse_messages,
@@ -476,7 +476,7 @@ class Memory(MemoryBase):
         # Entity store is initialized lazily on first use
         self._entity_store = None
 
-        if MEM0_TELEMETRY:
+        if MEMB_TELEMETRY:
             # Create telemetry config manually to avoid deepcopy issues with thread locks
             telemetry_config_dict = {}
             if hasattr(self.config.vector_store.config, 'model_dump'):
@@ -2136,7 +2136,7 @@ class AsyncMemory(MemoryBase):
                 config.reranker.config
             )
 
-        if MEM0_TELEMETRY:
+        if MEMB_TELEMETRY:
             telemetry_config = _safe_deepcopy_config(self.config.vector_store.config)
             telemetry_config.collection_name = "membmigrations"
             if self.config.vector_store.provider in ["faiss", "qdrant"]:

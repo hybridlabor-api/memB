@@ -30,11 +30,11 @@ memory = Memory.from_config({           # all of this local config disappears
 
 # Platform (hosted)
 from memb import MemoryClient
-memory = MemoryClient()                 # reads MEM0_API_KEY from the env
+memory = MemoryClient()                 # reads MEMB_API_KEY from the env
 # or: MemoryClient(api_key="...")
 ```
 Notes:
-- The client reads `MEM0_API_KEY` from the environment when `api_key` is omitted.
+- The client reads `MEMB_API_KEY` from the environment when `api_key` is omitted.
 - **Drop** `vector_store`, `llm`, `embedder`, `graph_store`, `history_db_path` — these are managed
   server-side now.
 - **Drop** `org_id` / `project_id` constructor args if present — they're resolved from the API key
@@ -72,7 +72,7 @@ const memory = new Memory({ /* vectorStore, embedder, llm, historyStore … */ }
 
 // Platform (hosted) — default export from the package root
 import MemoryClient from "membai";
-const memory = new MemoryClient({ apiKey: process.env.MEM0_API_KEY });
+const memory = new MemoryClient({ apiKey: process.env.MEMB_API_KEY });
 // Drop organizationId / projectId — resolved from the API key in v3.
 ```
 
@@ -105,7 +105,7 @@ Also drop legacy options that no longer apply on v3: `async_mode`, `output_forma
 - **Remove** dependencies that existed *only* to back the local memb store/embedder/LLM and are now
   unused (e.g. `qdrant-client`, `chromadb`, a local embedding lib). Only remove what you can confirm
   is unused elsewhere.
-- **Add** `MEM0_API_KEY` to the environment / `.env.example` / secrets manager / deployment config.
+- **Add** `MEMB_API_KEY` to the environment / `.env.example` / secrets manager / deployment config.
 - Local-infra services (e.g. a Qdrant docker-compose service) that existed only for memb can be
   retired — flag this rather than deleting infrastructure unilaterally.
 

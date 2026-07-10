@@ -26,9 +26,9 @@ beforeEach(() => {
   tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "memb-test-"));
   // Monkey-patch the module-level constants
   // We'll use env vars and direct file manipulation instead
-  // Clear MEM0_ env vars
+  // Clear MEMB_ env vars
   for (const key of Object.keys(process.env)) {
-    if (key.startsWith("MEM0_")) {
+    if (key.startsWith("MEMB_")) {
       delete process.env[key];
     }
   }

@@ -30,11 +30,11 @@ function setupMockFetchWithPostHog(): jest.Mock {
 
 describe("config.ts — readMemBAnonIds / markMemBAliased", () => {
   let tmpHome: string;
-  const originalMemBDir = process.env.MEM0_DIR;
+  const originalMemBDir = process.env.MEMB_DIR;
 
   beforeEach(() => {
     tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), "memb-ts-test-"));
-    process.env.MEM0_DIR = tmpHome;
+    process.env.MEMB_DIR = tmpHome;
   });
 
   afterEach(() => {
@@ -42,9 +42,9 @@ describe("config.ts — readMemBAnonIds / markMemBAliased", () => {
       fs.rmSync(tmpHome, { recursive: true, force: true });
     }
     if (originalMemBDir === undefined) {
-      delete process.env.MEM0_DIR;
+      delete process.env.MEMB_DIR;
     } else {
-      process.env.MEM0_DIR = originalMemBDir;
+      process.env.MEMB_DIR = originalMemBDir;
     }
   });
 
@@ -140,7 +140,7 @@ describe("config.ts — readMemBAnonIds / markMemBAliased", () => {
   test("markMemBAliased does not throw when target dir is unwritable", async () => {
     // Point at a path that cannot be written to (a file-as-dir collision).
     fs.writeFileSync(path.join(tmpHome, "blocker"), "x");
-    process.env.MEM0_DIR = path.join(tmpHome, "blocker"); // file used as dir
+    process.env.MEMB_DIR = path.join(tmpHome, "blocker"); // file used as dir
     await expect(
       markMemBAliased("oss-uuid", "user@example.com"),
     ).resolves.toBeUndefined();
@@ -189,11 +189,11 @@ describe("telemetry.captureIdentify", () => {
 
 describe("MemoryClient — _maybeAliasAnonToEmail", () => {
   let tmpHome: string;
-  const originalMemBDir = process.env.MEM0_DIR;
+  const originalMemBDir = process.env.MEMB_DIR;
 
   beforeEach(() => {
     tmpHome = fs.mkdtempSync(path.join(os.tmpdir(), "memb-ts-init-"));
-    process.env.MEM0_DIR = tmpHome;
+    process.env.MEMB_DIR = tmpHome;
   });
 
   afterEach(() => {
@@ -201,9 +201,9 @@ describe("MemoryClient — _maybeAliasAnonToEmail", () => {
       fs.rmSync(tmpHome, { recursive: true, force: true });
     }
     if (originalMemBDir === undefined) {
-      delete process.env.MEM0_DIR;
+      delete process.env.MEMB_DIR;
     } else {
-      process.env.MEM0_DIR = originalMemBDir;
+      process.env.MEMB_DIR = originalMemBDir;
     }
   });
 
@@ -361,8 +361,8 @@ describe("MemoryClient — _maybeAliasAnonToEmail", () => {
     const fetchMock = setupMockFetch();
 
     jest.resetModules();
-    const original = process.env.MEM0_TELEMETRY;
-    process.env.MEM0_TELEMETRY = "false";
+    const original = process.env.MEMB_TELEMETRY;
+    process.env.MEMB_TELEMETRY = "false";
     try {
       const { MemoryClient: ColdClient } = await import("../memb");
       const client = Object.create(ColdClient.prototype);
@@ -371,8 +371,8 @@ describe("MemoryClient — _maybeAliasAnonToEmail", () => {
       client.telemetryId = "test@example.com";
       await client._maybeAliasAnonToEmail();
     } finally {
-      if (original === undefined) delete process.env.MEM0_TELEMETRY;
-      else process.env.MEM0_TELEMETRY = original;
+      if (original === undefined) delete process.env.MEMB_TELEMETRY;
+      else process.env.MEMB_TELEMETRY = original;
       jest.resetModules();
     }
 

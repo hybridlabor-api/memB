@@ -7,7 +7,7 @@
 import { MemoryClient } from "../../memb";
 
 export default async function globalSetup() {
-  const apiKey = process.env.MEM0_API_KEY;
+  const apiKey = process.env.MEMB_API_KEY;
   if (!apiKey) return; // skip if no key — tests will be skipped too
 
   const client = new MemoryClient({ apiKey });

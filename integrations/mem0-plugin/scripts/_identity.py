@@ -1,15 +1,15 @@
 """Resolve memb identity: API key, user_id, and settings.
 
 API key resolution (first non-empty wins):
-  1. MEM0_API_KEY env var (explicit / shell profile)
+  1. MEMB_API_KEY env var (explicit / shell profile)
   2. CLAUDE_PLUGIN_OPTION_API_KEY (injected by Claude Code userConfig)
-  3. CLAUDE_PLUGIN_OPTION_MEM0_API_KEY (legacy userConfig)
+  3. CLAUDE_PLUGIN_OPTION_MEMB_API_KEY (legacy userConfig)
   4. Extract from shell profile files (~/.zshrc, ~/.bashrc, etc.)
      Desktop app doesn't inherit shell env — this covers users who
-     set MEM0_API_KEY in their profile but use the Desktop app.
+     set MEMB_API_KEY in their profile but use the Desktop app.
 
 User ID resolution:
-  1. MEM0_USER_ID env var (explicit override)
+  1. MEMB_USER_ID env var (explicit override)
   2. $USER, else "default"
 
 Settings resolution:
@@ -24,14 +24,14 @@ from pathlib import Path
 
 
 def _extract_key_from_shell_profiles() -> str:
-    """Extract MEM0_API_KEY from shell profile files.
+    """Extract MEMB_API_KEY from shell profile files.
 
     The Desktop app only reads PATH from shell profiles — env vars like
-    MEM0_API_KEY are not inherited. This handles the common
-    ``export MEM0_API_KEY=...`` pattern without sourcing the full profile.
+    MEMB_API_KEY are not inherited. This handles the common
+    ``export MEMB_API_KEY=...`` pattern without sourcing the full profile.
     """
     profiles = [".zshrc", ".bashrc", ".zprofile", ".bash_profile", ".profile"]
-    pattern = re.compile(r'^\s*(?:export\s+)?MEM0_API_KEY=(.+)$')
+    pattern = re.compile(r'^\s*(?:export\s+)?MEMB_API_KEY=(.+)$')
 
     for name in profiles:
         path = Path.home() / name
@@ -53,13 +53,13 @@ def _extract_key_from_shell_profiles() -> str:
 
 
 def resolve_api_key() -> str:
-    key = os.environ.get("MEM0_API_KEY", "").strip()
+    key = os.environ.get("MEMB_API_KEY", "").strip()
     if key:
         return key
     key = os.environ.get("CLAUDE_PLUGIN_OPTION_API_KEY", "").strip()
     if key:
         return key
-    key = os.environ.get("CLAUDE_PLUGIN_OPTION_MEM0_API_KEY", "").strip()
+    key = os.environ.get("CLAUDE_PLUGIN_OPTION_MEMB_API_KEY", "").strip()
     if key:
         return key
     key = _extract_key_from_shell_profiles()
@@ -69,7 +69,7 @@ def resolve_api_key() -> str:
 
 
 def resolve_user_id() -> str:
-    explicit = os.environ.get("MEM0_USER_ID", "").strip()
+    explicit = os.environ.get("MEMB_USER_ID", "").strip()
     if explicit:
         return explicit
     return os.environ.get("USER") or "default"

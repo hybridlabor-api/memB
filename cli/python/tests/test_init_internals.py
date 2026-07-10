@@ -75,10 +75,10 @@ def test_ping_key_timeout_prefers_reuse(monkeypatch: pytest.MonkeyPatch) -> None
 
 def test_shell_rc_updates_existing_export_preserves_trailing_newline(tmp_path) -> None:
     rc = tmp_path / ".zshrc"
-    rc.write_text('export MEM0_API_KEY="old"\n', encoding="utf-8")
+    rc.write_text('export MEMB_API_KEY="old"\n', encoding="utf-8")
     changed = _update_shell_rc(rc, "newkey")
     assert changed is True
-    assert rc.read_text(encoding="utf-8") == 'export MEM0_API_KEY="newkey"\n'
+    assert rc.read_text(encoding="utf-8") == 'export MEMB_API_KEY="newkey"\n'
 
 
 def test_shell_rc_does_not_create_new_export(tmp_path) -> None:
@@ -91,19 +91,19 @@ def test_shell_rc_does_not_create_new_export(tmp_path) -> None:
 
 def test_shell_rc_preserves_surrounding_content(tmp_path) -> None:
     rc = tmp_path / ".zshrc"
-    original = "# my zshrc\nalias ll='ls -la'\nexport MEM0_API_KEY='old'\nexport OTHER=keepme\n"
+    original = "# my zshrc\nalias ll='ls -la'\nexport MEMB_API_KEY='old'\nexport OTHER=keepme\n"
     rc.write_text(original, encoding="utf-8")
     _update_shell_rc(rc, "newkey")
     after = rc.read_text(encoding="utf-8")
     assert "alias ll='ls -la'\n" in after
     assert "export OTHER=keepme\n" in after
     assert "# my zshrc\n" in after
-    assert 'export MEM0_API_KEY="newkey"\n' in after
+    assert 'export MEMB_API_KEY="newkey"\n' in after
 
 
 def test_shell_rc_idempotent_when_already_matching(tmp_path) -> None:
     rc = tmp_path / ".zshrc"
-    rc.write_text('export MEM0_API_KEY="same"\n', encoding="utf-8")
+    rc.write_text('export MEMB_API_KEY="same"\n', encoding="utf-8")
     assert _update_shell_rc(rc, "same") is False
 
 
@@ -140,13 +140,13 @@ def test_claude_settings_updates_existing_entry(tmp_path) -> None:
 
     settings = tmp_path / "settings.json"
     settings.write_text(
-        json.dumps({"env": {"MEM0_API_KEY": "old", "OTHER": "y"}}, indent=2),
+        json.dumps({"env": {"MEMB_API_KEY": "old", "OTHER": "y"}}, indent=2),
         encoding="utf-8",
     )
     changed = _update_claude_settings(settings, "fresh")
     assert changed is True
     data = json.loads(settings.read_text(encoding="utf-8"))
-    assert data["env"]["MEM0_API_KEY"] == "fresh"
+    assert data["env"]["MEMB_API_KEY"] == "fresh"
     assert data["env"]["OTHER"] == "y"  # other keys preserved
 
 
@@ -154,7 +154,7 @@ def test_claude_settings_idempotent(tmp_path) -> None:
     import json
 
     settings = tmp_path / "settings.json"
-    settings.write_text(json.dumps({"env": {"MEM0_API_KEY": "same"}}), encoding="utf-8")
+    settings.write_text(json.dumps({"env": {"MEMB_API_KEY": "same"}}), encoding="utf-8")
     assert _update_claude_settings(settings, "same") is False
 
 

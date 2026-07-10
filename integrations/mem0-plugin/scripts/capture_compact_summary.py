@@ -34,7 +34,7 @@ _handler = logging.StreamHandler(sys.stderr)
 _handler.setFormatter(logging.Formatter("[memb-compact-summary] %(message)s"))
 log.addHandler(_handler)
 
-if os.environ.get("MEM0_DEBUG"):
+if os.environ.get("MEMB_DEBUG"):
     _log_dir = os.path.expanduser("~/.memb")
     try:
         os.makedirs(_log_dir, exist_ok=True)
@@ -138,7 +138,7 @@ def store_summary(api_key: str, summary: str, user_id: str, session_id: str, pro
 def main():
     api_key = resolve_api_key()
     if not api_key:
-        log.debug("MEM0_API_KEY not set, skipping capture")
+        log.debug("MEMB_API_KEY not set, skipping capture")
         return
 
     try:

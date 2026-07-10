@@ -4,7 +4,7 @@ import { buildEvent, captureEvent, isTelemetryEnabled } from "./telemetry";
 const KEY = "m0-testkey123";
 
 afterEach(() => {
-  delete process.env.MEM0_TELEMETRY;
+  delete process.env.MEMB_TELEMETRY;
 });
 
 describe("opencode telemetry", () => {
@@ -37,14 +37,14 @@ describe("opencode telemetry", () => {
     expect(buildEvent("session_start", {}, undefined)).toBeNull();
   });
 
-  test("opt-out via MEM0_TELEMETRY disables events", () => {
-    process.env.MEM0_TELEMETRY = "false";
+  test("opt-out via MEMB_TELEMETRY disables events", () => {
+    process.env.MEMB_TELEMETRY = "false";
     expect(isTelemetryEnabled()).toBe(false);
     expect(buildEvent("session_start", {}, KEY)).toBeNull();
   });
 
   test("captureEvent never throws (and sends nothing when opted out)", () => {
-    process.env.MEM0_TELEMETRY = "false";
+    process.env.MEMB_TELEMETRY = "false";
     expect(() => captureEvent("session_start", {}, KEY)).not.toThrow();
     expect(() => captureEvent("session_start", {}, undefined)).not.toThrow();
     expect(() => captureEvent("session_start", {}, KEY, "proj")).not.toThrow();

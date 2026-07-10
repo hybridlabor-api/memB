@@ -10,7 +10,7 @@ export interface Provider {
 }
 
 export const testConfig = {
-  apiKey: process.env.MEM0_API_KEY,
+  apiKey: process.env.MEMB_API_KEY,
   userId: "memb-ai-sdk-test-user-1134774",
   deleteId: "",
   providers: [
@@ -52,7 +52,7 @@ export const testConfig = {
   createTestClient: (provider: Provider) => {
     return createMemB({
       provider: provider.name,
-      membApiKey: process.env.MEM0_API_KEY,
+      membApiKey: process.env.MEMB_API_KEY,
       apiKey: provider.apiKey,
     });
   },

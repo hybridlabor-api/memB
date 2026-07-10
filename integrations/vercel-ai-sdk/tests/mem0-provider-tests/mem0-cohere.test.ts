@@ -7,7 +7,7 @@ import { LanguageModelV3Prompt } from '@ai-sdk/provider';
 import { testConfig } from "../../config/test-config";
 import { createCohere } from "@ai-sdk/cohere";
 
-describe("COHERE MEM0 Tests", () => {
+describe("COHERE MEMB Tests", () => {
   const { userId } = testConfig;
   jest.setTimeout(30000);
   let memb: any;

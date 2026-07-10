@@ -3,7 +3,7 @@
  *
  * Tests users(), getProject(), updateProject(), and webhook CRUD against the real API.
  *
- * Run: MEM0_API_KEY=your-key npx jest management.test.ts --forceExit
+ * Run: MEMB_API_KEY=your-key npx jest management.test.ts --forceExit
  */
 import { MemoryClient } from "../../memb";
 import { WebhookEvent } from "../../memb.types";

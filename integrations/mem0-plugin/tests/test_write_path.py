@@ -168,20 +168,20 @@ def test_no_metadata_project_id_anywhere():
 
 
 def test_resolve_api_key_prefers_env_var(monkeypatch):
-    """resolve_api_key returns MEM0_API_KEY when both are set."""
+    """resolve_api_key returns MEMB_API_KEY when both are set."""
     from _identity import resolve_api_key
 
-    monkeypatch.setenv("MEM0_API_KEY", "direct-key")
-    monkeypatch.setenv("CLAUDE_PLUGIN_OPTION_MEM0_API_KEY", "fallback-key")
+    monkeypatch.setenv("MEMB_API_KEY", "direct-key")
+    monkeypatch.setenv("CLAUDE_PLUGIN_OPTION_MEMB_API_KEY", "fallback-key")
     assert resolve_api_key() == "direct-key"
 
 
 def test_resolve_api_key_falls_back_to_plugin_option(monkeypatch):
-    """resolve_api_key falls back to CLAUDE_PLUGIN_OPTION_MEM0_API_KEY."""
+    """resolve_api_key falls back to CLAUDE_PLUGIN_OPTION_MEMB_API_KEY."""
     from _identity import resolve_api_key
 
-    monkeypatch.delenv("MEM0_API_KEY", raising=False)
-    monkeypatch.setenv("CLAUDE_PLUGIN_OPTION_MEM0_API_KEY", "fallback-key")
+    monkeypatch.delenv("MEMB_API_KEY", raising=False)
+    monkeypatch.setenv("CLAUDE_PLUGIN_OPTION_MEMB_API_KEY", "fallback-key")
     assert resolve_api_key() == "fallback-key"
 
 
@@ -189,9 +189,9 @@ def test_resolve_api_key_returns_empty_when_neither_set(monkeypatch):
     """resolve_api_key returns empty string when no key is available."""
     from _identity import resolve_api_key
 
-    monkeypatch.delenv("MEM0_API_KEY", raising=False)
+    monkeypatch.delenv("MEMB_API_KEY", raising=False)
     monkeypatch.delenv("CLAUDE_PLUGIN_OPTION_API_KEY", raising=False)
-    monkeypatch.delenv("CLAUDE_PLUGIN_OPTION_MEM0_API_KEY", raising=False)
+    monkeypatch.delenv("CLAUDE_PLUGIN_OPTION_MEMB_API_KEY", raising=False)
     monkeypatch.setattr("_identity._extract_key_from_shell_profiles", lambda: "")
     assert resolve_api_key() == ""
 
@@ -200,8 +200,8 @@ def test_resolve_api_key_falls_back_to_shell_profile(monkeypatch):
     """resolve_api_key extracts key from shell profile when env vars are empty."""
     from _identity import resolve_api_key
 
-    monkeypatch.delenv("MEM0_API_KEY", raising=False)
+    monkeypatch.delenv("MEMB_API_KEY", raising=False)
     monkeypatch.delenv("CLAUDE_PLUGIN_OPTION_API_KEY", raising=False)
-    monkeypatch.delenv("CLAUDE_PLUGIN_OPTION_MEM0_API_KEY", raising=False)
+    monkeypatch.delenv("CLAUDE_PLUGIN_OPTION_MEMB_API_KEY", raising=False)
     monkeypatch.setattr("_identity._extract_key_from_shell_profiles", lambda: "m0-from-profile")
     assert resolve_api_key() == "m0-from-profile"

@@ -198,7 +198,7 @@ async function searchInternalMemories(
 **Behavior:**
 1. Builds a `filters` object from entity identifiers (`user_id`, `app_id`, `agent_id`, `run_id`)
 2. Resolves entity identifiers
-3. Loads the API key from `config.membApiKey` or `MEM0_API_KEY` env var
+3. Loads the API key from `config.membApiKey` or `MEMB_API_KEY` env var
 4. Calls `POST {host}/v2/memories/search/` with:
    - `query`: the search string
    - `filters`: the filter object with entity identifiers
@@ -253,7 +253,7 @@ All fields are optional. Used across all utility functions.
 | `infer` | `boolean` | -- | Enable inference |
 | `page` | `number` | -- | Pagination page number |
 | `page_size` | `number` | -- | Results per page |
-| `membApiKey` | `string` | `MEM0_API_KEY` env | MemB API key |
+| `membApiKey` | `string` | `MEMB_API_KEY` env | MemB API key |
 | `top_k` | `number` | `5` | Number of memories to retrieve |
 | `threshold` | `number` | -- | Minimum similarity score |
 | `rerank` | `boolean` | -- | Enable re-ranking |

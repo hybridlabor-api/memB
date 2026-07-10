@@ -5,7 +5,7 @@ Searches memb cloud API for the most recent memories in the project
 and formats them as a compact activity timeline injected below the
 existing SessionStart banner.
 
-Input:  env vars for identity (MEM0_API_KEY, MEM0_RESOLVED_USER_ID, etc.)
+Input:  env vars for identity (MEMB_API_KEY, MEMB_RESOLVED_USER_ID, etc.)
 Output: Compact timeline text to stdout (empty if nothing found)
 """
 
@@ -29,7 +29,7 @@ FETCH_TIMEOUT = 5
 
 def fetch_recent_memories(api_key: str, user_id: str, project_id: str) -> list[dict]:
     """Fetch the most recent memories for this project via GET list endpoint."""
-    global_search = os.environ.get("MEM0_GLOBAL_SEARCH", "false") == "true"
+    global_search = os.environ.get("MEMB_GLOBAL_SEARCH", "false") == "true"
 
     if global_search:
         filters = {"OR": [{"user_id": "*"}]}
@@ -87,7 +87,7 @@ def main():
         return
 
     user_id = resolve_user_id()
-    project_id = resolve_project_id(os.environ.get("MEM0_CWD"))
+    project_id = resolve_project_id(os.environ.get("MEMB_CWD"))
 
     memories = fetch_recent_memories(api_key, user_id, project_id)
     if not memories:

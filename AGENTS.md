@@ -114,7 +114,7 @@ pnpm install
 pnpm run build                     # tsup
 pnpm run test                      # jest (all tests)
 pnpm run test:unit                 # jest --coverage (unit tests only)
-pnpm run test:integration          # jest (integration tests, needs MEM0_API_KEY)
+pnpm run test:integration          # jest (integration tests, needs MEMB_API_KEY)
 pnpm run test:ci                   # jest --coverage --ci (CI mode)
 pnpm run test:watch                # jest watch mode
 ```
@@ -256,9 +256,9 @@ cd memory-benchmarks
 pip install -r requirements.txt
 
 # Run a benchmark (MemB Cloud; use docker compose for OSS)
-python -m benchmarks.locomo.run --project-name my-test --backend cloud --memb-api-key $MEM0_API_KEY
-python -m benchmarks.longmemeval.run --project-name my-test --backend cloud --memb-api-key $MEM0_API_KEY --all-questions
-python -m benchmarks.beam.run --project-name my-test --backend cloud --memb-api-key $MEM0_API_KEY --chat-sizes 100K --conversations 0-9
+python -m benchmarks.locomo.run --project-name my-test --backend cloud --memb-api-key $MEMB_API_KEY
+python -m benchmarks.longmemeval.run --project-name my-test --backend cloud --memb-api-key $MEMB_API_KEY --all-questions
+python -m benchmarks.beam.run --project-name my-test --backend cloud --memb-api-key $MEMB_API_KEY --chat-sizes 100K --conversations 0-9
 ```
 
 ## Core APIs

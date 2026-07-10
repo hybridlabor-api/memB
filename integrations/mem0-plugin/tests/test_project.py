@@ -31,7 +31,7 @@ def test_resolve_project_id_fallback_basename(tmp_no_git):
 def test_resolve_project_id_from_env(tmp_no_git, monkeypatch):
     from _project import resolve_project_id
 
-    monkeypatch.setenv("MEM0_PROJECT_ID", "my-override")
+    monkeypatch.setenv("MEMB_PROJECT_ID", "my-override")
     pid = resolve_project_id(str(tmp_no_git))
     assert pid == "my-override"
 
@@ -103,7 +103,7 @@ def test_resolve_project_id_priority_order(tmp_git_repo, monkeypatch):
     assert resolve_project_id(str(tmp_git_repo)) == "from-map"
 
     # Env var overrides everything
-    monkeypatch.setenv("MEM0_PROJECT_ID", "from-env")
+    monkeypatch.setenv("MEMB_PROJECT_ID", "from-env")
     assert resolve_project_id(str(tmp_git_repo)) == "from-env"
 
 

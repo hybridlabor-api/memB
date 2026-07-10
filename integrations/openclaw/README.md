@@ -27,7 +27,7 @@ If you're an AI agent setting up MemB autonomously (no human dashboard signup), 
 memb init --agent --json
 ```
 
-No email, no OTP, no browser. The key is written to your MemB CLI config and exported as `MEM0_API_KEY` — pass it to `openclaw memb init --api-key $MEM0_API_KEY --user-id <id>` to wire OpenClaw up immediately. The human owner can later run `memb init --email <their-email>` to claim ownership: memories transfer, same API key keeps working, no agent disruption.
+No email, no OTP, no browser. The key is written to your MemB CLI config and exported as `MEMB_API_KEY` — pass it to `openclaw memb init --api-key $MEMB_API_KEY --user-id <id>` to wire OpenClaw up immediately. The human owner can later run `memb init --email <their-email>` to claim ownership: memories transfer, same API key keeps working, no agent disruption.
 
 Humans should follow the Quick Start below.
 
@@ -63,7 +63,7 @@ Humans should follow the Quick Start below.
          "openclaw-memb": {
            "enabled": true,
            "config": {
-             "apiKey": "${MEM0_API_KEY}",
+             "apiKey": "${MEMB_API_KEY}",
              "userId": "alice",
              "skills": {
                "triage": { "enabled": true },
@@ -323,7 +323,7 @@ Enabled by default during `openclaw memb init`. `autoRecall` and `autoCapture` a
 
 | Key | Type | Default | Description |
 | --- | ---- | ------- | ----------- |
-| `apiKey` | `string` | — | **Required.** MemB API key (supports `${MEM0_API_KEY}`) |
+| `apiKey` | `string` | — | **Required.** MemB API key (supports `${MEMB_API_KEY}`) |
 | `customInstructions` | `string` | *(built-in)* | Custom extraction rules |
 | `customCategories` | `object` | *(12 defaults)* | Category name to description map |
 
@@ -348,7 +348,7 @@ All fields optional. Defaults: `text-embedding-3-small` embeddings, local SQLite
 
 | Mode | Where data goes | Credentials needed |
 |------|----------------|-------------------|
-| **Platform** | Conversations sent to `api.memb.ai` for memory extraction and retrieval | `MEM0_API_KEY` |
+| **Platform** | Conversations sent to `api.memb.ai` for memory extraction and retrieval | `MEMB_API_KEY` |
 | **Open-Source (OpenAI)** | LLM/embedding calls to OpenAI API; vectors stored locally at `~/.memb/vector_store.db` | `OPENAI_API_KEY` |
 | **Open-Source (Ollama)** | Fully local — LLM, embeddings, and vectors all on your machine | None |
 
@@ -357,8 +357,8 @@ All fields optional. Defaults: `text-embedding-3-small` embeddings, local SQLite
 The plugin stores configuration in `~/.openclaw/openclaw.json`. If you use the chat setup flow or `openclaw memb init`, your API key and user ID are written to this file.
 
 To avoid plaintext credentials:
-- Use env var references: `"apiKey": "${MEM0_API_KEY}"`
-- Use SecretRef: `"apiKey": {"source": "env", "provider": "default", "id": "MEM0_API_KEY"}`
+- Use env var references: `"apiKey": "${MEMB_API_KEY}"`
+- Use SecretRef: `"apiKey": {"source": "env", "provider": "default", "id": "MEMB_API_KEY"}`
 
 ### Memory Processing
 

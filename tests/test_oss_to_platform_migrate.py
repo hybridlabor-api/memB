@@ -216,12 +216,12 @@ def run_migration_script(
     env = os.environ.copy()
     env.update(
         {
-            "MEM0_DIR": str(memb_dir),
-            "MEM0_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
+            "MEMB_DIR": str(memb_dir),
+            "MEMB_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
         }
     )
-    env.pop("MEM0_API_KEY", None)
-    env.pop("MEM0_BASE_URL", None)
+    env.pop("MEMB_API_KEY", None)
+    env.pop("MEMB_BASE_URL", None)
 
     result = subprocess.run(
         ["bash", str(SCRIPT), "--auth-only", "--base-url", server.url, *args],
@@ -250,13 +250,13 @@ def run_export_script(
     env = os.environ.copy()
     env.update(
         {
-            "MEM0_DIR": str(memb_dir),
-            "MEM0_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
+            "MEMB_DIR": str(memb_dir),
+            "MEMB_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
             "QDRANT_API_KEY": qdrant_api_key,
         }
     )
-    env.pop("MEM0_API_KEY", None)
-    env.pop("MEM0_BASE_URL", None)
+    env.pop("MEMB_API_KEY", None)
+    env.pop("MEMB_BASE_URL", None)
 
     result = subprocess.run(
         [
@@ -296,12 +296,12 @@ def run_import_script(
     env = os.environ.copy()
     env.update(
         {
-            "MEM0_DIR": str(memb_dir),
-            "MEM0_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
-            "MEM0_API_KEY": api_key,
+            "MEMB_DIR": str(memb_dir),
+            "MEMB_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
+            "MEMB_API_KEY": api_key,
         }
     )
-    env.pop("MEM0_BASE_URL", None)
+    env.pop("MEMB_BASE_URL", None)
 
     result = subprocess.run(
         [
@@ -339,13 +339,13 @@ def run_full_script(
     env = os.environ.copy()
     env.update(
         {
-            "MEM0_DIR": str(memb_dir),
-            "MEM0_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
+            "MEMB_DIR": str(memb_dir),
+            "MEMB_MIGRATE_TELEMETRY_URL": f"{server.url}/posthog",
             "QDRANT_API_KEY": qdrant_api_key,
         }
     )
-    env.pop("MEM0_API_KEY", None)
-    env.pop("MEM0_BASE_URL", None)
+    env.pop("MEMB_API_KEY", None)
+    env.pop("MEMB_BASE_URL", None)
 
     result = subprocess.run(
         [

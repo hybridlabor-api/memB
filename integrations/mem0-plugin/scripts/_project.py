@@ -1,7 +1,7 @@
 """Resolve memb project_id and branch.
 
 Resolution priority (project_id):
-  1. MEM0_PROJECT_ID env var (explicit override)
+  1. MEMB_PROJECT_ID env var (explicit override)
   2. ~/.memb/project_map.json lookup by cwd
   2b. ~/.memb/project_map.json lookup by remote hash (self-healing fallback)
   3. Git remote slug: strip protocol/prefix, strip .git, replace / and : with -
@@ -23,7 +23,7 @@ def resolve_project_id(cwd: str | None = None) -> str:
         cwd = os.getcwd()
 
     # 1. Explicit override
-    explicit = os.environ.get("MEM0_PROJECT_ID", "").strip()
+    explicit = os.environ.get("MEMB_PROJECT_ID", "").strip()
     if explicit:
         return explicit
 

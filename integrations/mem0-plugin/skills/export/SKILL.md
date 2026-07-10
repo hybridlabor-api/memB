@@ -12,8 +12,8 @@ Export all memories for the current project to a portable Markdown file.
 ### Step 1: Resolve identity
 
 Determine the active identity:
-- `user_id` from `MEM0_USER_ID` env var, else `$USER`, else `"default"`
-- `project_id` (used as `app_id`) from `MEM0_PROJECT_ID` env var, or via the project resolver
+- `user_id` from `MEMB_USER_ID` env var, else `$USER`, else `"default"`
+- `project_id` (used as `app_id`) from `MEMB_PROJECT_ID` env var, or via the project resolver
 
 ### Step 2: Fetch all memories
 

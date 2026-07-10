@@ -215,7 +215,7 @@ class ConfigurationError(MemoryError):
         raise ConfigurationError(
             message="API key not configured",
             error_code="CFG_001",
-            suggestion="Set MEM0_API_KEY environment variable or pass api_key parameter"
+            suggestion="Set MEMB_API_KEY environment variable or pass api_key parameter"
         )
     """
     pass

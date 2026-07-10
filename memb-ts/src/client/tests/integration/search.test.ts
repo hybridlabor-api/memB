@@ -3,7 +3,7 @@
  *
  * Tests search, filtered search, and memory history against the real API.
  *
- * Run: MEM0_API_KEY=your-key npx jest search.test.ts --forceExit
+ * Run: MEMB_API_KEY=your-key npx jest search.test.ts --forceExit
  */
 import { MemoryClient } from "../../memb";
 import { randomUUID } from "crypto";

@@ -14,7 +14,7 @@ SCRIPTS_DIR = os.path.join(os.path.dirname(__file__), "..", "scripts")
 @pytest.fixture(autouse=True)
 def _clean_rubric_flag(tmp_path, monkeypatch):
     """Use a temp dir for the rubric flag file and clean msg counter."""
-    monkeypatch.setenv("MEM0_RUBRIC_DIR", str(tmp_path))
+    monkeypatch.setenv("MEMB_RUBRIC_DIR", str(tmp_path))
     msg_count_file = "/tmp/memb_msg_count_testuser"
     yield
     if os.path.exists(msg_count_file):
@@ -26,11 +26,11 @@ def _run_hook(prompt: str, env_overrides: dict | None = None, session_id: str = 
     env = {
         **os.environ,
         "USER": "testuser",
-        "MEM0_API_KEY": "test-key-123",
-        "MEM0_RESOLVED_USER_ID": "testuser",
-        "MEM0_PROJECT_ID": "test-project",
-        "MEM0_BRANCH": "main",
-        "MEM0_PREFETCH": "false",
+        "MEMB_API_KEY": "test-key-123",
+        "MEMB_RESOLVED_USER_ID": "testuser",
+        "MEMB_PROJECT_ID": "test-project",
+        "MEMB_BRANCH": "main",
+        "MEMB_PREFETCH": "false",
     }
     if env_overrides:
         env.update(env_overrides)

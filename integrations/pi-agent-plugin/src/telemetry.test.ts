@@ -16,12 +16,12 @@ function findEvent(name: string): Record<string, unknown> | undefined {
 }
 
 beforeEach(() => {
-  delete process.env.MEM0_TELEMETRY;
+  delete process.env.MEMB_TELEMETRY;
   _resetForTesting();
 });
 
 afterEach(() => {
-  delete process.env.MEM0_TELEMETRY;
+  delete process.env.MEMB_TELEMETRY;
   _resetForTesting();
 });
 
@@ -47,8 +47,8 @@ describe("pi-agent telemetry", () => {
     expect((ev!.properties as Record<string, unknown>).result_count).toBe(3);
   });
 
-  it("respects the MEM0_TELEMETRY opt-out", () => {
-    process.env.MEM0_TELEMETRY = "false";
+  it("respects the MEMB_TELEMETRY opt-out", () => {
+    process.env.MEMB_TELEMETRY = "false";
     captureEvent("pi.session.start", {}, CTX);
     captureToolEvent("add", {}, CTX);
     expect(_getEventQueue()).toHaveLength(0);

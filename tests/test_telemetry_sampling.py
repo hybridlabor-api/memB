@@ -52,20 +52,20 @@ class TestSamplingBeforeSend:
 
     def test_hot_path_event_dropped_when_random_above_rate(self):
         """At default rate 0.1, random=0.99 should drop the event."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.1):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.1):
             with patch("memb.memory.telemetry.random.random", return_value=0.99):
                 assert telemetry_module._sampling_before_send(self._msg("memb.add")) is None
 
     def test_hot_path_event_passes_when_random_below_rate(self):
         """At default rate 0.1, random=0.05 should pass the event through."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.1):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.1):
             with patch("memb.memory.telemetry.random.random", return_value=0.05):
                 result = telemetry_module._sampling_before_send(self._msg("memb.add"))
                 assert result is not None
                 assert result["properties"]["sample_rate"] == 0.1
 
     def test_hot_path_annotates_sample_rate(self):
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.1):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.1):
             with patch("memb.memory.telemetry.random.random", return_value=0.0):
                 result = telemetry_module._sampling_before_send(self._msg("memb.search"))
                 assert result["properties"]["sample_rate"] == 0.1
@@ -75,26 +75,26 @@ class TestSamplingBeforeSend:
         assert result["properties"]["sample_rate"] == 1.0
 
     def test_rate_zero_drops_all_hot_path(self):
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.0):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.0):
             # Gate is `random >= rate`, so 0.0 >= 0.0 → drop. random ∈ [0, 1) means
             # rate=0 drops every event.
             with patch("memb.memory.telemetry.random.random", return_value=0.0):
                 assert telemetry_module._sampling_before_send(self._msg("memb.add")) is None
 
     def test_rate_zero_still_passes_lifecycle(self):
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.0):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.0):
             with patch("memb.memory.telemetry.random.random", return_value=0.999):
                 assert telemetry_module._sampling_before_send(self._msg("memb.init")) is not None
 
     def test_rate_one_passes_all_events(self):
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 1.0):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 1.0):
             with patch("memb.memory.telemetry.random.random", return_value=0.999):
                 # 0.999 > 1.0 is False, so the gate never trips
                 assert telemetry_module._sampling_before_send(self._msg("memb.add")) is not None
 
     def test_does_not_override_caller_supplied_sample_rate_for_hot_path(self):
         """If a caller pre-populates sample_rate, our value still wins (we're authoritative)."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.1):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.1):
             with patch("memb.memory.telemetry.random.random", return_value=0.0):
                 msg = self._msg("memb.add", {"sample_rate": 0.99, "other": "x"})
                 result = telemetry_module._sampling_before_send(msg)
@@ -110,7 +110,7 @@ class TestSamplingBeforeSend:
 
     def test_handles_missing_event_field(self):
         """Defensive: a msg with no event field is treated as a hot-path event (gets sampled)."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY_SAMPLE_RATE", 0.1):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY_SAMPLE_RATE", 0.1):
             with patch("memb.memory.telemetry.random.random", return_value=0.99):
                 # event is missing -> treated as hot-path -> dropped at high random
                 assert telemetry_module._sampling_before_send({"properties": {}}) is None
@@ -136,7 +136,7 @@ class TestBeforeSendWiring:
 
     def test_oss_singleton_constructed_with_before_send_hook(self):
         """_get_oss_telemetry() should pass _sampling_before_send to AnonymousTelemetry."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register"):
@@ -154,7 +154,7 @@ class TestBeforeSendWiring:
         # client_telemetry is created at module import time. We verify the
         # construction call site by re-constructing AnonymousTelemetry() the
         # same way and checking the kwargs.
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     telemetry_module.AnonymousTelemetry()  # mirrors client_telemetry construction
@@ -164,7 +164,7 @@ class TestBeforeSendWiring:
 
     def test_anonymous_telemetry_constructs_posthog_with_current_kwargs(self):
         """AnonymousTelemetry uses the supported PostHog constructor shape."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     at = telemetry_module.AnonymousTelemetry(before_send=telemetry_module._sampling_before_send)
@@ -207,6 +207,6 @@ class TestSamplingDoesNotBreakExistingBehavior:
 
     def test_default_sample_rate_is_ten_percent(self):
         """Module loads with the documented default."""
-        # We can't assert MEM0_TELEMETRY_SAMPLE_RATE directly because the user
+        # We can't assert MEMB_TELEMETRY_SAMPLE_RATE directly because the user
         # may have set the env var, so assert the default constant instead.
         assert telemetry_module._DEFAULT_SAMPLE_RATE == 0.1

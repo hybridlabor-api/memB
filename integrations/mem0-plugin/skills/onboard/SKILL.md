@@ -24,10 +24,10 @@ This is silent and idempotent — safe to run anytime.
 Check if the API key is available from any source:
 
 ```bash
-[ -n "${MEM0_API_KEY:-${CLAUDE_PLUGIN_OPTION_API_KEY:-}}" ] && echo "SET" || echo "NOT_SET"
+[ -n "${MEMB_API_KEY:-${CLAUDE_PLUGIN_OPTION_API_KEY:-}}" ] && echo "SET" || echo "NOT_SET"
 ```
 
-IMPORTANT: Never run `echo $MEM0_API_KEY` — that prints the secret in plaintext to the conversation log.
+IMPORTANT: Never run `echo $MEMB_API_KEY` — that prints the secret in plaintext to the conversation log.
 
 ### If API key IS set (output is "SET")
 
@@ -47,20 +47,20 @@ Step 1: Setting up API key.
   2. Choose ONE method:
 
      Option A — CLI (shell profile):
-       echo 'export MEM0_API_KEY="m0-your-key-here"' >> ~/.zshrc
+       echo 'export MEMB_API_KEY="m0-your-key-here"' >> ~/.zshrc
        source ~/.zshrc
 
      Option B — Desktop app (local environment editor):
        Click the environment dropdown next to the prompt box,
        hover over "Local", click the gear icon, and add:
-         MEM0_API_KEY = m0-your-key-here
+         MEMB_API_KEY = m0-your-key-here
        (Stored encrypted on your machine, applies to all local sessions)
 
      Note: The Desktop app does NOT inherit custom env vars from
      shell profiles — it only reads PATH. Use Option B for Desktop.
 
   3. Verify:
-     [ -n "${MEM0_API_KEY:-${CLAUDE_PLUGIN_OPTION_API_KEY:-}}" ] && echo "SET" || echo "NOT_SET"
+     [ -n "${MEMB_API_KEY:-${CLAUDE_PLUGIN_OPTION_API_KEY:-}}" ] && echo "SET" || echo "NOT_SET"
 ```
 
 After the user confirms, re-run the verify command. If NOT_SET, repeat. If SET, proceed to Step 2.
@@ -73,7 +73,7 @@ First, check if MCP tools are already available using ToolSearch with query `"me
 
 **If MCP tools are NOT found:**
 
-The MCP server authenticates using the `MEM0_API_KEY` set in Step 1. No OAuth or browser login is needed.
+The MCP server authenticates using the `MEMB_API_KEY` set in Step 1. No OAuth or browser login is needed.
 
 1. Verify the API key is set (re-run the Step 1 check)
 2. Check the plugin is installed: run `/plugins` and confirm `memb` appears
@@ -116,7 +116,7 @@ If no files found, print `- No project files found. Skipping import.` and procee
 Run auto_import in foreground to check status and import if needed:
 
 ```bash
-MEM0_DEBUG=1 MEM0_CWD="$PWD" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/auto_import.py"
+MEMB_DEBUG=1 MEMB_CWD="$PWD" python3 "${CLAUDE_PLUGIN_ROOT}/scripts/auto_import.py"
 ```
 
 ### 4c: Report to user
@@ -152,9 +152,9 @@ Run it in the foreground to verify, using the plugin's venv python:
 ```bash
 VENV_PY="${CLAUDE_PLUGIN_DATA}/venv/bin/python3"
 if [ -x "${VENV_PY}" ]; then
-  MEM0_DEBUG=1 "${VENV_PY}" "${CLAUDE_PLUGIN_ROOT}/scripts/auto_setup_categories.py"
+  MEMB_DEBUG=1 "${VENV_PY}" "${CLAUDE_PLUGIN_ROOT}/scripts/auto_setup_categories.py"
 else
-  MEM0_DEBUG=1 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/auto_setup_categories.py"
+  MEMB_DEBUG=1 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/auto_setup_categories.py"
 fi
 ```
 

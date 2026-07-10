@@ -8,7 +8,7 @@ from hashlib import sha256
 # Set up the directory path
 VECTOR_ID = str(uuid.uuid4())
 home_dir = os.path.expanduser("~")
-memb_dir = os.environ.get("MEM0_DIR") or os.path.join(home_dir, ".memb")
+memb_dir = os.environ.get("MEMB_DIR") or os.path.join(home_dir, ".memb")
 os.makedirs(memb_dir, exist_ok=True)
 
 _logger = logging.getLogger(__name__)

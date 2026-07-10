@@ -16,14 +16,14 @@ import pytest
 @pytest.fixture
 def tmp_memb_dir(tmp_path, monkeypatch):
     """Point the memb setup module at a tempdir for the duration of the test."""
-    monkeypatch.setenv("MEM0_DIR", str(tmp_path))
+    monkeypatch.setenv("MEMB_DIR", str(tmp_path))
     # Reload setup so module-level memb_dir picks up the env var.
     import memb.memory.setup as setup_module
 
     importlib.reload(setup_module)
     yield tmp_path
     # Restore default state.
-    monkeypatch.delenv("MEM0_DIR", raising=False)
+    monkeypatch.delenv("MEMB_DIR", raising=False)
     importlib.reload(setup_module)
 
 
@@ -171,7 +171,7 @@ class TestCaptureIdentify:
     def test_fires_identify_with_anon_distinct_id(self):
         import memb.memory.telemetry as telemetry_module
 
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 at = telemetry_module.AnonymousTelemetry()
                 at.capture_identify("anon-123", "user@example.com")
@@ -185,7 +185,7 @@ class TestCaptureIdentify:
     def test_skips_when_anon_equals_email(self):
         import memb.memory.telemetry as telemetry_module
 
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 at = telemetry_module.AnonymousTelemetry()
                 at.capture_identify("user@example.com", "user@example.com")
@@ -194,7 +194,7 @@ class TestCaptureIdentify:
     def test_skips_when_inputs_empty(self):
         import memb.memory.telemetry as telemetry_module
 
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 at = telemetry_module.AnonymousTelemetry()
                 at.capture_identify("", "user@example.com")
@@ -204,7 +204,7 @@ class TestCaptureIdentify:
     def test_noop_when_telemetry_disabled(self):
         import memb.memory.telemetry as telemetry_module
 
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             at = telemetry_module.AnonymousTelemetry()
             at.capture_identify("anon-123", "user@example.com")  # must not raise
             assert at.posthog is None
@@ -212,7 +212,7 @@ class TestCaptureIdentify:
     def test_does_not_raise_on_posthog_error(self):
         import memb.memory.telemetry as telemetry_module
 
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 mock_posthog_cls.return_value.capture.side_effect = RuntimeError("boom")
                 at = telemetry_module.AnonymousTelemetry()
@@ -315,7 +315,7 @@ class TestMaybeAliasAnonToEmail:
             telemetry.capture_identify.assert_not_called()
 
     def test_skips_when_telemetry_disabled(self):
-        """When client_telemetry.posthog is None (MEM0_TELEMETRY=false), do nothing —
+        """When client_telemetry.posthog is None (MEMB_TELEMETRY=false), do nothing —
         no fs read, no fs write, no event. Re-enabling telemetry later must still alias."""
         from memb.client import main as client_main
 

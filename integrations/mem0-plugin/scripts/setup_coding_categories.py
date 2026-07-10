@@ -12,7 +12,7 @@ Usage:
   python setup_coding_categories.py            # dry-run: show current vs proposed
   python setup_coding_categories.py --apply    # actually call project.update()
 
-Requires MEM0_API_KEY (or CLAUDE_PLUGIN_OPTION_MEM0_API_KEY).
+Requires MEMB_API_KEY (or CLAUDE_PLUGIN_OPTION_MEMB_API_KEY).
 """
 
 from __future__ import annotations
@@ -177,9 +177,9 @@ def main() -> int:
 
     api_key = resolve_api_key()
     if not api_key:
-        print("ERROR: MEM0_API_KEY is not set. Export it or configure it via plugin userConfig.", file=sys.stderr)
+        print("ERROR: MEMB_API_KEY is not set. Export it or configure it via plugin userConfig.", file=sys.stderr)
         return 1
-    os.environ["MEM0_API_KEY"] = api_key
+    os.environ["MEMB_API_KEY"] = api_key
 
     try:
         from memb import MemoryClient
@@ -197,7 +197,7 @@ def main() -> int:
     except Exception as e:
         print(
             f"ERROR initialising MemoryClient: {e}\n"
-            "Most commonly this is an invalid MEM0_API_KEY -- check the key at "
+            "Most commonly this is an invalid MEMB_API_KEY -- check the key at "
             "https://app.memb.ai/dashboard/api-keys",
             file=sys.stderr,
         )

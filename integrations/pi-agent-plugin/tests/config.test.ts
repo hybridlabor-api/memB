@@ -18,8 +18,8 @@ describe("loadConfig", () => {
   });
 
   it("reads config from env vars when no config file exists", () => {
-    process.env.MEM0_API_KEY = "m0-test-key";
-    process.env.MEM0_USER_ID = "env-user";
+    process.env.MEMB_API_KEY = "m0-test-key";
+    process.env.MEMB_USER_ID = "env-user";
     const config = loadConfig();
     expect(config.apiKey).toBe("m0-test-key");
     expect(config.userId).toBe("env-user");
@@ -28,14 +28,14 @@ describe("loadConfig", () => {
   });
 
   it("returns empty apiKey when no key found anywhere", () => {
-    delete process.env.MEM0_API_KEY;
+    delete process.env.MEMB_API_KEY;
     const config = loadConfig();
     expect(config.apiKey).toBe("");
   });
 
   it("reads config file and merges with defaults", () => {
-    delete process.env.MEM0_API_KEY;
-    delete process.env.MEM0_USER_ID;
+    delete process.env.MEMB_API_KEY;
+    delete process.env.MEMB_USER_ID;
     vi.mocked(fs.existsSync).mockReturnValue(true);
     vi.mocked(fs.readFileSync).mockReturnValue(
       JSON.stringify({ apiKey: "m0-file-key", userId: "file-user" })
@@ -48,7 +48,7 @@ describe("loadConfig", () => {
   });
 
   it("env vars override config file", () => {
-    process.env.MEM0_API_KEY = "m0-env-key";
+    process.env.MEMB_API_KEY = "m0-env-key";
     vi.mocked(fs.existsSync).mockReturnValue(true);
     vi.mocked(fs.readFileSync).mockReturnValue(
       JSON.stringify({ apiKey: "m0-file-key" })

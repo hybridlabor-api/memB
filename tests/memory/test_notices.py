@@ -64,7 +64,7 @@ def notice_harness(monkeypatch):
 
     monkeypatch.setattr(notices, "_load_config", lambda: config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", True)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", True)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", lambda: telemetry)
 
     return config, telemetry
@@ -241,7 +241,7 @@ def test_telemetry_disabled_does_not_touch_posthog_or_state(monkeypatch, capsys)
 
     monkeypatch.setattr(notices, "_load_config", load_config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     notices.display_first_run_notice(MagicMock(), "sync", "add")
@@ -401,7 +401,7 @@ def test_temporal_feature_blunt_flag_disable_returns_plain_error_without_event(
 def test_temporal_feature_telemetry_disabled_does_not_touch_posthog(monkeypatch, capsys):
     get_telemetry = MagicMock()
 
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     message = notices.get_temporal_feature_error_message("sync", "add", "timestamp")
@@ -540,7 +540,7 @@ def test_decay_feature_blunt_flag_disable_returns_plain_error_without_event(
 def test_decay_feature_telemetry_disabled_does_not_touch_posthog(monkeypatch, capsys):
     get_telemetry = MagicMock()
 
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     message = notices.get_decay_feature_error_message("sync", "project.update", "decay")
@@ -750,7 +750,7 @@ def test_temporal_usage_telemetry_disabled_does_not_touch_posthog_or_state(monke
 
     monkeypatch.setattr(notices, "_load_config", load_config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     notices.display_temporal_usage_notice(MagicMock(), "sync", "search", "query", "relative_phrase")
@@ -837,7 +837,7 @@ def test_decay_usage_delete_detection_does_not_write_before_threshold(monkeypatc
 
 def test_decay_usage_delete_detection_telemetry_disabled_does_not_write_state(monkeypatch, notice_harness):
     config, _ = notice_harness
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
 
     assert notices.detect_decay_usage_from_delete() is None
 
@@ -974,7 +974,7 @@ def test_decay_usage_telemetry_disabled_does_not_touch_posthog_or_state(monkeypa
 
     monkeypatch.setattr(notices, "_load_config", load_config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     notices.display_decay_usage_notice(
@@ -1217,7 +1217,7 @@ def test_scale_threshold_telemetry_disabled_does_not_touch_posthog_or_state(monk
 
     monkeypatch.setattr(notices, "_load_config", load_config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     notices.display_scale_threshold_notice(

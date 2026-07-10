@@ -1,16 +1,16 @@
 // @ts-nocheck
 import type { TelemetryClient, TelemetryOptions } from "./telemetry.types";
 
-// __MEM0_SDK_VERSION__ is inlined by tsup/esbuild's `define` at build time from
+// __MEMB_SDK_VERSION__ is inlined by tsup/esbuild's `define` at build time from
 // package.json. In unbundled environments (ts-jest, jest globalSetup) the
 // identifier is not defined, so guard with typeof to fall back safely.
 let version =
-  typeof __MEM0_SDK_VERSION__ !== "undefined" ? __MEM0_SDK_VERSION__ : "dev";
+  typeof __MEMB_SDK_VERSION__ !== "undefined" ? __MEMB_SDK_VERSION__ : "dev";
 
 // Safely check for process.env in different environments
-let MEM0_TELEMETRY = true;
+let MEMB_TELEMETRY = true;
 try {
-  MEM0_TELEMETRY = process?.env?.MEM0_TELEMETRY === "false" ? false : true;
+  MEMB_TELEMETRY = process?.env?.MEMB_TELEMETRY === "false" ? false : true;
 } catch (error) {}
 const POSTHOG_API_KEY = "phc_hgJkUVJFYtmaJqrvf6CYN67TIQ8yhXAkWzUn9AMU4yX";
 const POSTHOG_HOST = "https://us.i.posthog.com/i/v0/e/";
@@ -37,7 +37,7 @@ class UnifiedTelemetry implements TelemetryClient {
     eventName: string,
     properties = {},
   ): Promise<boolean> {
-    if (!MEM0_TELEMETRY) return false;
+    if (!MEMB_TELEMETRY) return false;
 
     const eventProperties = {
       client_version: version,
@@ -75,7 +75,7 @@ class UnifiedTelemetry implements TelemetryClient {
   }
 
   async captureIdentify(anonId: string, email: string): Promise<boolean> {
-    if (!MEM0_TELEMETRY) return false;
+    if (!MEMB_TELEMETRY) return false;
     if (!anonId || !email || anonId === email) return false;
 
     const payload = {
@@ -118,7 +118,7 @@ class UnifiedTelemetry implements TelemetryClient {
 }
 
 function isTelemetryEnabled(): boolean {
-  return MEM0_TELEMETRY;
+  return MEMB_TELEMETRY;
 }
 
 const telemetry = new UnifiedTelemetry(POSTHOG_API_KEY, POSTHOG_HOST);

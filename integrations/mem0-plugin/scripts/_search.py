@@ -21,12 +21,12 @@ def should_rerank() -> bool:
     auto-injected context is ordered by raw vector similarity and the single
     most relevant memory can fall outside the injected top_k window. We default
     reranking ON for the hook-driven injection path (the extra ~150-200ms is
-    well within the hook's curl budget) and let users opt out via MEM0_RERANK.
+    well within the hook's curl budget) and let users opt out via MEMB_RERANK.
 
-    MEM0_RERANK is read case-insensitively; ``0``, ``false``, ``no``, and
+    MEMB_RERANK is read case-insensitively; ``0``, ``false``, ``no``, and
     ``off`` disable reranking. Anything else (including unset) enables it.
     """
-    raw = os.environ.get("MEM0_RERANK")
+    raw = os.environ.get("MEMB_RERANK")
     if raw is None:
         return True
     return raw.strip().lower() not in ("0", "false", "no", "off", "")

@@ -11,7 +11,7 @@ import type { Memory } from "../../memb.types";
 import { NetworkError, RateLimitError } from "../../../common/exceptions";
 
 // ─── Environment gate ────────────────────────────────────
-export const API_KEY = process.env.MEM0_API_KEY;
+export const API_KEY = process.env.MEMB_API_KEY;
 export const describeIntegration = API_KEY ? describe : describe.skip;
 
 /**

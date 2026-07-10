@@ -29,7 +29,7 @@ def _strip_ansi(text: str) -> str:
 def _run(args: list[str], home_dir: str | None = None) -> subprocess.CompletedProcess:
     env = os.environ.copy()
     for key in list(env.keys()):
-        if key.startswith("MEM0_"):
+        if key.startswith("MEMB_"):
             del env[key]
     env.pop("FORCE_COLOR", None)
     env["PYTHONIOENCODING"] = "utf-8"
@@ -102,9 +102,9 @@ class TestArgvPreprocessing:
             capture_output=True,
             encoding="utf-8",
             env={
-                **{k: v for k, v in os.environ.items() if not k.startswith("MEM0_")},
+                **{k: v for k, v in os.environ.items() if not k.startswith("MEMB_")},
                 "HOME": clean_home,
-                "MEM0_BASE_URL": "http://127.0.0.1:1",  # blackhole
+                "MEMB_BASE_URL": "http://127.0.0.1:1",  # blackhole
                 "FORCE_COLOR": "0",
                 "PYTHONIOENCODING": "utf-8",
             },
@@ -137,9 +137,9 @@ class TestJsonEnvelopeParity:
             capture_output=True,
             encoding="utf-8",
             env={
-                **{k: v for k, v in os.environ.items() if not k.startswith("MEM0_")},
+                **{k: v for k, v in os.environ.items() if not k.startswith("MEMB_")},
                 "HOME": clean_home,
-                "MEM0_BASE_URL": "http://127.0.0.1:1",
+                "MEMB_BASE_URL": "http://127.0.0.1:1",
                 "FORCE_COLOR": "0",
                 "PYTHONIOENCODING": "utf-8",
             },

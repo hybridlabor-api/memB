@@ -20,9 +20,9 @@ def isolate_config(tmp_path, monkeypatch):
     monkeypatch.setattr("memb_cli.config.CONFIG_FILE", fake_config_file)
     # Also patch the commands that import config
     monkeypatch.setattr("memb_cli.commands.config_cmd.CONFIG_DIR", fake_config_dir, raising=False)
-    # Clear any MEM0 env vars
+    # Clear any MEMB env vars
     for key in list(os.environ.keys()):
-        if key.startswith("MEM0_"):
+        if key.startswith("MEMB_"):
             monkeypatch.delenv(key, raising=False)
     return fake_config_dir
 

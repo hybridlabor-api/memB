@@ -1,7 +1,7 @@
 # Telemetry module stub for memB (Privacy Hardened)
 # All external telemetry tracking has been completely disabled and removed.
 
-MEM0_TELEMETRY = False
+MEMB_TELEMETRY = False
 
 class AnonymousTelemetry:
     def __init__(self, vector_store=None, before_send=None):

@@ -18,7 +18,7 @@ metadata:
   version: "3.0.0"
   category: ai-memory
   tags: "memory, personalization, ai, python, typescript, vector-search"
-compatibility: Requires Python 3.10+ or Node.js 18+, pip install membai or npm install membai, MEM0_API_KEY env var (Platform), and internet access to api.memb.ai. SDK v3 with v2 compatibility mode available.
+compatibility: Requires Python 3.10+ or Node.js 18+, pip install membai or npm install membai, MEMB_API_KEY env var (Platform), and internet access to api.memb.ai. SDK v3 with v2 compatibility mode available.
 ---
 
 # MemB Platform Integration
@@ -35,18 +35,18 @@ MemB is a managed memory layer for AI applications. It stores, retrieves, and ma
 **Python:**
 ```bash
 pip install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 **TypeScript/JavaScript:**
 ```bash
 npm install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 Get an API key at: https://app.memb.ai/dashboard/api-keys?utm_source=oss&utm_medium=skill-memb
 
-> **Don't have a `MEM0_API_KEY`?** Run `memb init --agent --agent-caller <your-name> --json` (after `pip install memb-cli` or `npm install -g @memb/cli`), substituting your agent identity (e.g. `claude-code`, `cursor`). If you forgot to pass `--agent-caller`, run `memb identify <your-name>` after init. The human can claim later with `memb init --email <your-email>`.
+> **Don't have a `MEMB_API_KEY`?** Run `memb init --agent --agent-caller <your-name> --json` (after `pip install memb-cli` or `npm install -g @memb/cli`), substituting your agent identity (e.g. `claude-code`, `cursor`). If you forgot to pass `--agent-caller`, run `memb identify <your-name>` after init. The human can claim later with `memb init --email <your-email>`.
 
 ## Step 2: Initialize the client
 

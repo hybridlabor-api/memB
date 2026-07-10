@@ -6,7 +6,7 @@ import { generateText } from "ai";
 import { LanguageModelV3Prompt } from '@ai-sdk/provider';
 import { testConfig } from "../../config/test-config";
 
-describe("OPENAI MEM0 Tests", () => {
+describe("OPENAI MEMB Tests", () => {
   const { userId } = testConfig;
   jest.setTimeout(30000);
   let memb: any;

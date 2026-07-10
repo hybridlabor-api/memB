@@ -2,7 +2,7 @@
 
 Config precedence (highest to lowest):
 1. CLI flags (--api-key, --base-url, etc.)
-2. Environment variables (MEM0_API_KEY, etc.)
+2. Environment variables (MEMB_API_KEY, etc.)
 3. Config file (~/.memb/config.json)
 4. Defaults
 """
@@ -117,27 +117,27 @@ def load_config() -> MemBConfig:
         config.agent_rush.acknowledged_at = agent_rush.get("acknowledged_at", "")
 
     # Environment variable overrides
-    env_key = os.environ.get("MEM0_API_KEY")
+    env_key = os.environ.get("MEMB_API_KEY")
     if env_key:
         config.platform.api_key = env_key
 
-    env_base = os.environ.get("MEM0_BASE_URL")
+    env_base = os.environ.get("MEMB_BASE_URL")
     if env_base:
         config.platform.base_url = env_base
 
-    env_user_id = os.environ.get("MEM0_USER_ID")
+    env_user_id = os.environ.get("MEMB_USER_ID")
     if env_user_id:
         config.defaults.user_id = env_user_id
 
-    env_agent_id = os.environ.get("MEM0_AGENT_ID")
+    env_agent_id = os.environ.get("MEMB_AGENT_ID")
     if env_agent_id:
         config.defaults.agent_id = env_agent_id
 
-    env_app_id = os.environ.get("MEM0_APP_ID")
+    env_app_id = os.environ.get("MEMB_APP_ID")
     if env_app_id:
         config.defaults.app_id = env_app_id
 
-    env_run_id = os.environ.get("MEM0_RUN_ID")
+    env_run_id = os.environ.get("MEMB_RUN_ID")
     if env_run_id:
         config.defaults.run_id = env_run_id
 

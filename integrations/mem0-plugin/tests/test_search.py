@@ -146,7 +146,7 @@ def test_should_rerank_defaults_true(monkeypatch):
     """Regression for #5684: auto-injection reranks by default."""
     from _search import should_rerank
 
-    monkeypatch.delenv("MEM0_RERANK", raising=False)
+    monkeypatch.delenv("MEMB_RERANK", raising=False)
     assert should_rerank() is True
 
 
@@ -154,11 +154,11 @@ def test_should_rerank_opt_out_values(monkeypatch):
     from _search import should_rerank
 
     for falsey in ("0", "false", "False", "NO", "off", ""):
-        monkeypatch.setenv("MEM0_RERANK", falsey)
+        monkeypatch.setenv("MEMB_RERANK", falsey)
         assert should_rerank() is False, falsey
 
     for truthy in ("1", "true", "yes", "on"):
-        monkeypatch.setenv("MEM0_RERANK", truthy)
+        monkeypatch.setenv("MEMB_RERANK", truthy)
         assert should_rerank() is True, truthy
 
 

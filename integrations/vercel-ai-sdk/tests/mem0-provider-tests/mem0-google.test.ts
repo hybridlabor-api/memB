@@ -6,7 +6,7 @@ import { generateText } from "ai";
 import { LanguageModelV3Prompt } from '@ai-sdk/provider';
 import { testConfig } from "../../config/test-config";
 
-describe("GOOGLE MEM0 Tests", () => {
+describe("GOOGLE MEMB Tests", () => {
   const { userId } = testConfig;
   jest.setTimeout(50000);
   

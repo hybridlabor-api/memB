@@ -213,7 +213,7 @@ Source: [docs.memb.ai/integrations/pipecat](https://docs.memb.ai/integrations/pi
 from pipecat.services.memb import MemBMemoryService
 
 memory = MemBMemoryService(
-    api_key=os.getenv("MEM0_API_KEY"),
+    api_key=os.getenv("MEMB_API_KEY"),
     user_id="alice",
     agent_id="voice_bot",
     params={

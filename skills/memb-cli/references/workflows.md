@@ -257,13 +257,13 @@ fi
 ### Non-interactive init in CI
 
 ```bash
-memb init --api-key "$MEM0_API_KEY" --user-id ci-bot --force
+memb init --api-key "$MEMB_API_KEY" --user-id ci-bot --force
 ```
 
 Or simply use the environment variable (no init needed):
 
 ```bash
-export MEM0_API_KEY="$MEM0_API_KEY"
+export MEMB_API_KEY="$MEMB_API_KEY"
 memb add "CI run started" --user-id ci-bot
 ```
 
@@ -347,8 +347,8 @@ memb delete --all --user-id temp-user --force --output quiet 2>/dev/null
 ### Using environment variables for scope
 
 ```bash
-export MEM0_USER_ID="alice"
-export MEM0_API_KEY="m0-xxx"
+export MEMB_USER_ID="alice"
+export MEMB_API_KEY="m0-xxx"
 
 # All commands now default to user alice, no --user-id needed
 memb add "prefers dark mode"

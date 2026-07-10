@@ -39,7 +39,7 @@ function makeTempMemBDir(): string {
 }
 
 function configPath(): string {
-  return path.join(process.env.MEM0_DIR as string, "config.json");
+  return path.join(process.env.MEMB_DIR as string, "config.json");
 }
 
 function readConfig(): Record<string, any> {
@@ -190,14 +190,14 @@ describe("Node OSS scale threshold notice", () => {
   let stderrSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    originalMemBDir = process.env.MEM0_DIR;
-    originalTelemetry = process.env.MEM0_TELEMETRY;
-    originalSampleRate = process.env.MEM0_TELEMETRY_SAMPLE_RATE;
+    originalMemBDir = process.env.MEMB_DIR;
+    originalTelemetry = process.env.MEMB_TELEMETRY;
+    originalSampleRate = process.env.MEMB_TELEMETRY_SAMPLE_RATE;
     originalFetch = global.fetch;
 
-    process.env.MEM0_DIR = makeTempMemBDir();
-    process.env.MEM0_TELEMETRY = "true";
-    process.env.MEM0_TELEMETRY_SAMPLE_RATE = "1";
+    process.env.MEMB_DIR = makeTempMemBDir();
+    process.env.MEMB_TELEMETRY = "true";
+    process.env.MEMB_TELEMETRY_SAMPLE_RATE = "1";
     stderrSpy = jest
       .spyOn(process.stderr, "write")
       .mockImplementation(() => true);
@@ -205,16 +205,16 @@ describe("Node OSS scale threshold notice", () => {
   });
 
   afterEach(() => {
-    if (originalMemBDir === undefined) delete process.env.MEM0_DIR;
-    else process.env.MEM0_DIR = originalMemBDir;
+    if (originalMemBDir === undefined) delete process.env.MEMB_DIR;
+    else process.env.MEMB_DIR = originalMemBDir;
 
-    if (originalTelemetry === undefined) delete process.env.MEM0_TELEMETRY;
-    else process.env.MEM0_TELEMETRY = originalTelemetry;
+    if (originalTelemetry === undefined) delete process.env.MEMB_TELEMETRY;
+    else process.env.MEMB_TELEMETRY = originalTelemetry;
 
     if (originalSampleRate === undefined) {
-      delete process.env.MEM0_TELEMETRY_SAMPLE_RATE;
+      delete process.env.MEMB_TELEMETRY_SAMPLE_RATE;
     } else {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = originalSampleRate;
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = originalSampleRate;
     }
 
     global.fetch = originalFetch;
@@ -445,7 +445,7 @@ describe("Node OSS scale threshold notice", () => {
   });
 
   it("telemetry off skips flag evaluation, event emission, and state writes", async () => {
-    process.env.MEM0_TELEMETRY = "false";
+    process.env.MEMB_TELEMETRY = "false";
     jest.resetModules();
     const { fetchMock, calls } = createFetchMock({ variant: "displayed" });
     global.fetch = fetchMock as any;

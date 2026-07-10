@@ -3,7 +3,7 @@
  *
  * Config precedence (highest to lowest):
  * 1. CLI flags (--api-key, --base-url, etc.)
- * 2. Environment variables (MEM0_API_KEY, etc.)
+ * 2. Environment variables (MEMB_API_KEY, etc.)
  * 3. Config file (~/.memb/config.json)
  * 4. Defaults
  */
@@ -118,16 +118,16 @@ export function loadConfig(): MemBConfig {
 	}
 
 	// Environment variable overrides
-	if (process.env.MEM0_API_KEY)
-		config.platform.apiKey = process.env.MEM0_API_KEY;
-	if (process.env.MEM0_BASE_URL)
-		config.platform.baseUrl = process.env.MEM0_BASE_URL;
-	if (process.env.MEM0_USER_ID)
-		config.defaults.userId = process.env.MEM0_USER_ID;
-	if (process.env.MEM0_AGENT_ID)
-		config.defaults.agentId = process.env.MEM0_AGENT_ID;
-	if (process.env.MEM0_APP_ID) config.defaults.appId = process.env.MEM0_APP_ID;
-	if (process.env.MEM0_RUN_ID) config.defaults.runId = process.env.MEM0_RUN_ID;
+	if (process.env.MEMB_API_KEY)
+		config.platform.apiKey = process.env.MEMB_API_KEY;
+	if (process.env.MEMB_BASE_URL)
+		config.platform.baseUrl = process.env.MEMB_BASE_URL;
+	if (process.env.MEMB_USER_ID)
+		config.defaults.userId = process.env.MEMB_USER_ID;
+	if (process.env.MEMB_AGENT_ID)
+		config.defaults.agentId = process.env.MEMB_AGENT_ID;
+	if (process.env.MEMB_APP_ID) config.defaults.appId = process.env.MEMB_APP_ID;
+	if (process.env.MEMB_RUN_ID) config.defaults.runId = process.env.MEMB_RUN_ID;
 	return config;
 }
 

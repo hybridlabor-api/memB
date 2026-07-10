@@ -10,7 +10,7 @@
  * once, and completion is recorded so it won't re-trigger until the next cycle.
  *
  * State + lock live in ~/.memb/ alongside settings.json. Opt out with
- * MEM0_DREAM=false, or tune via the `dream` block in ~/.memb/settings.json.
+ * MEMB_DREAM=false, or tune via the `dream` block in ~/.memb/settings.json.
  */
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync, unlinkSync } from "node:fs";
@@ -76,11 +76,11 @@ function writeState(stateDir: string, state: DreamState): void {
 
 /**
  * Load dream config from ~/.memb/settings.json (`dream` block), applying
- * defaults. MEM0_DREAM=false (or 0/no/off) force-disables regardless.
+ * defaults. MEMB_DREAM=false (or 0/no/off) force-disables regardless.
  */
 export function loadDreamConfig(settingsDir: string): DreamConfig {
   let envEnabled: boolean | undefined;
-  const env = process.env.MEM0_DREAM;
+  const env = process.env.MEMB_DREAM;
   if (env !== undefined) {
     const s = env.toLowerCase();
     envEnabled = s !== "false" && s !== "0" && s !== "no" && s !== "off";

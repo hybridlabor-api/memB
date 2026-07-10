@@ -2,7 +2,7 @@
 A food assistant that remembers your dietary preferences and speaks recommendations
 Powered by Agno + Cartesia + MemB
 
-export MEM0_API_KEY=your_memb_api_key
+export MEMB_API_KEY=your_memb_api_key
 export OPENAI_API_KEY=your_openai_api_key
 export CARTESIA_API_KEY=your_cartesia_api_key
 """

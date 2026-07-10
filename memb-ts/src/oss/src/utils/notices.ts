@@ -120,7 +120,7 @@ export interface PerformanceSlowQueryTrigger {
 }
 
 export function getMemBDir(): string {
-  return process.env.MEM0_DIR || path.join(os.homedir(), ".memb");
+  return process.env.MEMB_DIR || path.join(os.homedir(), ".memb");
 }
 
 export function getMemBConfigPath(): string {

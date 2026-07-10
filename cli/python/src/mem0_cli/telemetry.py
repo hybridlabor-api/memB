@@ -4,7 +4,7 @@ Sends fire-and-forget events to PostHog by spawning a detached subprocess
 (telemetry_sender.py). The parent CLI process exits immediately; the
 subprocess handles email resolution, caching, and the HTTP POST.
 
-Disable with: MEM0_TELEMETRY=false
+Disable with: MEMB_TELEMETRY=false
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ POSTHOG_HOST = "https://us.i.posthog.com/i/v0/e/"
 
 
 def _is_telemetry_enabled() -> bool:
-    val = os.environ.get("MEM0_TELEMETRY", "true").lower()
+    val = os.environ.get("MEMB_TELEMETRY", "true").lower()
     return val not in ("false", "0", "no")
 
 

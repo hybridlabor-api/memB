@@ -1,6 +1,6 @@
-# Plan template — `MEM0_MIGRATION_PLAN.md`
+# Plan template — `MEMB_MIGRATION_PLAN.md`
 
-Write the plan to `MEM0_MIGRATION_PLAN.md` at the repo root using the structure below. Keep it
+Write the plan to `MEMB_MIGRATION_PLAN.md` at the repo root using the structure below. Keep it
 concrete enough to execute from and honest about the gaps. Fill every section from the actual
 findings — don't leave placeholders. Drop a section only if it genuinely doesn't apply (and say so).
 
@@ -13,7 +13,7 @@ findings — don't leave placeholders. Drop a section only if it genuinely doesn
 - Counts: N files touched, M call sites, plus config/deps/env changes.
 
 ## Prerequisites
-- `MEM0_API_KEY` must be set in the environment before execution/verification (https://app.memb.ai).
+- `MEMB_API_KEY` must be set in the environment before execution/verification (https://app.memb.ai).
 - Note where it should live (`.env`, secrets manager, CI, deploy config).
 
 ## Inventory
@@ -44,7 +44,7 @@ unambiguous. Example:
 ## Dependencies & config
 - `requirements.txt` / `pyproject.toml` / `package.json`: keep `membai`; remove now-unused local-
   infra deps (list them, with the reason each is safe to remove).
-- Env: add `MEM0_API_KEY`; remove env vars only used by the old local embedder/LLM if now unused.
+- Env: add `MEMB_API_KEY`; remove env vars only used by the old local embedder/LLM if now unused.
 - Infrastructure: local services that existed only for memb (e.g. a Qdrant docker-compose service)
   can be retired — listed for the developer's confirmation, not auto-deleted.
 
@@ -63,7 +63,7 @@ any `reset()` usage. Be specific about which file/line each concern affects.
 ## Verification plan
 How execution will be confirmed end-to-end:
 - Imports / type-checks / byte-compiles cleanly.
-- Smoke test against the hosted API with a real `MEM0_API_KEY`: `add` a fact → `search`/`get_all`
+- Smoke test against the hosted API with a real `MEMB_API_KEY`: `add` a fact → `search`/`get_all`
   returns it → `delete_all` clears it. Plus: the app's own entry point still runs.
 - Confirm no local memb storage dir is created anymore (e.g. `.memb/`) — proof memory is hosted.
 

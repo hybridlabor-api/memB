@@ -42,7 +42,7 @@ def notice_harness(monkeypatch):
 
     monkeypatch.setattr(notices, "_load_config", lambda: config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", True)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", True)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", lambda: telemetry)
     return config, telemetry
 
@@ -379,7 +379,7 @@ def test_performance_slow_query_telemetry_disabled_does_not_touch_posthog_or_sta
 
     monkeypatch.setattr(notices, "_load_config", load_config)
     monkeypatch.setattr(notices, "_write_config", write_config)
-    monkeypatch.setattr(notices.telemetry_module, "MEM0_TELEMETRY", False)
+    monkeypatch.setattr(notices.telemetry_module, "MEMB_TELEMETRY", False)
     monkeypatch.setattr(notices.telemetry_module, "_get_oss_telemetry", get_telemetry)
 
     notices.display_performance_slow_query_notice(

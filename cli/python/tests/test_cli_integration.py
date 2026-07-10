@@ -44,9 +44,9 @@ def _run(
     ensures all assertions see the same plain text regardless of terminal env.
     """
     env = os.environ.copy()
-    # Strip all MEM0_ env vars so tests start clean
+    # Strip all MEMB_ env vars so tests start clean
     for key in list(env.keys()):
-        if key.startswith("MEM0_"):
+        if key.startswith("MEMB_"):
             del env[key]
     env.pop("FORCE_COLOR", None)
     env["PYTHONIOENCODING"] = "utf-8"

@@ -11,7 +11,7 @@ Get running with MemB in 2 minutes. No infrastructure to deploy -- just an API k
 
 ```bash
 pip install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 ```python
@@ -46,7 +46,7 @@ results = await client.search("query", filters={"user_id": "user123"})
 
 ```bash
 npm install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 ```javascript
@@ -71,11 +71,11 @@ console.log(results);
 ## cURL
 
 ```bash
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 
 # Add memory
 curl -X POST https://api.memb.ai/v3/memories/add/ \
-  -H "Authorization: Token $MEM0_API_KEY" \
+  -H "Authorization: Token $MEMB_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "messages": [
@@ -87,7 +87,7 @@ curl -X POST https://api.memb.ai/v3/memories/add/ \
 
 # Search memories
 curl -X POST https://api.memb.ai/v3/memories/search/ \
-  -H "Authorization: Token $MEM0_API_KEY" \
+  -H "Authorization: Token $MEMB_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "What are my dietary restrictions?",

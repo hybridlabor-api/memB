@@ -13,7 +13,7 @@ Run ALL checks, then display a single summary. Do not stop on the first failure.
 
 ### Check 1: API key
 
-Verify the API key is configured. The plugin loads it from `MEM0_API_KEY` env var or `~/.pi/agent/memb-config.json`.
+Verify the API key is configured. The plugin loads it from `MEMB_API_KEY` env var or `~/.pi/agent/memb-config.json`.
 
 - If not set: FAIL — "No API key configured"
 - If set: PASS — show first 6 chars followed by `...`

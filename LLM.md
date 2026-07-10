@@ -167,7 +167,7 @@ memory = Memory(config)
 #### Initialization
 ```python
 client = MemoryClient(
-    api_key="your-api-key",  # or set MEM0_API_KEY env var
+    api_key="your-api-key",  # or set MEMB_API_KEY env var
     host="https://api.memb.ai",  # optional
     org_id="your-org-id",  # optional
     project_id="your-project-id"  # optional

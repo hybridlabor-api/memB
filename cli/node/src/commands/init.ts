@@ -336,7 +336,7 @@ export async function runInit(
 	const config = createDefaultConfig();
 	const savedConfig = loadConfig();
 	const baseUrl =
-		process.env.MEM0_BASE_URL ||
+		process.env.MEMB_BASE_URL ||
 		savedConfig.platform.baseUrl ||
 		DEFAULT_BASE_URL;
 	config.platform.baseUrl = baseUrl;
@@ -389,13 +389,13 @@ export async function runInit(
 			} else {
 				printSuccess(
 					source === "env"
-						? "Existing MEM0_API_KEY is valid; reusing it. No new Agent Mode key was minted."
+						? "Existing MEMB_API_KEY is valid; reusing it. No new Agent Mode key was minted."
 						: "Existing API key in config is valid; reusing it. No new Agent Mode key was minted.",
 				);
 			}
 		};
-		// Rule 1: env MEM0_API_KEY valid → reuse, no new key.
-		const envKey = (process.env.MEM0_API_KEY || "").trim();
+		// Rule 1: env MEMB_API_KEY valid → reuse, no new key.
+		const envKey = (process.env.MEMB_API_KEY || "").trim();
 		if (envKey && (await pingKey(envKey, baseUrl))) {
 			await maybeIdentify(envKey, baseUrl, opts.agentCaller);
 			emitReuseEnvelope("env");

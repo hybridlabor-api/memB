@@ -10,7 +10,7 @@ Complete reference for the `membai` npm package. Covers both the Platform client
 
 ```bash
 npm install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 ### MemoryClient
@@ -21,7 +21,7 @@ import MemoryClient from 'membai';
 const client = new MemoryClient({ apiKey: 'm0-xxx' });
 ```
 
-**Constructor:** `new MemoryClient({ apiKey })`. If `apiKey` is not provided, reads from `MEM0_API_KEY` environment variable.
+**Constructor:** `new MemoryClient({ apiKey })`. If `apiKey` is not provided, reads from `MEMB_API_KEY` environment variable.
 
 - HTTP library: `axios`
 - Timeout: 60 seconds
@@ -371,7 +371,7 @@ await m.reset();
 | Aspect | Platform (`MemoryClient`) | OSS (`Memory`) |
 |--------|--------------------------|----------------|
 | **Import** | `import MemoryClient from 'membai'` | `import { Memory } from 'membai/oss'` |
-| **Auth** | API key required (`MEM0_API_KEY`) | No API key -- config-based |
+| **Auth** | API key required (`MEMB_API_KEY`) | No API key -- config-based |
 | **Execution** | API calls to `api.memb.ai` | Local execution |
 | **Infrastructure** | Fully managed | Self-managed vector DB, embedder, LLM |
 | **Param style** | Top-level: `camelCase` (`userId`, `topK`), filter keys: `snake_case` (`user_id`) | Top-level: `camelCase` (`userId`, `topK`), filter keys: `snake_case` (`user_id`) |

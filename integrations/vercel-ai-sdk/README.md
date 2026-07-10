@@ -49,7 +49,7 @@ By default, the `openai` provider is used, so specifying it is optional:
 ```typescript
 const memb = createMemB();
 ```
-For better security, consider setting `MEM0_API_KEY` and `OPENAI_API_KEY` as environment variables.
+For better security, consider setting `MEMB_API_KEY` and `OPENAI_API_KEY` as environment variables.
 
 3. Add Memories to Enhance Context:
 
@@ -76,7 +76,7 @@ These memories are now stored in your profile. You can view and manage them on t
 ### Note:
 
 For standalone features, such as `addMemories` and `retrieveMemories`,
-you must either set `MEM0_API_KEY` as an environment variable or pass it directly in the function call.
+you must either set `MEMB_API_KEY` as an environment variable or pass it directly in the function call.
 
 Example:
 

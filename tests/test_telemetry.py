@@ -10,8 +10,8 @@ class TestTelemetryDisabled:
     """Verify PostHog is never instantiated when telemetry is disabled."""
 
     def test_posthog_not_created_when_disabled(self):
-        """Posthog() constructor should never be called when MEM0_TELEMETRY=False."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        """Posthog() constructor should never be called when MEMB_TELEMETRY=False."""
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog:
                 at = telemetry_module.AnonymousTelemetry()
                 mock_posthog.assert_not_called()
@@ -23,7 +23,7 @@ class TestTelemetryDisabled:
         saved = telemetry_module._oss_telemetry_instance
         try:
             telemetry_module._oss_telemetry_instance = None
-            with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+            with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
                 telemetry_module.capture_event("test.event", MagicMock())
                 # Singleton must not have been initialised
                 assert telemetry_module._oss_telemetry_instance is None
@@ -32,7 +32,7 @@ class TestTelemetryDisabled:
 
     def test_capture_client_event_noop_when_disabled(self):
         """capture_client_event() should return immediately without calling posthog."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             mock_instance = MagicMock()
             mock_client_telemetry = MagicMock()
             with patch.object(telemetry_module, "client_telemetry", mock_client_telemetry):
@@ -41,19 +41,19 @@ class TestTelemetryDisabled:
 
     def test_instance_capture_event_noop_when_posthog_is_none(self):
         """AnonymousTelemetry.capture_event() should be a no-op when posthog is None."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             at = telemetry_module.AnonymousTelemetry()
             at.capture_event("test.event", {"key": "value"})  # should not raise
 
     def test_close_noop_when_posthog_is_none(self):
         """close() should not raise when posthog is None."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             at = telemetry_module.AnonymousTelemetry()
             at.close()  # should not raise
 
     def test_no_threads_spawned_when_disabled(self):
         """No consumer threads should be created when telemetry is disabled."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             threads_before = threading.active_count()
             telemetry_module.AnonymousTelemetry()
             threads_after = threading.active_count()
@@ -64,8 +64,8 @@ class TestTelemetryEnabled:
     """Verify PostHog works normally when telemetry is enabled."""
 
     def test_posthog_created_when_enabled(self):
-        """Posthog() should be instantiated when MEM0_TELEMETRY=True."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        """Posthog() should be instantiated when MEMB_TELEMETRY=True."""
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="test-user"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -79,7 +79,7 @@ class TestTelemetryEnabled:
 
     def test_capture_event_sends_when_enabled(self):
         """capture_event() should use the singleton and call capture when enabled."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             mock_at = MagicMock()
             with patch.object(telemetry_module, "_oss_telemetry_instance", mock_at):
                 mock_memory = MagicMock()
@@ -91,7 +91,7 @@ class TestTelemetryEnabled:
     def test_anonymous_capture_event_passes_flags_to_posthog(self):
         """capture_event() should use PostHog's event-first API and preserve flag snapshots."""
         flags = MagicMock()
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="test-user"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -106,7 +106,7 @@ class TestTelemetryEnabled:
 
     def test_capture_client_event_sends_when_enabled(self):
         """capture_client_event() should call client_telemetry.capture_event when enabled."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             mock_client_telemetry = MagicMock()
             with patch.object(telemetry_module, "client_telemetry", mock_client_telemetry):
                 mock_instance = MagicMock()
@@ -120,7 +120,7 @@ class TestAnonymousTelemetryClose:
 
     def test_close_calls_posthog_shutdown(self):
         """close() should call posthog.shutdown()."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -130,7 +130,7 @@ class TestAnonymousTelemetryClose:
 
     def test_close_sets_posthog_to_none(self):
         """close() should set posthog to None to prevent double-shutdown."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog"):
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -139,7 +139,7 @@ class TestAnonymousTelemetryClose:
 
     def test_double_close_is_safe(self):
         """Calling close() twice should not raise."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -151,7 +151,7 @@ class TestAnonymousTelemetryClose:
 
     def test_capture_after_close_is_noop(self):
         """capture_event() should be a no-op after close() (posthog is None)."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -176,7 +176,7 @@ class TestTelemetrySingleton:
 
     def test_singleton_reuses_instance(self):
         """_get_oss_telemetry() should return the same instance on repeated calls."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog"):
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register"):
@@ -186,7 +186,7 @@ class TestTelemetrySingleton:
 
     def test_singleton_created_only_once_across_threads(self):
         """Only one AnonymousTelemetry should be created even under concurrent access."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register"):
@@ -206,7 +206,7 @@ class TestTelemetrySingleton:
 
     def test_atexit_registered_once(self):
         """atexit.register should be called exactly once for the singleton."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog"):
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register") as mock_atexit:
@@ -218,7 +218,7 @@ class TestTelemetrySingleton:
 
     def test_capture_event_does_not_create_new_instance_each_call(self):
         """capture_event() should not create a new AnonymousTelemetry per call."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog"):
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register"):
@@ -237,7 +237,7 @@ class TestTelemetrySingleton:
     def test_posthog_constructed_once_across_many_capture_event_calls(self):
         """The core leak fix: Posthog() should only be called once no matter how
         many times capture_event() is invoked."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register"):
@@ -278,13 +278,13 @@ class TestTelemetrySingleton:
 
     def test_capture_event_noop_when_disabled_with_singleton(self):
         """capture_event() should not initialise the singleton when telemetry is off."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", False):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", False):
             telemetry_module.capture_event("test.event", MagicMock())
             assert telemetry_module._oss_telemetry_instance is None
 
     def test_no_new_instance_after_shutdown(self):
         """After _shutdown_oss_telemetry(), _get_oss_telemetry() should not create a new instance."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog"):
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="u"):
                     with patch("atexit.register"):
@@ -359,7 +359,7 @@ class TestAsyncMemoryLifecycle:
 
 
 class TestTelemetryEnvVar:
-    """Verify the MEM0_TELEMETRY env var parsing logic."""
+    """Verify the MEMB_TELEMETRY env var parsing logic."""
 
     @pytest.mark.parametrize(
         "value,expected",
@@ -390,7 +390,7 @@ class TestTelemetryNullUserIdHandling:
 
     def test_capture_event_skips_when_user_id_is_none(self):
         """AnonymousTelemetry.capture_event should not crash when user_id is None."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 at = telemetry_module.AnonymousTelemetry()
                 at.user_id = None  # Simulate the bug condition
@@ -403,7 +403,7 @@ class TestTelemetryNullUserIdHandling:
 
     def test_capture_event_does_not_crash_on_posthog_error(self):
         """AnonymousTelemetry.capture_event should catch PostHog exceptions."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             with patch("memb.memory.telemetry.Posthog") as mock_posthog_cls:
                 with patch("memb.memory.telemetry.get_or_create_user_id", return_value="test-user"):
                     at = telemetry_module.AnonymousTelemetry()
@@ -414,7 +414,7 @@ class TestTelemetryNullUserIdHandling:
 
     def test_oss_capture_event_does_not_crash_memory_init(self):
         """capture_event() should never raise, even if everything inside fails."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             # Make _get_oss_telemetry return a broken telemetry object
             mock_at = MagicMock()
             mock_at.capture_event.side_effect = Exception("Telemetry is broken")
@@ -429,7 +429,7 @@ class TestTelemetryNullUserIdHandling:
 
     def test_client_capture_event_does_not_crash(self):
         """capture_client_event() should never raise exceptions."""
-        with patch.object(telemetry_module, "MEM0_TELEMETRY", True):
+        with patch.object(telemetry_module, "MEMB_TELEMETRY", True):
             mock_client_telemetry = MagicMock()
             mock_client_telemetry.capture_event.side_effect = Exception("Client telemetry broken")
 

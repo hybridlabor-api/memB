@@ -317,7 +317,7 @@ class TestAsyncAddToVectorStoreErrors:
 def _build_memory_instance(mocker, memory_cls):
     _setup_mocks(mocker)
     mocker.patch("memb.memory.main.SQLiteManager", mocker.MagicMock())
-    mocker.patch("memb.memory.main.MEM0_TELEMETRY", False)
+    mocker.patch("memb.memory.main.MEMB_TELEMETRY", False)
     memory = memory_cls()
     memory.config = mocker.MagicMock()
     memory.config.custom_instructions = None

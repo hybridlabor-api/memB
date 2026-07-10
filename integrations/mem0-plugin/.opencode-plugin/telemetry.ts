@@ -10,7 +10,7 @@
  *
  * Fire-and-forget: never throws, never blocks, failures are swallowed. Only
  * fires when an API key is present (same as the editor plugin — anonymous
- * installs without a key emit nothing). Disable with MEM0_TELEMETRY=false.
+ * installs without a key emit nothing). Disable with MEMB_TELEMETRY=false.
  *
  * Never sends: memory content, API keys, raw user/project IDs. Only sends:
  * event type, platform, plugin version, and anonymized hashes of the API key
@@ -42,7 +42,7 @@ function _loadPluginVersion(): string {
 const PLUGIN_VERSION = _loadPluginVersion();
 
 export function isTelemetryEnabled(): boolean {
-  const val = process.env.MEM0_TELEMETRY;
+  const val = process.env.MEMB_TELEMETRY;
   if (val === undefined) return true;
   const s = val.toLowerCase();
   return s !== "false" && s !== "0" && s !== "no" && s !== "off";

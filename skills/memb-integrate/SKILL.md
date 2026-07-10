@@ -72,7 +72,7 @@ without argument**. That rules out anything invasive.
    `Memory` / `memory_*`, MemB sits **alongside** it, not in place of it.
    The existing system keeps working unchanged.
 2. **Opt-in by default.** Gate all new MemB code behind a feature flag
-   (env var like `MEM0_ENABLED=1`, a config key, or a strategy selector).
+   (env var like `MEMB_ENABLED=1`, a config key, or a strategy selector).
    With the flag unset, behavior is the repo's original behavior,
    byte-for-byte.
 3. **No breakage.** No removed exports, no renamed public functions,
@@ -244,12 +244,12 @@ Bake the choice into the goal doc in step 5. Do not re-decide later.
 
 | Track | Key | Where to find |
 |---|---|---|
-| Platform | `MEM0_API_KEY` | https://app.memb.ai |
+| Platform | `MEMB_API_KEY` | https://app.memb.ai |
 | OSS (default LLM) | `OPENAI_API_KEY` | https://platform.openai.com/api-keys |
 
 If present in env → continue.
-If `MEM0_API_KEY` is missing AND the track is **Platform** → **default to Agent Mode**: run `memb init --agent --agent-caller <your-name> --json` (after `pip install memb-cli` or `npm install -g @memb/cli`), substituting your agent identity (e.g. `claude-code`, `cursor`, `codex`). If you forgot to pass `--agent-caller`, run `memb identify <your-name>` after init. Cache the key to `.env` (with user consent) and continue. Tell the user to claim later with `memb init --email <their-email>` — same key, no agent disruption.
-If missing AND **CI mode** (`MEM0_INTEGRATE_CI=1`) → exit with code 2 and the name of the missing key.
+If `MEMB_API_KEY` is missing AND the track is **Platform** → **default to Agent Mode**: run `memb init --agent --agent-caller <your-name> --json` (after `pip install memb-cli` or `npm install -g @memb/cli`), substituting your agent identity (e.g. `claude-code`, `cursor`, `codex`). If you forgot to pass `--agent-caller`, run `memb identify <your-name>` after init. Cache the key to `.env` (with user consent) and continue. Tell the user to claim later with `memb init --email <their-email>` — same key, no agent disruption.
+If missing AND **CI mode** (`MEMB_INTEGRATE_CI=1`) → exit with code 2 and the name of the missing key.
 
 Never echo key values into `trace.jsonl`. Persist to `.env` only with
 explicit user consent, and append `.env` to `.gitignore` if not already there.
@@ -340,10 +340,10 @@ Then write `.memb-integration/plan.md`:
     `agents/memory/storage.py` MemoryStorage class remains untouched and
     keeps its LangGraph SummarizationEvent flow. MemB is added as a
     parallel long-term-facts store, in a new file, invoked only when
-    MEM0_ENABLED=1 is set.">
+    MEMB_ENABLED=1 is set.">
 
     **Feature flag:** <the exact mechanism and the default. Required.
-    Example: `env MEM0_ENABLED=1`, default unset / off; `config.memb.enabled`,
+    Example: `env MEMB_ENABLED=1`, default unset / off; `config.memb.enabled`,
     default false. With the flag in its default state, the repo must
     behave exactly like `main`.>
 
@@ -419,7 +419,7 @@ Minimum two test files (paths taken from `plan.md` call sites):
 - `test_memb_read.<ext>` — asserts `search()` runs before the Read call
   site and the result is wired into the LLM prompt / response path.
 
-Tests MUST be importable with `MEM0_API_KEY` unset. This is the design
+Tests MUST be importable with `MEMB_API_KEY` unset. This is the design
 pressure that forces step 8's lazy `MemoryClient()` / `Memory()`
 construction — eager module-level init hits the API on import and
 breaks pre-existing test collection when the key is missing.
@@ -568,7 +568,7 @@ Otherwise loop:
 | `trace.jsonl` | Every tool call, decision, and subagent exchange this run. | Overwritten per run. |
 | `diff.patch` | The committed integration as a reviewable patch. | Overwritten per run. |
 | `heal-trace.md` | Per-attempt record of the self-healing loop (step 10). | Overwritten per run. |
-| `product.json` | `{"product": "platform"\|"oss", "language": "...", "memb_version": "...", "write_site": "file:line", "read_site": "file:line", "feature_flag": "MEM0_ENABLED"}` — consumed by the verification skill. | Overwritten per run. |
+| `product.json` | `{"product": "platform"\|"oss", "language": "...", "memb_version": "...", "write_site": "file:line", "read_site": "file:line", "feature_flag": "MEMB_ENABLED"}` — consumed by the verification skill. | Overwritten per run. |
 
 `.memb-integration/` is added to `.gitignore` on first run. Nothing is
 written outside this directory and the repo's source tree.
@@ -577,8 +577,8 @@ written outside this directory and the repo's source tree.
 
 | Mode | Trigger | Behavior |
 |---|---|---|
-| Interactive (default) | TTY present, `MEM0_INTEGRATE_CI` unset | Asks for keys, confirms goal doc, shows recommendations. |
-| CI | `MEM0_INTEGRATE_CI=1` | Requires keys in env, requires `--product`, auto-approves goal doc from `goal.md` if present, fails fast otherwise. |
+| Interactive (default) | TTY present, `MEMB_INTEGRATE_CI` unset | Asks for keys, confirms goal doc, shows recommendations. |
+| CI | `MEMB_INTEGRATE_CI=1` | Requires keys in env, requires `--product`, auto-approves goal doc from `goal.md` if present, fails fast otherwise. |
 
 ## Invocation
 

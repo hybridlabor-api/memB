@@ -1747,7 +1747,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
         const queryString = String(command.input.queryString || "");
         const parameters = command.input.parameters || {};
         const collectionLabelMatch = queryString.match(/MERGE \(n:`([^`]+)`/);
-        const collectionLabel = collectionLabelMatch?.[1] || "MEM0_VECTOR_test";
+        const collectionLabel = collectionLabelMatch?.[1] || "MEMB_VECTOR_test";
 
         if (
           queryString.includes("UNWIND $nodeIds AS nodeId") &&
@@ -1869,7 +1869,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
             }
           }
           if (storedUserId) {
-            labels.add("MEM0_VECTOR_memory_migrations");
+            labels.add("MEMB_VECTOR_memory_migrations");
           }
           return createMockResponse({
             results: [{ result: [...labels] }],
@@ -1878,7 +1878,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
 
         if (
           queryString.includes(
-            "MATCH (n:`MEM0_VECTOR_test` {`~id`: $vectorId})",
+            "MATCH (n:`MEMB_VECTOR_test` {`~id`: $vectorId})",
           ) &&
           queryString.includes("RETURN n") &&
           queryString.includes("LIMIT 1")
@@ -1892,7 +1892,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
         }
 
         if (
-          queryString.includes("MATCH (n:`MEM0_VECTOR_test`)") &&
+          queryString.includes("MATCH (n:`MEMB_VECTOR_test`)") &&
           queryString.includes("RETURN count(n) AS count")
         ) {
           const count = [...nodes.values()].filter((node) =>
@@ -1903,7 +1903,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
         }
 
         if (
-          queryString.includes("MATCH (n:`MEM0_VECTOR_test`)") &&
+          queryString.includes("MATCH (n:`MEMB_VECTOR_test`)") &&
           queryString.includes("RETURN n") &&
           queryString.includes("LIMIT $limit")
         ) {
@@ -1919,7 +1919,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
 
         if (
           queryString.includes(
-            "MATCH (n:`MEM0_VECTOR_test` {`~id`: $vectorId})",
+            "MATCH (n:`MEMB_VECTOR_test` {`~id`: $vectorId})",
           ) &&
           queryString.includes("SET n = $properties")
         ) {
@@ -1940,7 +1940,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
 
         if (
           queryString.includes(
-            "MATCH (n:`MEM0_VECTOR_test` {`~id`: $vectorId})",
+            "MATCH (n:`MEMB_VECTOR_test` {`~id`: $vectorId})",
           ) &&
           queryString.includes("DETACH DELETE n")
         ) {
@@ -1949,7 +1949,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
         }
 
         if (
-          queryString.includes("MATCH (n:`MEM0_VECTOR_test`)") &&
+          queryString.includes("MATCH (n:`MEMB_VECTOR_test`)") &&
           queryString.includes("DETACH DELETE n")
         ) {
           nodes.clear();
@@ -1957,7 +1957,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
         }
 
         if (
-          queryString.includes("MATCH (n:`MEM0_VECTOR_memory_migrations`") &&
+          queryString.includes("MATCH (n:`MEMB_VECTOR_memory_migrations`") &&
           queryString.includes("RETURN n")
         ) {
           return createMockResponse({
@@ -1965,7 +1965,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
               ? [
                   {
                     n: toNodeRecord(parameters.userNodeId, {
-                      labels: ["MEM0_VECTOR_memory_migrations"],
+                      labels: ["MEMB_VECTOR_memory_migrations"],
                       properties: {
                         user_id: storedUserId,
                       },
@@ -1977,7 +1977,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
         }
 
         if (
-          queryString.includes("MERGE (n:`MEM0_VECTOR_memory_migrations`") &&
+          queryString.includes("MERGE (n:`MEMB_VECTOR_memory_migrations`") &&
           queryString.includes("SET n.user_id = $userId")
         ) {
           storedUserId = parameters.userId;
@@ -2218,7 +2218,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
     expect(searchQuery).toContain("topK: 1");
     expect(searchQuery).toContain("embedding: [1, 2, 3]");
     expect(searchQuery).toContain(
-      'property: "~label", value: "MEM0_VECTOR_test"',
+      'property: "~label", value: "MEMB_VECTOR_test"',
     );
     expect(searchQuery).toContain('property: "user_id", value: "u2"');
     expect(searchQuery).toContain('property: "priority", value: 5');
@@ -2272,7 +2272,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
       " ",
     );
 
-    expect(listQuery).toContain("MATCH (n:`MEM0_VECTOR_memo``graph`)");
+    expect(listQuery).toContain("MATCH (n:`MEMB_VECTOR_memo``graph`)");
     expect(listQuery).toContain("n.`topic``name` IN $filter_in_topic_name_1");
     expect(listCall.input.parameters.filter_in_topic_name_1).toEqual([
       "alpha`1",
@@ -2407,7 +2407,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
       .map(([command]: [any]) => command)
       .filter((command: any) =>
         String(command.input.queryString || "").includes(
-          "MATCH (n:`MEM0_VECTOR_test` {`~id`: $vectorId})",
+          "MATCH (n:`MEMB_VECTOR_test` {`~id`: $vectorId})",
         ),
       );
     expect(
@@ -2481,7 +2481,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
       .map(([command]: [any]) => command)
       .filter((command: any) =>
         String(command.input.queryString || "").includes(
-          "MATCH (n:`MEM0_VECTOR_test` {`~id`: $vectorId})",
+          "MATCH (n:`MEMB_VECTOR_test` {`~id`: $vectorId})",
         ),
       );
     expect(
@@ -2533,7 +2533,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
       .map(([command]: [any]) => command)
       .find((command: any) =>
         String(command.input.queryString || "").includes(
-          "MATCH (n:`MEM0_VECTOR_test`)",
+          "MATCH (n:`MEMB_VECTOR_test`)",
         ),
       );
     expect(deleteColCall).toBeDefined();
@@ -2734,7 +2734,7 @@ describe("Neptune Analytics – backward compat with mocked client", () => {
       .map(([command]: [any]) => command)
       .filter((command: any) =>
         String(command.input.queryString || "").includes(
-          "MATCH (n:`MEM0_VECTOR_test` {`~id`: $vectorId})",
+          "MATCH (n:`MEMB_VECTOR_test` {`~id`: $vectorId})",
         ),
       )
       .map((command: any) => String(command.input.queryString || ""));

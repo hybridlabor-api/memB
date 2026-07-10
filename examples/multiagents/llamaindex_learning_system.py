@@ -4,7 +4,7 @@ Multi-Agent Personal Learning System: MemB + LlamaIndex AgentWorkflow Example
 INSTALLATIONS:
 !pip install llama-index-core llama-index-memory-memb openai
 
-You need MEM0_API_KEY and OPENAI_API_KEY to run the example.
+You need MEMB_API_KEY and OPENAI_API_KEY to run the example.
 """
 
 import asyncio

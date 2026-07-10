@@ -41,7 +41,7 @@ error handling / retries / timeouts where the old local calls were effectively i
 apps, use `AsyncMemoryClient` (Python) so calls don't block the event loop.
 
 ## 7. API key & secrets
-The hosted client needs `MEM0_API_KEY`. It must come from the environment / a secrets manager — never
+The hosted client needs `MEMB_API_KEY`. It must come from the environment / a secrets manager — never
 hardcoded. Ensure it's added to `.env.example`, local `.env`, CI, and deployment config. Without it
 the client fails to initialize.
 

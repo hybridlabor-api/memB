@@ -15,7 +15,7 @@ metadata:
   version: "1.1.0"
   category: ai-memory
   tags: "vercel, ai-sdk, memory, nextjs, typescript, provider"
-compatibility: Node.js 18+, npm install @memb/vercel-ai-provider, Vercel AI SDK v5 (ai package), MEM0_API_KEY + LLM provider API key
+compatibility: Node.js 18+, npm install @memb/vercel-ai-provider, Vercel AI SDK v5 (ai package), MEMB_API_KEY + LLM provider API key
 ---
 
 # MemB Vercel AI SDK Provider
@@ -31,7 +31,7 @@ npm install @memb/vercel-ai-provider ai
 ## Step 2: Set up environment variables
 
 ```bash
-export MEM0_API_KEY="m0-xxx"
+export MEMB_API_KEY="m0-xxx"
 export OPENAI_API_KEY="sk-xxx"   # or ANTHROPIC_API_KEY, GOOGLE_API_KEY, etc.
 ```
 
@@ -170,7 +170,7 @@ All four accept `LanguageModelV2Prompt | string` as the first argument and optio
 ## Common Edge Cases and Tips
 
 - **Always provide `user_id`** (or `agent_id`/`app_id`/`run_id`) for consistent memory retrieval. Without an entity identifier, memories cannot be scoped.
-- **Standalone utilities require explicit API key**: pass `membApiKey` in the config object, or set the `MEM0_API_KEY` environment variable.
+- **Standalone utilities require explicit API key**: pass `membApiKey` in the config object, or set the `MEMB_API_KEY` environment variable.
 - **This uses Vercel AI SDK v5** (LanguageModelV2 / ProviderV2 interfaces). It is not compatible with AI SDK v3 or v4.
 - **`processMemories` fires `addMemories` as fire-and-forget** (`.then()` without `await`). Memory storage happens asynchronously and does not block the LLM response.
 - **The `"gemini"` alias** exists in the provider switch but is NOT in the `supportedProviders` list. Use `"google"` instead.

@@ -7,7 +7,7 @@ metadata:
   version: "0.1.1"
   category: ai-memory
   tags: "memory, personalization, ai, python, typescript, vector-search"
-compatibility: Requires Python 3.10+ or Node.js 18+, pip install membai or npm install membai, MEM0_API_KEY env var (Platform), and internet access to api.memb.ai. Uses MemB v3 API.
+compatibility: Requires Python 3.10+ or Node.js 18+, pip install membai or npm install membai, MEMB_API_KEY env var (Platform), and internet access to api.memb.ai. Uses MemB v3 API.
 ---
 
 # MemB Platform Integration
@@ -23,18 +23,18 @@ MemB is a managed memory layer for AI applications. It stores, retrieves, and ma
 **Python:**
 ```bash
 pip install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 **TypeScript/JavaScript:**
 ```bash
 npm install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 Get an API key at: https://app.memb.ai/dashboard/api-keys?utm_source=oss&utm_medium=memb-plugin-skill
 
-> **Don't have a `MEM0_API_KEY`?** Sign up at https://app.memb.ai and create one from the dashboard. Keys start with `m0-`.
+> **Don't have a `MEMB_API_KEY`?** Sign up at https://app.memb.ai and create one from the dashboard. Keys start with `m0-`.
 
 ## Step 2: Initialize the client
 

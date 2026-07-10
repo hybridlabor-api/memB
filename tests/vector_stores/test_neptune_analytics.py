@@ -179,7 +179,7 @@ class TestNeptuneAnalyticsOperations:
         )
 
         result = na_instance.list_cols()
-        assert result == ["MEM0_VECTOR_test"]
+        assert result == ["MEMB_VECTOR_test"]
 
 
     def test_invalid_endpoint_format(self):
@@ -209,7 +209,7 @@ class TestNeptuneFilterValidation:
     def test_filter_accepts_scalars(self):
         _validate_filter("user_id", "alice")
         _validate_filter("count", 42)
-        _validate_filter("label", "MEM0_VECTOR_test")
+        _validate_filter("label", "MEMB_VECTOR_test")
 
     def test_escape_cypher_quotes(self):
         assert _escape_cypher("alice") == "alice"

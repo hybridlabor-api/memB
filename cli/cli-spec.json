@@ -43,13 +43,13 @@
           "api_key": {
             "type": "string",
             "default": "",
-            "envVar": "MEM0_API_KEY",
+            "envVar": "MEMB_API_KEY",
             "redact": true
           },
           "base_url": {
             "type": "string",
             "default": "https://api.memb.ai",
-            "envVar": "MEM0_BASE_URL"
+            "envVar": "MEMB_BASE_URL"
           }
         }
       },
@@ -58,27 +58,27 @@
           "user_id": {
             "type": "string",
             "default": "",
-            "envVar": "MEM0_USER_ID"
+            "envVar": "MEMB_USER_ID"
           },
           "agent_id": {
             "type": "string",
             "default": "",
-            "envVar": "MEM0_AGENT_ID"
+            "envVar": "MEMB_AGENT_ID"
           },
           "app_id": {
             "type": "string",
             "default": "",
-            "envVar": "MEM0_APP_ID"
+            "envVar": "MEMB_APP_ID"
           },
           "run_id": {
             "type": "string",
             "default": "",
-            "envVar": "MEM0_RUN_ID"
+            "envVar": "MEMB_RUN_ID"
           },
           "enable_graph": {
             "type": "boolean",
             "default": false,
-            "envVar": "MEM0_ENABLE_GRAPH"
+            "envVar": "MEMB_ENABLE_GRAPH"
           }
         }
       }
@@ -121,7 +121,7 @@
     },
     "noApiKey": {
       "message": "No API key configured.",
-      "hint": "Run 'memb init' or set MEM0_API_KEY environment variable."
+      "hint": "Run 'memb init' or set MEMB_API_KEY environment variable."
     }
   },
   "optionGroups": {
@@ -156,7 +156,7 @@
       "flags": ["--api-key"],
       "type": "string",
       "required": false,
-      "envVar": "MEM0_API_KEY",
+      "envVar": "MEMB_API_KEY",
       "help": "Override API key.",
       "panel": "Connection"
     },

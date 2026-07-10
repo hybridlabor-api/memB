@@ -10,7 +10,7 @@ If you're an AI agent setting up MemB autonomously (no human dashboard signup av
 memb init --agent --json
 ```
 
-This mints an evaluation API key in <5 seconds — no email, no OTP, no browser. The key is written to your config and exported as `MEM0_API_KEY` for the current shell. Use it immediately against the MemB Platform or the MCP server. The human owner can later run `memb init --email <their-email>` to claim ownership: memories transfer, the same API key keeps working, and the agent isn't disrupted.
+This mints an evaluation API key in <5 seconds — no email, no OTP, no browser. The key is written to your config and exported as `MEMB_API_KEY` for the current shell. Use it immediately against the MemB Platform or the MCP server. The human owner can later run `memb init --email <their-email>` to claim ownership: memories transfer, the same API key keeps working, and the agent isn't disrupted.
 
 Humans setting up MemB by hand should continue with Step 1 below.
 
@@ -27,30 +27,30 @@ Humans setting up MemB by hand should continue with Step 1 below.
 
    ```bash
    # For zsh (default on macOS)
-   echo 'export MEM0_API_KEY="m0-your-api-key"' >> ~/.zshrc
+   echo 'export MEMB_API_KEY="m0-your-api-key"' >> ~/.zshrc
    source ~/.zshrc
 
    # For bash
-   echo 'export MEM0_API_KEY="m0-your-api-key"' >> ~/.bashrc
+   echo 'export MEMB_API_KEY="m0-your-api-key"' >> ~/.bashrc
    source ~/.bashrc
    ```
 
    **Desktop app** — use the local environment editor:
 
-   Click the environment dropdown next to the prompt box → hover over **Local** → click the **gear icon** → add `MEM0_API_KEY` with your key. Values are stored encrypted on your machine.
+   Click the environment dropdown next to the prompt box → hover over **Local** → click the **gear icon** → add `MEMB_API_KEY` with your key. Values are stored encrypted on your machine.
 
    > **Note:** The Desktop app does not inherit custom environment variables from shell profiles — it only reads `PATH`. You must use the local environment editor for Desktop.
 
 5. Confirm it's set:
 
    ```bash
-   echo $MEM0_API_KEY
+   echo $MEMB_API_KEY
    # Should print: m0-your-api-key
    ```
 
 ## Step 2: Install the plugin
 
-Choose one of the options below. All require `MEM0_API_KEY` to be set first (see above).
+Choose one of the options below. All require `MEMB_API_KEY` to be set first (see above).
 
 ### Claude Code (CLI) / Claude Cowork (Desktop)
 
@@ -76,10 +76,10 @@ Codex reads MCP servers from `~/.codex/config.toml` as TOML. Add:
 ```toml
 [mcp_servers.memb]
 url = "https://mcp.memb.ai/mcp"
-bearer_token_env_var = "MEM0_API_KEY"
+bearer_token_env_var = "MEMB_API_KEY"
 ```
 
-Export `MEM0_API_KEY` in your shell and restart Codex. `codex mcp add` only supports stdio servers, so HTTP servers like MemB's must be added via `config.toml` directly (or via the **Plugins → Connect to a custom MCP → Streamable HTTP** UI in the Codex app).
+Export `MEMB_API_KEY` in your shell and restart Codex. `codex mcp add` only supports stdio servers, so HTTP servers like MemB's must be added via `config.toml` directly (or via the **Plugins → Connect to a custom MCP → Streamable HTTP** UI in the Codex app).
 
 **Option B — Sideload the plugin** (full experience: MCP + skills + opt-in hooks):
 
@@ -144,7 +144,7 @@ Add the following to your `.cursor/mcp.json`:
     "memb": {
       "url": "https://mcp.memb.ai/mcp/",
       "headers": {
-        "Authorization": "Token ${env:MEM0_API_KEY}"
+        "Authorization": "Token ${env:MEMB_API_KEY}"
       }
     }
   }
@@ -241,9 +241,9 @@ When the plugin updates (new version pulled from the marketplace, or a fresh loc
 - **OpenCode:** restart the session.
 - **Antigravity:** restart the session.
 
-Your `MEM0_API_KEY` doesn't need to be re-entered — the auth header is re-read from your environment on the new session. The plugin's MCP config uses `${MEM0_API_KEY}` interpolation at session start, not at install time, so as long as the env var is set persistently (in your shell profile or `~/.claude/settings.json` `env` block), reconnection is automatic on restart.
+Your `MEMB_API_KEY` doesn't need to be re-entered — the auth header is re-read from your environment on the new session. The plugin's MCP config uses `${MEMB_API_KEY}` interpolation at session start, not at install time, so as long as the env var is set persistently (in your shell profile or `~/.claude/settings.json` `env` block), reconnection is automatic on restart.
 
-If reconnection still fails after a restart, check that `MEM0_API_KEY` is reachable in the new shell (`echo $MEM0_API_KEY`) and confirm you're using a key that starts with `m0-` (from https://app.memb.ai/dashboard/api-keys, not a legacy token).
+If reconnection still fails after a restart, check that `MEMB_API_KEY` is reachable in the new shell (`echo $MEMB_API_KEY`) and confirm you're using a key that starts with `m0-` (from https://app.memb.ai/dashboard/api-keys, not a legacy token).
 
 ## Coding-tuned categories (automatic)
 
@@ -259,7 +259,7 @@ python integrations/memb-plugin/scripts/setup_coding_categories.py
 python integrations/memb-plugin/scripts/setup_coding_categories.py --apply
 ```
 
-Requires the `membai` Python SDK (`pip install membai`) and `MEM0_API_KEY` set. `project.update(custom_categories=[...])` always replaces the full list.
+Requires the `membai` Python SDK (`pip install membai`) and `MEMB_API_KEY` set. `project.update(custom_categories=[...])` always replaces the full list.
 
 ## MCP Tools
 

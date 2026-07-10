@@ -124,7 +124,7 @@ Enabled by default, matching the MemB OSS library. Sends at most two events per 
 - `admin_registered` — fired when the first admin is created (wizard or direct API call). Properties: email domain, server version, install UUID.
 - `onboarding_completed` — fired when the setup wizard reaches its final success state. Carries the same properties plus the freeform `use_case` the operator entered. API-only bootstraps never emit this event.
 
-Set `MEM0_TELEMETRY=false` to opt out.
+Set `MEMB_TELEMETRY=false` to opt out.
 
 ## Security headers
 

@@ -19,7 +19,7 @@ Install @memb/opencode-plugin by following https://raw.githubusercontent.com/mem
 Get your API key (free): [app.memb.ai/dashboard/api-keys](https://app.memb.ai/dashboard/api-keys)
 
 ```bash
-echo 'export MEM0_API_KEY="m0-your-key"' >> ~/.zshrc && source ~/.zshrc
+echo 'export MEMB_API_KEY="m0-your-key"' >> ~/.zshrc && source ~/.zshrc
 ```
 
 Restart OpenCode.
@@ -44,7 +44,7 @@ Pure TypeScript — no Python, no shell scripts. Memory operations are native Op
 | **Post-tool** | `tool.execute.after` | Scans bash errors and pre-fetches related memories |
 | **Messages transform** | `experimental.chat.messages.transform` | Injects memory context (session memories, search results, error lookups) into the prompt |
 | **Compaction** | `experimental.session.compacting` | Stores session state memory, then injects prior memories into compaction context so nothing is lost |
-| **Shell env** | `shell.env` | Exports `MEM0_USER_ID`, `MEM0_APP_ID`, `MEM0_SESSION_ID`, and `MEM0_BRANCH` to shell |
+| **Shell env** | `shell.env` | Exports `MEMB_USER_ID`, `MEMB_APP_ID`, `MEMB_SESSION_ID`, and `MEMB_BRANCH` to shell |
 
 ## Memory Tools
 
@@ -93,7 +93,7 @@ If the `memb` tools respond, you're all set.
 | Problem | Fix |
 |---------|-----|
 | No tools appearing | Restart OpenCode after installing |
-| 401 Unauthorized | `echo $MEM0_API_KEY` must print your `m0-` key |
+| 401 Unauthorized | `echo $MEMB_API_KEY` must print your `m0-` key |
 | Plugin not loading | Run `opencode plugin @memb/opencode-plugin` again |
 
 ## License

@@ -15,7 +15,7 @@ metadata:
   version: "1.1.0"
   category: ai-memory
   tags: "cli, terminal, memory, ai, command-line"
-compatibility: Node.js 18+ (npm install -g @memb/cli) or Python 3.10+ (pip install memb-cli), MEM0_API_KEY env var
+compatibility: Node.js 18+ (npm install -g @memb/cli) or Python 3.10+ (pip install memb-cli), MEMB_API_KEY env var
 ---
 
 # MemB CLI
@@ -61,7 +61,7 @@ memb init
 
 **Or set the environment variable directly:**
 ```bash
-export MEM0_API_KEY="m0-xxx"
+export MEMB_API_KEY="m0-xxx"
 ```
 
 Get an API key at: https://app.memb.ai/dashboard/api-keys?utm_source=oss&utm_medium=skill-memb-cli

@@ -4,7 +4,7 @@
  * Tests the full lifecycle: add → get → getAll → update → delete.
  * Validates response shapes against the real API.
  *
- * Run: MEM0_API_KEY=your-key npx jest crud.test.ts --forceExit
+ * Run: MEMB_API_KEY=your-key npx jest crud.test.ts --forceExit
  */
 import { MemoryClient } from "../../memb";
 import { MemoryError } from "../../../common/exceptions";

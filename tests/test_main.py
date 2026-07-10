@@ -335,7 +335,7 @@ def test_get_all_can_show_expired_memories(memory_instance):
 def test_no_telemetry_vector_store_when_disabled():
     """VectorStoreFactory should only be called once (for user data) when telemetry is disabled."""
     with (
-        patch("memb.memory.main.MEM0_TELEMETRY", False),
+        patch("memb.memory.main.MEMB_TELEMETRY", False),
         patch("memb.utils.factory.EmbedderFactory") as mock_embedder,
         patch("memb.memory.main.VectorStoreFactory") as mock_vector_store,
         patch("memb.utils.factory.LlmFactory") as mock_llm,
@@ -355,7 +355,7 @@ def test_no_telemetry_vector_store_when_disabled():
 def test_telemetry_vector_store_created_when_enabled():
     """VectorStoreFactory should be called twice (user data + telemetry) when telemetry is enabled."""
     with (
-        patch("memb.memory.main.MEM0_TELEMETRY", True),
+        patch("memb.memory.main.MEMB_TELEMETRY", True),
         patch("memb.utils.factory.EmbedderFactory") as mock_embedder,
         patch("memb.memory.main.VectorStoreFactory") as mock_vector_store,
         patch("memb.utils.factory.LlmFactory") as mock_llm,

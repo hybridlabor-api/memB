@@ -7,7 +7,7 @@
 import { MemoryClient } from "../../memb";
 
 export default async function globalTeardown() {
-  const apiKey = process.env.MEM0_API_KEY;
+  const apiKey = process.env.MEMB_API_KEY;
   if (!apiKey) return;
 
   const client = new MemoryClient({ apiKey });

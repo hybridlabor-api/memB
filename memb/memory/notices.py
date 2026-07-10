@@ -79,7 +79,7 @@ _scale_memory_count_threshold_evaluated_in_process = False
 
 def display_first_run_notice(memory_instance, sync_type: str, trigger_function: str) -> None:
     """Best-effort first-run notice check. Never raises or writes unless displayed."""
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return
 
     if not _claim_first_run_notice(trigger_function):
@@ -147,7 +147,7 @@ def display_first_run_notice(memory_instance, sync_type: str, trigger_function: 
 
 
 async def display_first_run_notice_async(memory_instance, sync_type: str, trigger_function: str) -> None:
-    if not telemetry_module.MEM0_TELEMETRY or _first_run_claimed_in_process:
+    if not telemetry_module.MEMB_TELEMETRY or _first_run_claimed_in_process:
         return
     await asyncio.to_thread(display_first_run_notice, memory_instance, sync_type, trigger_function)
 
@@ -160,7 +160,7 @@ def display_temporal_usage_notice(
     trigger_reason: str,
 ) -> None:
     """Best-effort temporal usage notice. Never raises or writes unless displayed."""
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return
 
     if _temporal_usage_at_capacity():
@@ -254,7 +254,7 @@ async def display_temporal_usage_notice_async(
 
 
 def detect_decay_usage_from_delete() -> Optional[Tuple[str, str, Optional[int], Optional[int]]]:
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return None
 
     global _decay_usage_successful_delete_count_in_process
@@ -274,7 +274,7 @@ def detect_decay_usage_from_delete() -> Optional[Tuple[str, str, Optional[int], 
 
 
 def detect_decay_usage_from_delete_all(deleted_count: Any) -> Optional[Tuple[str, str, Optional[int], Optional[int]]]:
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return None
 
     deleted_count_value = _coerce_nonnegative_int(deleted_count, 0)
@@ -294,7 +294,7 @@ def display_decay_usage_notice(
     deleted_count: Optional[int] = None,
 ) -> None:
     """Best-effort decay usage notice. Never raises or writes unless displayed."""
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return
 
     if _decay_usage_at_capacity():
@@ -411,7 +411,7 @@ def detect_scale_threshold_from_add_result(
     memory_instance,
     add_result: Any,
 ) -> Optional[Tuple[str, str, Optional[int], Optional[int], int]]:
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return None
 
     added_count = _count_added_memories(add_result)
@@ -472,7 +472,7 @@ def display_scale_threshold_notice(
     threshold: Optional[int] = None,
 ) -> None:
     """Best-effort scale notice. Never raises or writes unless displayed."""
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return
 
     if _scale_threshold_at_capacity():
@@ -588,7 +588,7 @@ def display_performance_slow_query_notice(
     result_count: int,
 ) -> None:
     """Best-effort slow-query notice. Never raises or writes unless displayed."""
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return
 
     if _performance_slow_query_at_capacity():
@@ -741,7 +741,7 @@ def _get_feature_error_message(
     trigger_function: str,
     trigger_parameter: str,
 ) -> str:
-    if not telemetry_module.MEM0_TELEMETRY:
+    if not telemetry_module.MEMB_TELEMETRY:
         return plain_error
 
     if _feature_error_at_capacity(notice_id):

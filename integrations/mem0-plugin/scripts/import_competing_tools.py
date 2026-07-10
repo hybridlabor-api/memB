@@ -151,7 +151,7 @@ def cmd_cursorrules(args: list[str]) -> None:
     branch = resolve_branch()
 
     if not api_key:
-        print("Error: MEM0_API_KEY not set", file=sys.stderr)
+        print("Error: MEMB_API_KEY not set", file=sys.stderr)
         return
 
     if not os.path.isfile(path):
@@ -181,7 +181,7 @@ def cmd_copilot(args: list[str]) -> None:
     branch = resolve_branch()
 
     if not api_key:
-        print("Error: MEM0_API_KEY not set", file=sys.stderr)
+        print("Error: MEMB_API_KEY not set", file=sys.stderr)
         return
 
     if not os.path.isfile(path):
@@ -210,7 +210,7 @@ def cmd_cline(args: list[str]) -> None:
     branch = resolve_branch()
 
     if not api_key:
-        print("Error: MEM0_API_KEY not set", file=sys.stderr)
+        print("Error: MEMB_API_KEY not set", file=sys.stderr)
         return
 
     if not os.path.isdir(dir_path):
@@ -248,7 +248,7 @@ def cmd_continue(args: list[str]) -> None:
     branch = resolve_branch()
 
     if not api_key:
-        print("Error: MEM0_API_KEY not set", file=sys.stderr)
+        print("Error: MEMB_API_KEY not set", file=sys.stderr)
         return
 
     if not os.path.isfile(path):

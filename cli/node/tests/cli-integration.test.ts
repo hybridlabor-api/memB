@@ -13,9 +13,9 @@ function run(
   opts: { home?: string; env?: Record<string, string> } = {},
 ): { stdout: string; stderr: string; exitCode: number } {
   const env = { ...process.env };
-  // Strip MEM0_ env vars
+  // Strip MEMB_ env vars
   for (const key of Object.keys(env)) {
-    if (key.startsWith("MEM0_")) delete env[key];
+    if (key.startsWith("MEMB_")) delete env[key];
   }
   if (opts.home) env.HOME = opts.home;
   if (opts.env) Object.assign(env, opts.env);

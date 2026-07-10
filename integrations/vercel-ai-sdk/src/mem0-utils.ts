@@ -254,7 +254,7 @@ const searchInternalMemories = async (query: string, config?: MemBConfigSettings
 
         const apiKey = loadApiKey({
             apiKey: config?.membApiKey,
-            environmentVariableName: "MEM0_API_KEY",
+            environmentVariableName: "MEMB_API_KEY",
             description: "MemB",
         });
 
@@ -315,7 +315,7 @@ const updateMemories = async (messages: Array<Message>, config?: MemBConfigSetti
     try {
         const apiKey = loadApiKey({
             apiKey: config?.membApiKey,
-            environmentVariableName: "MEM0_API_KEY",
+            environmentVariableName: "MEMB_API_KEY",
             description: "MemB",
         });
 

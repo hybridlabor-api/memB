@@ -26,7 +26,7 @@ afterEach(() => {
   } catch {
     /* ignore */
   }
-  delete process.env.MEM0_DREAM;
+  delete process.env.MEMB_DREAM;
 });
 
 describe("auto-dream gates", () => {
@@ -76,8 +76,8 @@ describe("dream config", () => {
     expect(cfg.minMemories).toBe(DREAM_DEFAULTS.minMemories);
   });
 
-  test("MEM0_DREAM=false force-disables", () => {
-    process.env.MEM0_DREAM = "false";
+  test("MEMB_DREAM=false force-disables", () => {
+    process.env.MEMB_DREAM = "false";
     expect(loadDreamConfig(dir).enabled).toBe(false);
   });
 

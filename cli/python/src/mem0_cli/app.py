@@ -123,7 +123,7 @@ def _get_backend_and_config(
         print_error(
             err_console,
             "No API key configured.",
-            hint="Run 'memb init' or set MEM0_API_KEY environment variable.",
+            hint="Run 'memb init' or set MEMB_API_KEY environment variable.",
         )
         raise typer.Exit(1)
 
@@ -143,7 +143,7 @@ def _get_backend_and_config(
         print_error(
             err_console,
             "Invalid or expired API key.",
-            hint="Run 'memb init' or set MEM0_API_KEY environment variable.",
+            hint="Run 'memb init' or set MEMB_API_KEY environment variable.",
         )
         raise typer.Exit(1) from None
     except Exception:
@@ -282,7 +282,7 @@ def add(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -362,7 +362,7 @@ def search(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -415,7 +415,7 @@ def get(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -471,7 +471,7 @@ def list_cmd(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -516,7 +516,7 @@ def update(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -578,7 +578,7 @@ def delete(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -707,7 +707,7 @@ def entity_list(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -747,7 +747,7 @@ def entity_delete(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -791,7 +791,7 @@ def event_list(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -820,7 +820,7 @@ def event_status(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -985,7 +985,7 @@ def status(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -1025,7 +1025,7 @@ def import_cmd(
         None,
         "--api-key",
         help="Override API key.",
-        envvar="MEM0_API_KEY",
+        envvar="MEMB_API_KEY",
         rich_help_panel="Connection",
     ),
     base_url: str | None = typer.Option(
@@ -1246,7 +1246,7 @@ def _build_help_json() -> dict:
         "description": "The Memory Layer for AI Agents",
         "commands": commands,
         "global_options": {
-            "--api-key": "Override API key (env: MEM0_API_KEY).",
+            "--api-key": "Override API key (env: MEMB_API_KEY).",
             "--base-url": "Override API base URL.",
             "--json / --agent": "Output as JSON for agent/programmatic use.",
             "--help": "Show help for a command.",

@@ -55,7 +55,7 @@ interface MemBProviderSettings {
   baseURL?: string;            // Base URL for the LLM provider (default: "http://api.openai.com")
   headers?: Record<string, string>;  // Custom headers for LLM requests
   provider?: string;           // LLM provider name (default: "openai")
-  membApiKey?: string;         // MemB Platform API key (or use MEM0_API_KEY env var)
+  membApiKey?: string;         // MemB Platform API key (or use MEMB_API_KEY env var)
   apiKey?: string;             // LLM provider API key (e.g., OpenAI key)
   membConfig?: MemBConfig;     // Default MemB config (user_id, etc.) applied to all calls
   config?: LLMProviderSettings; // Provider-specific settings (OpenAI, Anthropic, etc.)

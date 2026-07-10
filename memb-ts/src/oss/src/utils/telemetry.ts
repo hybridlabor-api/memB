@@ -4,28 +4,28 @@ import type {
   TelemetryEventData,
 } from "./telemetry.types";
 
-// __MEM0_SDK_VERSION__ is inlined by tsup/esbuild's `define` at build time from
+// __MEMB_SDK_VERSION__ is inlined by tsup/esbuild's `define` at build time from
 // package.json. In unbundled environments (ts-jest, jest globalSetup) the
 // identifier is not defined, so guard with typeof to fall back safely.
 let version =
-  typeof __MEM0_SDK_VERSION__ !== "undefined" ? __MEM0_SDK_VERSION__ : "dev";
+  typeof __MEMB_SDK_VERSION__ !== "undefined" ? __MEMB_SDK_VERSION__ : "dev";
 
 // Safely check for process.env in different environments
-let MEM0_TELEMETRY = true;
+let MEMB_TELEMETRY = true;
 try {
-  MEM0_TELEMETRY =
-    process?.env?.MEM0_TELEMETRY?.toLowerCase() === "false" ? false : true;
+  MEMB_TELEMETRY =
+    process?.env?.MEMB_TELEMETRY?.toLowerCase() === "false" ? false : true;
 } catch (error) {}
 const POSTHOG_API_KEY = "phc_hgJkUVJFYtmaJqrvf6CYN67TIQ8yhXAkWzUn9AMU4yX";
 const POSTHOG_HOST = "https://us.i.posthog.com/i/v0/e/";
 const NOTICE_EVENT_NAME = "memb.notice_displayed";
 
 // Default sampling rate for hot-path OSS events. Lifecycle events always fire at 100%.
-// Override via MEM0_TELEMETRY_SAMPLE_RATE env var. Mirrors memb/memory/telemetry.py.
+// Override via MEMB_TELEMETRY_SAMPLE_RATE env var. Mirrors memb/memory/telemetry.py.
 const DEFAULT_SAMPLE_RATE = 0.1;
-const MEM0_TELEMETRY_SAMPLE_RATE: number = ((): number => {
+const MEMB_TELEMETRY_SAMPLE_RATE: number = ((): number => {
   try {
-    const raw = process?.env?.MEM0_TELEMETRY_SAMPLE_RATE;
+    const raw = process?.env?.MEMB_TELEMETRY_SAMPLE_RATE;
     if (raw !== undefined) {
       const parsed = Number(raw);
       if (Number.isFinite(parsed) && parsed >= 0 && parsed <= 1) {
@@ -53,7 +53,7 @@ class UnifiedTelemetry implements TelemetryClient {
   }
 
   async captureEvent(distinctId: string, eventName: string, properties = {}) {
-    if (!MEM0_TELEMETRY) return;
+    if (!MEMB_TELEMETRY) return;
 
     const eventProperties = {
       client_version: version,
@@ -98,7 +98,7 @@ class UnifiedTelemetry implements TelemetryClient {
 const telemetry = new UnifiedTelemetry(POSTHOG_API_KEY, POSTHOG_HOST);
 
 function isTelemetryEnabled(): boolean {
-  return MEM0_TELEMETRY;
+  return MEMB_TELEMETRY;
 }
 
 async function captureClientEvent(
@@ -113,7 +113,7 @@ async function captureClientEvent(
 
   // >= so that rate=0 drops everything and rate=1 keeps everything (Math.random() ∈ [0, 1)).
   const alwaysSend = ALWAYS_SEND_EVENTS.has(eventName);
-  if (!alwaysSend && Math.random() >= MEM0_TELEMETRY_SAMPLE_RATE) {
+  if (!alwaysSend && Math.random() >= MEMB_TELEMETRY_SAMPLE_RATE) {
     return;
   }
 
@@ -126,7 +126,7 @@ async function captureClientEvent(
     client_source: "nodejs",
     ...additionalData,
     // sample_rate set AFTER the spread so callers can never override it
-    sample_rate: alwaysSend ? 1.0 : MEM0_TELEMETRY_SAMPLE_RATE,
+    sample_rate: alwaysSend ? 1.0 : MEMB_TELEMETRY_SAMPLE_RATE,
   };
 
   await telemetry.captureEvent(

@@ -42,7 +42,7 @@ async function getBackendAndConfig(
 	if (!config.platform.apiKey) {
 		printError(
 			"No API key configured.",
-			"Run 'memb init' or set MEM0_API_KEY environment variable.",
+			"Run 'memb init' or set MEMB_API_KEY environment variable.",
 		);
 		process.exit(1);
 	}
@@ -74,7 +74,7 @@ async function getBackendAndConfig(
 		if (e instanceof AuthError) {
 			printError(
 				"Invalid or expired API key.",
-				"Run 'memb init' or set MEM0_API_KEY environment variable.",
+				"Run 'memb init' or set MEMB_API_KEY environment variable.",
 			);
 			process.exit(1);
 		}

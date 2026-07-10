@@ -48,9 +48,9 @@ export class NeptuneAnalyticsVectorStore implements VectorStore {
   constructor(config: NeptuneAnalyticsConfig) {
     this.graphIdentifier = this.resolveGraphIdentifier(config);
     this.collectionName = config.collectionName || "memories";
-    this.collectionLabel = `MEM0_VECTOR_${this.collectionName}`;
+    this.collectionLabel = `MEMB_VECTOR_${this.collectionName}`;
     this.collectionLabelExpr = this.escapeLabel(this.collectionLabel);
-    this.userLabel = "MEM0_VECTOR_memory_migrations";
+    this.userLabel = "MEMB_VECTOR_memory_migrations";
     this.userLabelExpr = this.escapeLabel(this.userLabel);
     this.userNodeId = "memb-user";
     this.dimension = config.dimension || 1536;

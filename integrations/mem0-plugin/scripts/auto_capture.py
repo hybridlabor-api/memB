@@ -5,7 +5,7 @@ Runs in the background from UserPromptSubmit hook (every 3rd message).
 Reads the last few exchanges from the transcript, sends them to the
 memb API with infer=True so the platform extracts facts automatically.
 
-Input:  env vars (MEM0_API_KEY, MEM0_RESOLVED_USER_ID, MEM0_PROJECT_ID, etc.)
+Input:  env vars (MEMB_API_KEY, MEMB_RESOLVED_USER_ID, MEMB_PROJECT_ID, etc.)
         argv[1] = transcript_path
 Output: stderr logs only (exit 0 always — must not block)
 """
@@ -29,7 +29,7 @@ _handler = logging.StreamHandler(sys.stderr)
 _handler.setFormatter(logging.Formatter("[memb-auto-capture] %(message)s"))
 log.addHandler(_handler)
 
-if os.environ.get("MEM0_DEBUG"):
+if os.environ.get("MEMB_DEBUG"):
     _log_dir = os.path.expanduser("~/.memb")
     try:
         os.makedirs(_log_dir, exist_ok=True)
@@ -154,7 +154,7 @@ def store_exchange(api_key: str, messages: list[dict], user_id: str,
 def main():
     api_key = resolve_api_key()
     if not api_key:
-        log.debug("MEM0_API_KEY not set, skipping")
+        log.debug("MEMB_API_KEY not set, skipping")
         return
 
     if len(sys.argv) < 2:

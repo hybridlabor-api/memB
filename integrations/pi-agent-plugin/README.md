@@ -32,7 +32,7 @@ pi install npm:@memb/pi-agent-plugin
 Set the API key as an environment variable:
 
 ```bash
-export MEM0_API_KEY="m0-your-key-here"
+export MEMB_API_KEY="m0-your-key-here"
 ```
 
 Or create a config file at `~/.pi/agent/memb-config.json`:
@@ -54,7 +54,7 @@ Or create a config file at `~/.pi/agent/memb-config.json`:
 }
 ```
 
-Environment variables (`MEM0_API_KEY`, `MEM0_USER_ID`) override the config file.
+Environment variables (`MEMB_API_KEY`, `MEMB_USER_ID`) override the config file.
 
 `searchThreshold` (default `0.3`) is the minimum similarity score (0–1) a memory must reach to count as a match for `/memb-search`, `/memb-forget`, and `/memb-pin`. It is passed to the memb search API (along with reranking for higher-precision ordering), so a query with no sufficiently similar memory reports no match instead of returning the closest unrelated memories. Raise it to be stricter; lower it if relevant results are missed.
 

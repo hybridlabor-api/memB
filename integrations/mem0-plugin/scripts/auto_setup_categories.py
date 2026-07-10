@@ -21,7 +21,7 @@ Design (mirrors auto_import.py):
 Run with no arguments (background) or in the foreground for onboarding to print
 a parseable status line.
 
-Requires MEM0_API_KEY (or CLAUDE_PLUGIN_OPTION_API_KEY) and the membai SDK,
+Requires MEMB_API_KEY (or CLAUDE_PLUGIN_OPTION_API_KEY) and the membai SDK,
 which ensure_deps.sh installs into ${CLAUDE_PLUGIN_DATA}/venv on session start.
 """
 
@@ -47,7 +47,7 @@ _handler = logging.StreamHandler(sys.stderr)
 _handler.setFormatter(logging.Formatter("[memb-auto-categories] %(message)s"))
 log.addHandler(_handler)
 
-if os.environ.get("MEM0_DEBUG"):
+if os.environ.get("MEMB_DEBUG"):
     _log_dir = os.path.expanduser("~/.memb")
     try:
         os.makedirs(_log_dir, exist_ok=True)
@@ -186,7 +186,7 @@ def _release_lock() -> None:
 def main() -> None:
     api_key = resolve_api_key()
     if not api_key:
-        log.debug("MEM0_API_KEY not set, skipping coding-categories setup")
+        log.debug("MEMB_API_KEY not set, skipping coding-categories setup")
         return
 
     key_fp = apikey_fingerprint(api_key)
@@ -197,7 +197,7 @@ def main() -> None:
         log.debug("Coding categories already configured for this account (cached); skipping")
         return
 
-    os.environ["MEM0_API_KEY"] = api_key
+    os.environ["MEMB_API_KEY"] = api_key
 
     try:
         client = make_client()

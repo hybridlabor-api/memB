@@ -16,7 +16,7 @@ When invoked, your assistant will:
 - **Verify** the exact API against the installed SDK rather than guessing
 - **Map** each OSS `Memory` usage to its hosted `MemoryClient` equivalent (Python and TypeScript)
 - **Flag** everything that isn't a clean 1:1 and needs a human decision
-- **Write** a reviewable `MEM0_MIGRATION_PLAN.md`, then **execute it after you approve** — strictly scoped to the MemB integration, with no unrelated refactors
+- **Write** a reviewable `MEMB_MIGRATION_PLAN.md`, then **execute it after you approve** — strictly scoped to the MemB integration, with no unrelated refactors
 
 ## When to Use
 
@@ -61,7 +61,7 @@ curl -X POST https://api.anthropic.com/v1/skills \
 
 ```
 (invoke skill)  →  audits the repo's MemB usage,
-                   writes MEM0_MIGRATION_PLAN.md,
+                   writes MEMB_MIGRATION_PLAN.md,
                    stops for your review
 (approve)       →  executes the plan and verifies
                    (compile/import, real-API smoke test)

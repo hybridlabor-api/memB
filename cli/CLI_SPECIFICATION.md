@@ -894,7 +894,7 @@ memb help --json
 
 ### Base URL
 
-Default: `https://api.memb.ai` (configurable via `--base-url`, `MEM0_BASE_URL`, or `platform.base_url` in config).
+Default: `https://api.memb.ai` (configurable via `--base-url`, `MEMB_BASE_URL`, or `platform.base_url` in config).
 
 ### Authentication
 
@@ -989,7 +989,7 @@ HTTP errors are mapped to typed exceptions:
 ### Config Precedence (highest to lowest)
 
 1. **CLI flags** (`--api-key`, `--base-url`, `--user-id`, etc.)
-2. **Environment variables** (`MEM0_API_KEY`, etc.)
+2. **Environment variables** (`MEMB_API_KEY`, etc.)
 3. **Config file** (`~/.memb/config.json`)
 4. **Defaults** (hardcoded)
 
@@ -997,15 +997,15 @@ HTTP errors are mapped to typed exceptions:
 
 | Variable           | Config Path              | Type    | Default               |
 |--------------------|--------------------------|---------|-----------------------|
-| `MEM0_API_KEY`     | `platform.api_key`       | string  | `""`                  |
-| `MEM0_BASE_URL`    | `platform.base_url`      | string  | `"https://api.memb.ai"` |
-| `MEM0_USER_ID`     | `defaults.user_id`       | string  | `""`                  |
-| `MEM0_AGENT_ID`    | `defaults.agent_id`      | string  | `""`                  |
-| `MEM0_APP_ID`      | `defaults.app_id`        | string  | `""`                  |
-| `MEM0_RUN_ID`      | `defaults.run_id`        | string  | `""`                  |
-| `MEM0_ENABLE_GRAPH`| `defaults.enable_graph`  | boolean | `false`               |
+| `MEMB_API_KEY`     | `platform.api_key`       | string  | `""`                  |
+| `MEMB_BASE_URL`    | `platform.base_url`      | string  | `"https://api.memb.ai"` |
+| `MEMB_USER_ID`     | `defaults.user_id`       | string  | `""`                  |
+| `MEMB_AGENT_ID`    | `defaults.agent_id`      | string  | `""`                  |
+| `MEMB_APP_ID`      | `defaults.app_id`        | string  | `""`                  |
+| `MEMB_RUN_ID`      | `defaults.run_id`        | string  | `""`                  |
+| `MEMB_ENABLE_GRAPH`| `defaults.enable_graph`  | boolean | `false`               |
 
-**Boolean parsing for `MEM0_ENABLE_GRAPH`:** Accepted truthy values are `"true"`, `"1"`, `"yes"` (case-insensitive). Everything else is `false`.
+**Boolean parsing for `MEMB_ENABLE_GRAPH`:** Accepted truthy values are `"true"`, `"1"`, `"yes"` (case-insensitive). Everything else is `false`.
 
 ### Config File JSON Schema
 

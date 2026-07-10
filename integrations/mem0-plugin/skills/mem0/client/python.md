@@ -10,7 +10,7 @@ Complete reference for the `membai` Python package. Covers both the Platform cli
 
 ```bash
 pip install membai
-export MEM0_API_KEY="m0-your-api-key"
+export MEMB_API_KEY="m0-your-api-key"
 ```
 
 ### MemoryClient (Synchronous)
@@ -21,7 +21,7 @@ from memb import MemoryClient
 client = MemoryClient(api_key="m0-xxx")
 ```
 
-**Constructor:** `MemoryClient(api_key=None)`. If `api_key` is not provided, reads from `MEM0_API_KEY` environment variable. Raises `ValueError` if no key found.
+**Constructor:** `MemoryClient(api_key=None)`. If `api_key` is not provided, reads from `MEMB_API_KEY` environment variable. Raises `ValueError` if no key found.
 
 - HTTP library: `httpx`
 - Timeout: 300 seconds
@@ -441,7 +441,7 @@ results = await m.search("query", filters={"user_id": "alice"})
 | Aspect | Platform (`MemoryClient`) | OSS (`Memory`) |
 |--------|--------------------------|----------------|
 | **Import** | `from memb import MemoryClient` | `from memb import Memory` |
-| **Auth** | API key required (`MEM0_API_KEY`) | No API key -- config-based |
+| **Auth** | API key required (`MEMB_API_KEY`) | No API key -- config-based |
 | **Execution** | API calls to `api.memb.ai` | Local execution |
 | **Infrastructure** | Fully managed | Self-managed vector DB, embedder, LLM |
 | **Entity filtering** | `filters={"user_id": "..."}` | `filters={"user_id": "..."}` |

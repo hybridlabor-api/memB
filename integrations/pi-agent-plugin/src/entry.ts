@@ -56,7 +56,7 @@ export default function membExtension(pi: ExtensionAPI): void {
   const config = loadConfig();
 
   if (!config.apiKey) {
-    console.warn("[memb] No API key found. Set MEM0_API_KEY or add apiKey to ~/.pi/agent/memb-config.json. Extension disabled.");
+    console.warn("[memb] No API key found. Set MEMB_API_KEY or add apiKey to ~/.pi/agent/memb-config.json. Extension disabled.");
     return;
   }
 

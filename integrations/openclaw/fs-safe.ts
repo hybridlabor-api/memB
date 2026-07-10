@@ -36,7 +36,7 @@ export function unlink(filePath: string): void {
 }
 
 export function bootstrapTelemetryFlag(): void {
-  const val = process.env.MEM0_TELEMETRY;
+  const val = process.env.MEMB_TELEMETRY;
   if (val !== undefined) {
     (globalThis as any).__memb_telemetry_override = val;
   }

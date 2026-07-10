@@ -3,7 +3,7 @@
  * Telemetry sampling — unit tests.
  *
  * Sampling lives inside captureClientEvent in src/utils/telemetry.ts. It uses
- * Math.random() compared against MEM0_TELEMETRY_SAMPLE_RATE (default 0.1) to
+ * Math.random() compared against MEMB_TELEMETRY_SAMPLE_RATE (default 0.1) to
  * drop hot-path events; lifecycle events ('init', 'reset') always fire.
  *
  * These tests target captureClientEvent directly. Existing OSS tests that mock
@@ -118,11 +118,11 @@ describe("telemetry sampling", () => {
 
   describe("env var override", () => {
     afterEach(() => {
-      delete process.env.MEM0_TELEMETRY_SAMPLE_RATE;
+      delete process.env.MEMB_TELEMETRY_SAMPLE_RATE;
     });
 
     it("rate 1.0 sends every event including hot-path at high random", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "1.0";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "1.0";
       jest.resetModules();
       randomSpy.mockReturnValue(0.999);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -133,7 +133,7 @@ describe("telemetry sampling", () => {
 
     it("rate 0.0 drops every hot-path event including at random 0", async () => {
       // The gate is `random >= rate`, so rate=0 drops at random=0 (0 >= 0 is true).
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "0.0";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "0.0";
       jest.resetModules();
       randomSpy.mockReturnValue(0.0);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -142,7 +142,7 @@ describe("telemetry sampling", () => {
     });
 
     it("rate 0.0 drops at any random value", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "0.0";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "0.0";
       jest.resetModules();
       randomSpy.mockReturnValue(0.5);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -151,7 +151,7 @@ describe("telemetry sampling", () => {
     });
 
     it("rate 0.0 still passes lifecycle events", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "0.0";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "0.0";
       jest.resetModules();
       randomSpy.mockReturnValue(0.999);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -160,7 +160,7 @@ describe("telemetry sampling", () => {
     });
 
     it("rate 0.5 passes events at random below 0.5", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "0.5";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "0.5";
       jest.resetModules();
       randomSpy.mockReturnValue(0.3);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -169,7 +169,7 @@ describe("telemetry sampling", () => {
     });
 
     it("invalid env var falls back to default rate", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "not a number";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "not a number";
       jest.resetModules();
       randomSpy.mockReturnValue(0.05);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -178,7 +178,7 @@ describe("telemetry sampling", () => {
     });
 
     it("out-of-range env var (negative) falls back to default rate", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "-0.5";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "-0.5";
       jest.resetModules();
       randomSpy.mockReturnValue(0.05);
       const { captureClientEvent } = await import("../src/utils/telemetry");
@@ -187,7 +187,7 @@ describe("telemetry sampling", () => {
     });
 
     it("out-of-range env var (> 1) falls back to default rate", async () => {
-      process.env.MEM0_TELEMETRY_SAMPLE_RATE = "5";
+      process.env.MEMB_TELEMETRY_SAMPLE_RATE = "5";
       jest.resetModules();
       randomSpy.mockReturnValue(0.05);
       const { captureClientEvent } = await import("../src/utils/telemetry");

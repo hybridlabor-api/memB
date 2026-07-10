@@ -14,7 +14,7 @@ Run ALL checks, then display a single summary. Do not stop on the first failure.
 ### Check 1: API key
 
 ```bash
-_KEY="${MEM0_API_KEY:-}"
+_KEY="${MEMB_API_KEY:-}"
 [ -n "$_KEY" ] && echo "${_KEY:0:6}..." || echo "NOT_SET"
 ```
 
@@ -23,23 +23,23 @@ _KEY="${MEM0_API_KEY:-}"
 
 ### Check 2: Identity resolution
 
-Resolve identity from the `MEM0_*` environment variables set by the plugin's `shell.env` hook. These are the exact values the plugin uses to scope memories, so report them directly. Do NOT re-run `git` here: the plugin already resolved branch and project from git at session start, and re-shelling git can disagree with it — e.g. it prints an empty branch that renders as `(not a git repo)` while the Session check below shows `branch=main`. One source of truth keeps the two lines consistent.
+Resolve identity from the `MEMB_*` environment variables set by the plugin's `shell.env` hook. These are the exact values the plugin uses to scope memories, so report them directly. Do NOT re-run `git` here: the plugin already resolved branch and project from git at session start, and re-shelling git can disagree with it — e.g. it prints an empty branch that renders as `(not a git repo)` while the Session check below shows `branch=main`. One source of truth keeps the two lines consistent.
 
 ```bash
-echo "user_id=${MEM0_USER_ID:-${USER:-default}}"
-echo "project_id=${MEM0_APP_ID:-}"
-echo "branch=${MEM0_BRANCH:-main}"
+echo "user_id=${MEMB_USER_ID:-${USER:-default}}"
+echo "project_id=${MEMB_APP_ID:-}"
+echo "branch=${MEMB_BRANCH:-main}"
 _S="$HOME/.memb/settings.json"
 _SCOPE="$(grep -o '"default_scope"[[:space:]]*:[[:space:]]*"[a-z]*"' "$_S" 2>/dev/null | grep -o '[a-z]*"$' | tr -d '"')"
 echo "default_scope=${_SCOPE:-project}"
 ```
 
-- `user_id`: from `MEM0_USER_ID`, falling back to `$USER`
-- `project_id`: from `MEM0_APP_ID`
-- `branch`: from `MEM0_BRANCH` (the plugin's resolved value; falls back to `main` outside a git repo)
+- `user_id`: from `MEMB_USER_ID`, falling back to `$USER`
+- `project_id`: from `MEMB_APP_ID`
+- `branch`: from `MEMB_BRANCH` (the plugin's resolved value; falls back to `main` outside a git repo)
 - `default_scope`: from `~/.memb/settings.json` (`default_scope`), falling back to `project`. This is the scope memory tools use when none is given; change it with `/memb-scope`.
 
-PASS if `user_id` and `project_id` are non-empty. WARN if `project_id` is empty — the `shell.env` hook may not have fired (restart OpenCode). Report the branch verbatim from `MEM0_BRANCH`; never invent a string like `(not a git repo)`.
+PASS if `user_id` and `project_id` are non-empty. WARN if `project_id` is empty — the `shell.env` hook may not have fired (restart OpenCode). Report the branch verbatim from `MEMB_BRANCH`; never invent a string like `(not a git repo)`.
 
 ### Check 3: Memory tool connectivity
 
@@ -71,9 +71,9 @@ The response returns `event_id` (v3 writes are async). Call `get_event_status(ev
 Check that the plugin's `shell.env` hook has injected session context into the environment:
 
 ```bash
-echo "session_id=${MEM0_SESSION_ID:-}"
-echo "app_id=${MEM0_APP_ID:-}"
-echo "branch=${MEM0_BRANCH:-}"
+echo "session_id=${MEMB_SESSION_ID:-}"
+echo "app_id=${MEMB_APP_ID:-}"
+echo "branch=${MEMB_BRANCH:-}"
 ```
 
 - If all three are non-empty: PASS — "Session active"
@@ -94,7 +94,7 @@ echo "min_hours=$(grep -o '"minHours"[[:space:]]*:[[:space:]]*[0-9]*' "$_SET" 2>
 echo "min_sessions=$(grep -o '"minSessions"[[:space:]]*:[[:space:]]*[0-9]*' "$_SET" 2>/dev/null | grep -o '[0-9]*$' || echo 5)"
 echo "min_memories=$(grep -o '"minMemories"[[:space:]]*:[[:space:]]*[0-9]*' "$_SET" 2>/dev/null | grep -o '[0-9]*$' || echo 20)"
 echo "now_s=$(date +%s)"
-echo "dream_env=${MEM0_DREAM:-unset}"
+echo "dream_env=${MEMB_DREAM:-unset}"
 ```
 
 For the memory count, reuse the project memory count from Check 3/4 (or call `get_memories` with the project filter, `page_size=1`, and read `count`).

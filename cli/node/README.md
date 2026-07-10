@@ -302,13 +302,13 @@ These flags are available on all commands:
 
 | Variable | Description |
 |----------|-------------|
-| `MEM0_API_KEY` | API key (overrides config file) |
-| `MEM0_BASE_URL` | API base URL |
-| `MEM0_USER_ID` | Default user ID |
-| `MEM0_AGENT_ID` | Default agent ID |
-| `MEM0_APP_ID` | Default app ID |
-| `MEM0_RUN_ID` | Default run ID |
-| `MEM0_ENABLE_GRAPH` | Enable graph memory (`true` / `false`) |
+| `MEMB_API_KEY` | API key (overrides config file) |
+| `MEMB_BASE_URL` | API base URL |
+| `MEMB_USER_ID` | Default user ID |
+| `MEMB_AGENT_ID` | Default agent ID |
+| `MEMB_APP_ID` | Default app ID |
+| `MEMB_RUN_ID` | Default run ID |
+| `MEMB_ENABLE_GRAPH` | Enable graph memory (`true` / `false`) |
 
 Environment variables take precedence over values in the config file, which take precedence over defaults.
 

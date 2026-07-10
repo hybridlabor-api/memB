@@ -5,7 +5,7 @@
  * (telemetry-sender.cjs). The parent CLI process exits immediately;
  * the child handles email resolution, caching, and the HTTP POST.
  *
- * Disable with: MEM0_TELEMETRY=false
+ * Disable with: MEMB_TELEMETRY=false
  */
 
 import { spawn } from "node:child_process";
@@ -23,7 +23,7 @@ const SENDER_SCRIPT = path.join(__dirname, "..", "telemetry-sender.cjs");
 
 function isTelemetryEnabled(): boolean {
 	try {
-		return process.env.MEM0_TELEMETRY !== "false";
+		return process.env.MEMB_TELEMETRY !== "false";
 	} catch {
 		return true;
 	}

@@ -51,7 +51,7 @@ def _maybe_alias_anon_to_email(user_email):
     """Fire $identify per prior anon ID so PostHog merges them into email.
 
     Idempotent via telemetry.aliased_pairs: only writes markers when
-    telemetry is actually enabled, so disabling/re-enabling MEM0_TELEMETRY still works.
+    telemetry is actually enabled, so disabling/re-enabling MEMB_TELEMETRY still works.
     Best-effort: never raises.
     """
     if client_telemetry.posthog is None:
@@ -96,7 +96,7 @@ class MemoryClient:
 
         Args:
             api_key: The API key for authenticating with the MemB API. If not
-                     provided, it will attempt to use the MEM0_API_KEY
+                     provided, it will attempt to use the MEMB_API_KEY
                      environment variable.
             host: The base URL for the MemB API. Defaults to
                   "https://api.memb.ai".
@@ -107,7 +107,7 @@ class MemoryClient:
         Raises:
             ValueError: If no API key is provided or found in the environment.
         """
-        self.api_key = api_key or os.getenv("MEM0_API_KEY")
+        self.api_key = api_key or os.getenv("MEMB_API_KEY")
         self.host = host or "https://api.memb.ai"
         self.org_id = None
         self.project_id = None
@@ -988,7 +988,7 @@ class AsyncMemoryClient:
 
         Args:
             api_key: The API key for authenticating with the MemB API. If not
-                     provided, it will attempt to use the MEM0_API_KEY
+                     provided, it will attempt to use the MEMB_API_KEY
                      environment variable.
             host: The base URL for the MemB API. Defaults to
                   "https://api.memb.ai".
@@ -999,7 +999,7 @@ class AsyncMemoryClient:
         Raises:
             ValueError: If no API key is provided or found in the environment.
         """
-        self.api_key = api_key or os.getenv("MEM0_API_KEY")
+        self.api_key = api_key or os.getenv("MEMB_API_KEY")
         self.host = host or "https://api.memb.ai"
         self.org_id = None
         self.project_id = None

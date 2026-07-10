@@ -43,7 +43,7 @@ curl -X POST https://api.anthropic.com/v1/skills \
 - Set the environment variable:
 
   ```bash
-  export MEM0_API_KEY="m0-your-api-key"
+  export MEMB_API_KEY="m0-your-api-key"
   ```
 
 ## Quick Start

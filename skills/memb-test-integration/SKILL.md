@@ -77,7 +77,7 @@ Refuse to start unless ALL of the following are true:
 - Working tree is clean. The skill never modifies source files; any dirty
   state means the integration is mid-edit and not ready to verify.
 - The same API key the integration used is available in the environment
-  (`MEM0_API_KEY` for Platform, `OPENAI_API_KEY` for OSS — read which from
+  (`MEMB_API_KEY` for Platform, `OPENAI_API_KEY` for OSS — read which from
   `product.json`). Interactive mode asks if missing; CI mode exits 2.
 
 Exit with a written rationale on any precondition failure. Never attempt
@@ -172,7 +172,7 @@ shape for the detected stack.
 **Platform (Python):**
 
     from memb import MemoryClient
-    c = MemoryClient()                               # uses MEM0_API_KEY
+    c = MemoryClient()                               # uses MEMB_API_KEY
     uid = f"memb-test-integration-{os.urandom(4).hex()}"
     c.add([{"role": "user", "content": "I prefer aisle seats"}], user_id=uid)
     hits = c.search("seat preference", user_id=uid)
@@ -227,7 +227,7 @@ Recipe fields the skill reads:
 Execution order:
 
 1. Allocate an ephemeral TCP port; export as `PORT`.
-2. Set `MEM0_USER_ID` to a disposable `memb-test-integration-<rand>` value
+2. Set `MEMB_USER_ID` to a disposable `memb-test-integration-<rand>` value
    and export it, so the app can use the same scoping the smoke test does
    if the recipe wants cleanup.
 3. Bring up `compose_services` if named.
@@ -259,7 +259,7 @@ Write `.memb-integration/scorecard.md` and `.memb-integration/scorecard.json`:
       "language": "python",
       "memb_version": "2.0.0",
       "non_invasive": true,
-      "feature_flag": "MEM0_ENABLED",
+      "feature_flag": "MEMB_ENABLED",
       "results": {
         "install":      {"status": "pass", "duration_ms": 12043},
         "static_checks":{"status": "pass", "duration_ms": 812},
@@ -314,8 +314,8 @@ The markdown version is human-readable and includes:
 
 | Mode | Trigger | Behavior |
 |---|---|---|
-| Interactive (default) | TTY present, `MEM0_TEST_CI` unset | Asks for missing keys, prints friendly summaries. |
-| CI | `MEM0_TEST_CI=1` | Keys must be in env, no prompts, non-zero exit on any fail. JSON scorecard goes to stdout's tail for workflow parsing. |
+| Interactive (default) | TTY present, `MEMB_TEST_CI` unset | Asks for missing keys, prints friendly summaries. |
+| CI | `MEMB_TEST_CI=1` | Keys must be in env, no prompts, non-zero exit on any fail. JSON scorecard goes to stdout's tail for workflow parsing. |
 
 ## Invocation
 

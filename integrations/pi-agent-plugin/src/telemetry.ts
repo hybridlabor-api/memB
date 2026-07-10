@@ -5,7 +5,7 @@
  * Events are batched and flushed every 5 seconds or when the queue
  * reaches 10 events, whichever comes first.
  *
- * Disable with: MEM0_TELEMETRY=false
+ * Disable with: MEMB_TELEMETRY=false
  */
 
 import { createHash, randomUUID } from "node:crypto";
@@ -38,7 +38,7 @@ const PLUGIN_VERSION = _loadPluginVersion();
 
 function isTelemetryEnabled(): boolean {
   try {
-    const val = process.env.MEM0_TELEMETRY;
+    const val = process.env.MEMB_TELEMETRY;
     if (val !== undefined) {
       const s = val.toLowerCase();
       return s !== "false" && s !== "0" && s !== "no" && s !== "off";

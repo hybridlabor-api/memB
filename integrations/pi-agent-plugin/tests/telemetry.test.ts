@@ -20,7 +20,7 @@ describe("telemetry", () => {
   let fetchSpy: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    delete process.env.MEM0_TELEMETRY;
+    delete process.env.MEMB_TELEMETRY;
     _resetForTesting();
     fetchSpy = vi.fn().mockResolvedValue({ ok: true });
     vi.stubGlobal("fetch", fetchSpy);
@@ -28,7 +28,7 @@ describe("telemetry", () => {
 
   afterEach(() => {
     vi.restoreAllMocks();
-    delete process.env.MEM0_TELEMETRY;
+    delete process.env.MEMB_TELEMETRY;
   });
 
   it("queues an event with correct name and standard properties", () => {
@@ -56,30 +56,30 @@ describe("telemetry", () => {
     expect(queue[0].distinct_id).toMatch(/^pi-memb-anon-/);
   });
 
-  it("does not queue events when MEM0_TELEMETRY=false", () => {
-    process.env.MEM0_TELEMETRY = "false";
+  it("does not queue events when MEMB_TELEMETRY=false", () => {
+    process.env.MEMB_TELEMETRY = "false";
     captureEvent("should.not.appear");
     expect(_getEventQueue()).toHaveLength(0);
   });
 
-  it("does not queue events when MEM0_TELEMETRY=0", () => {
-    process.env.MEM0_TELEMETRY = "0";
+  it("does not queue events when MEMB_TELEMETRY=0", () => {
+    process.env.MEMB_TELEMETRY = "0";
     captureEvent("should.not.appear");
     expect(_getEventQueue()).toHaveLength(0);
   });
 
-  it("does not queue events when MEM0_TELEMETRY=off", () => {
-    process.env.MEM0_TELEMETRY = "off";
+  it("does not queue events when MEMB_TELEMETRY=off", () => {
+    process.env.MEMB_TELEMETRY = "off";
     captureEvent("should.not.appear");
     expect(_getEventQueue()).toHaveLength(0);
   });
 
   it("re-enables telemetry when env var is cleared between calls", () => {
-    process.env.MEM0_TELEMETRY = "false";
+    process.env.MEMB_TELEMETRY = "false";
     captureEvent("blocked");
     expect(_getEventQueue()).toHaveLength(0);
 
-    delete process.env.MEM0_TELEMETRY;
+    delete process.env.MEMB_TELEMETRY;
     captureEvent("allowed");
     expect(_getEventQueue()).toHaveLength(1);
     expect(_getEventQueue()[0].event).toBe("allowed");

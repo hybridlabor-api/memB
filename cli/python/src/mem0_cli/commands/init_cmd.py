@@ -241,7 +241,7 @@ def run_init(
 
     config = MemBConfig()
 
-    base_url = os.environ.get("MEM0_BASE_URL", config.platform.base_url or DEFAULT_BASE_URL)
+    base_url = os.environ.get("MEMB_BASE_URL", config.platform.base_url or DEFAULT_BASE_URL)
     config.platform.base_url = base_url
 
     if code and not email:
@@ -282,7 +282,7 @@ def run_init(
                 )
             else:
                 msg = (
-                    "Existing MEM0_API_KEY is valid; reusing it. No new Agent Mode key was minted."
+                    "Existing MEMB_API_KEY is valid; reusing it. No new Agent Mode key was minted."
                     if source == "env"
                     else "Existing API key in config is valid; reusing it. No new Agent Mode key was minted."
                 )
@@ -315,8 +315,8 @@ def run_init(
             except httpx.HTTPError:
                 pass
 
-        # Rule 1: env MEM0_API_KEY valid → reuse, no new key.
-        _env_key = (os.environ.get("MEM0_API_KEY") or "").strip()
+        # Rule 1: env MEMB_API_KEY valid → reuse, no new key.
+        _env_key = (os.environ.get("MEMB_API_KEY") or "").strip()
         if _env_key and _ping_key(_env_key, base_url):
             _maybe_identify(_env_key)
             _emit_reuse("env")

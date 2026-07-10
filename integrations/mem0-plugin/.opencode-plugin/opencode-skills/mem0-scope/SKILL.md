@@ -54,9 +54,9 @@ Look at the user's message for a target scope word: `project`, `session`, or
      session  - this run only (adds run_id)           <marker if active>
      global   - all your projects (app_id = *)         <marker if active>
 
-   User:    ${MEM0_USER_ID}
-   Project: ${MEM0_APP_ID}
-   Session: ${MEM0_SESSION_ID}
+   User:    ${MEMB_USER_ID}
+   Project: ${MEMB_APP_ID}
+   Session: ${MEMB_SESSION_ID}
 
    To change: /memb-scope session    (or project / global)
    ```

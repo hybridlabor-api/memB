@@ -51,7 +51,7 @@ class TestConfig:
         config.platform.api_key = "file-key"
         save_config(config)
 
-        monkeypatch.setenv("MEM0_API_KEY", "env-key")
+        monkeypatch.setenv("MEMB_API_KEY", "env-key")
         loaded = load_config()
         assert loaded.platform.api_key == "env-key"
 
@@ -90,8 +90,8 @@ class TestConfig:
         config.defaults.user_id = "file-user"
         save_config(config)
 
-        monkeypatch.setenv("MEM0_USER_ID", "env-user")
-        monkeypatch.setenv("MEM0_AGENT_ID", "env-agent")
+        monkeypatch.setenv("MEMB_USER_ID", "env-user")
+        monkeypatch.setenv("MEMB_AGENT_ID", "env-agent")
         loaded = load_config()
         assert loaded.defaults.user_id == "env-user"
         assert loaded.defaults.agent_id == "env-agent"

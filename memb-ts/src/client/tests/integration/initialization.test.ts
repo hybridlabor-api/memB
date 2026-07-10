@@ -4,7 +4,7 @@
  * Tests ping, org/project resolution, and invalid credentials.
  * These tests do NOT need pre-seeded memories.
  *
- * Run: MEM0_API_KEY=your-key npx jest initialization.test.ts --forceExit
+ * Run: MEMB_API_KEY=your-key npx jest initialization.test.ts --forceExit
  */
 import { MemoryClient } from "../../memb";
 import {

@@ -21,7 +21,7 @@
     "providers": [
       {
         "id": "memb",
-        "envVars": ["MEM0_API_KEY"]
+        "envVars": ["MEMB_API_KEY"]
       },
       {
         "id": "openclaw-memb-oss",
@@ -79,7 +79,7 @@
       "label": "MemB API Key",
       "sensitive": true,
       "placeholder": "m0-...",
-      "help": "Platform mode only. Use a SecretRef ({\"source\":\"env\",\"provider\":\"default\",\"id\":\"MEM0_API_KEY\"}) or ${MEM0_API_KEY} instead of storing the key directly."
+      "help": "Platform mode only. Use a SecretRef ({\"source\":\"env\",\"provider\":\"default\",\"id\":\"MEMB_API_KEY\"}) or ${MEMB_API_KEY} instead of storing the key directly."
     },
     "userId": {
       "label": "Default User ID",
@@ -158,12 +158,12 @@
           "platform",
           "open-source"
         ],
-        "description": "Required. 'platform' requires MEM0_API_KEY. 'open-source' requires OPENAI_API_KEY (default) or no keys with Ollama."
+        "description": "Required. 'platform' requires MEMB_API_KEY. 'open-source' requires OPENAI_API_KEY (default) or no keys with Ollama."
       },
       "apiKey": {
         "type": "string",
         "sensitive": true,
-        "description": "Platform API key. Prefer SecretRef or ${MEM0_API_KEY} env var over plaintext."
+        "description": "Platform API key. Prefer SecretRef or ${MEMB_API_KEY} env var over plaintext."
       },
       "userId": {
         "type": "string"
