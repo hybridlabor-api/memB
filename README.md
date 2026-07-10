@@ -87,15 +87,51 @@ python test_memb.py
 
 ---
 
-## 🔌 Model Context Protocol (MCP) Integration
+## 🔌 Model Context Protocol (MCP) & Multi-Agent Integration
 
-`memB` exposes a standard MCP server interface. When running, Antigravity agents gain access to the following JSON-RPC memory tools:
+`memB` exposes a standard, compliant Model Context Protocol (MCP) server. Because it conforms to the open MCP specification, **any compatible AI agent, editor plugin, or CLI developer assistant** (including Google Antigravity, Claude Code, Cursor, Windsurf, or Roo Cline) can register the `memB` server and interact with the following memory tools:
 
 *   **`add_memory(text, user_id, metadata)`**: Extracts facts and inserts them into SQLite.
 *   **`search_memory(query, user_id, limit, metadata)`**: Runs Cosine similarity searches on local vectors.
 *   **`update_memory(memory_id, text)`**: Modifies a memory record.
 *   **`delete_memory(memory_id)`**: Removes a memory.
 *   **`list_memories(user_id, limit)`**: Lists registered facts.
+
+### How to Configure across different Agents:
+
+#### 1. Claude Code (CLI)
+Add the server definition to `~/.claude.json`:
+```json
+{
+  "mcpServers": {
+    "memb-mcp": {
+      "command": "python3",
+      "args": ["/absolute/path/to/memB/run.py"]
+    }
+  }
+}
+```
+
+#### 2. Cursor (Desktop IDE)
+Go to **Settings ➔ Features ➔ MCP**:
+1. Click **+ Add New MCP Server**.
+2. Name: `memb-mcp`
+3. Type: `command`
+4. Command: `python3 /absolute/path/to/memB/run.py`
+
+#### 3. Roo Cline / VS Code Extensions
+Add to your global MCP configurations file (e.g. `~/Library/Application Support/Code/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json`):
+```json
+{
+  "mcpServers": {
+    "memb-mcp": {
+      "command": "python3",
+      "args": ["/absolute/path/to/memB/run.py"],
+      "disabled": false
+    }
+  }
+}
+```
 
 ---
 
