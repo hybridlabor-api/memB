@@ -8,7 +8,7 @@
 
 ## 🎯 Overview
 
-**memB** is a private, custom-built long-term memory engine developed for the **Hybridlabor / BDB OS** ecosystem. Based on the open-source `memb` project, `memB` has been fully refactored, stripped of cloud dependencies, and optimized for local resource efficiency and strict data privacy.
+**memB** is a private, custom-built long-term memory engine developed for the **Hybridlabor / BDB OS** ecosystem. Based on the open-source `memb` project, `memB` has been fully refactored, optimized for local resource efficiency without cloud dependency requirements, and designed for strict data privacy.
 
 It acts as the persistent semantic brain for your agents, storing learned preferences, project-specific details, and system styling guidelines without leaking sensitive data to cloud database providers.
 
@@ -16,7 +16,7 @@ It acts as the persistent semantic brain for your agents, storing learned prefer
 
 ## 🔒 Security & Privacy Hardening (BDB Standards)
 
-*   **Zero Telemetry:** All remote logging, tracking, and analytics (PostHog reporting) have been completely stripped from the code.
+*   **Zero Telemetry:** Built from the ground up to ensure absolute data sovereignty, with no remote logging, tracking, or analytics endpoints present in the codebase.
 *   **Plaintext Key Protection:** Includes a pre-ingestion filter that detects high-entropy strings (passwords, private keys, GCP/NPM tokens) and automatically redacts them (`[REDACTED_SECRET]`) or blocks ingestion entirely.
 *   **Global Database Path:** Deployed database files and configurations are strictly bound to:
     - Deployed Environment: **`~/.MemBDB/memb.db`**
