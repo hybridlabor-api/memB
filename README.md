@@ -8,7 +8,7 @@
 
 ## 🎯 Overview
 
-**memB** is a private, whitelabeled long-term memory engine developed for the **Hybridlabor / BDB OS** ecosystem. Based on the open-source `memb` project, `memB` has been fully refactored, stripped of cloud dependencies, and optimized for local resource efficiency and strict data privacy.
+**memB** is a private, custom-built long-term memory engine developed for the **Hybridlabor / BDB OS** ecosystem. Based on the open-source `memb` project, `memB` has been fully refactored, stripped of cloud dependencies, and optimized for local resource efficiency and strict data privacy.
 
 It acts as the persistent semantic brain for your agents, storing learned preferences, project-specific details, and system styling guidelines without leaking sensitive data to cloud database providers.
 
