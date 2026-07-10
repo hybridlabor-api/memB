@@ -1,0 +1,12 @@
+services:
+  memb_store:
+    image: pgvector/pgvector:pg16
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=memb
+      - POSTGRES_USER=memb
+      - POSTGRES_PASSWORD=memb
+    ports:
+      - "5432:5432"
+    volumes:
+      - memb_storage:/var/lib/postgresql/data

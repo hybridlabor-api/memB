@@ -1,0 +1,17 @@
+{
+  "name": "memb",
+  "version": "0.2.12",
+  "description": "MemB memory layer for AI applications. Add persistent memory, personalization, and semantic search using the MemB Platform MCP server.",
+  "author": {
+    "name": "MemB",
+    "email": "support@memb.ai"
+  },
+  "homepage": "https://memb.ai",
+  "repository": "https://github.com/membai/memb",
+  "logo": "logo.svg",
+  "license": "Apache-2.0",
+  "keywords": ["memb", "memory", "mcp", "personalization", "semantic-search"],
+  "skills": "./skills/",
+  "hooks": "./hooks/cursor-hooks.json",
+  "mcpServers": ".cursor-mcp.json"
+}

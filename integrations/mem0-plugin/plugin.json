@@ -1,0 +1,13 @@
+{
+  "id": "memb",
+  "name": "memb",
+  "version": "0.1.4",
+  "description": "Persistent semantic memory for Antigravity agents. Cross-session, user-level recall via the MemB Platform MCP server. 16 slash commands, lifecycle hooks for auto-capture and metadata enforcement.",
+  "author": { "name": "MemB", "email": "support@memb.ai" },
+  "publisher": "membai",
+  "homepage": "https://memb.ai",
+  "repository": "https://github.com/membai/memb",
+  "license": "Apache-2.0",
+  "keywords": ["memory", "persistence", "personalization", "mcp", "semantic-search"],
+  "contextFileName": "AGENTS.md"
+}

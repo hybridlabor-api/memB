@@ -1,0 +1,5 @@
+export * from './memb-facade'
+export type { MemBProvider, MemBProviderSettings } from './memb-provider'
+export { createMemB, memb } from './memb-provider'
+export type { MemBConfigSettings, MemBChatConfig, MemBChatSettings } from './memb-types'
+export { addMemories, retrieveMemories, searchMemories, getMemories } from './memb-utils'

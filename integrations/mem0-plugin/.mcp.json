@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "memb": {
+      "type": "http",
+      "url": "https://mcp.memb.ai/mcp/",
+      "headers": {
+        "Authorization": "Token ${MEM0_API_KEY}"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "memb-plugins",
+  "interface": {
+    "displayName": "MemB Plugins"
+  },
+  "plugins": [
+    {
+      "name": "memb",
+      "source": {
+        "source": "local",
+        "path": "./integrations/memb-plugin"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

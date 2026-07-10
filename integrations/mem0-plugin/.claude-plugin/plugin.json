@@ -1,0 +1,22 @@
+{
+  "name": "memb",
+  "version": "0.2.12",
+  "description": "Persistent memory for Claude Code. Remembers decisions, patterns, and preferences across sessions.",
+  "author": {
+    "name": "MemB",
+    "email": "support@memb.ai"
+  },
+  "homepage": "https://memb.ai",
+  "repository": "https://github.com/membai/memb",
+  "license": "Apache-2.0",
+  "keywords": ["memory", "personalization", "mcp", "semantic-search"],
+  "userConfig": {
+    "api_key": {
+      "type": "string",
+      "title": "MemB API Key",
+      "description": "Your MemB Platform API key (starts with m0-). Get one at https://app.memb.ai/dashboard/api-keys",
+      "sensitive": true,
+      "required": true
+    }
+  }
+}
