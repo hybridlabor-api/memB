@@ -12,6 +12,16 @@ It acts as the persistent semantic brain for your agents, storing learned prefer
 
 ---
 
+## 📚 Documentation Wiki
+
+Comprehensive developer manuals and design specifications are maintained in the project's **OpenWiki** directory:
+- 🏁 **[Quickstart Guide](.openwiki/quickstart.md):** Virtual environments setup, test suite execution, and visualizer server runs.
+- 📐 **[System Architecture](.openwiki/architecture.md):** Tech stack, SQLite tables schemas, and God Mode memory queries.
+- 🧠 **[Design Decisions Log](.openwiki/decisions.md):** Architecture trade-offs (ONNX vs PyTorch, NumPyFlat vs Qdrant, Canvas vs SVG).
+- 📋 **[Release Notes](.openwiki/release_notes.md):** Version timeline and changelogs.
+
+---
+
 ## 🔒 Security & Privacy Hardening (BDB Standards)
 
 *   **Zero Telemetry:** Built from the ground up to ensure absolute data sovereignty, with no remote logging, tracking, or analytics endpoints present in the codebase.
