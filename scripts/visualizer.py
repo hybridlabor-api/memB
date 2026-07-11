@@ -10,28 +10,27 @@ db_path = os.path.expanduser("~/.MemBDB/memb.db")
 
 app = FastAPI(title="memB Semantic Brain Visualizer")
 
-# D3.js interactive HTML5 Canvas dashboard template matching Orca SuperBrain styling
+# D3.js interactive HTML5 Canvas dashboard template matching the flower-like clustered layout
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>memB Semantic Brain Graph</title>
+    <title>memB OS Memory Graph</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #020204;
-            --dark-surface: rgba(10, 10, 15, 0.55);
+            --bg-color: #050508;
+            --dark-surface: rgba(10, 10, 15, 0.6);
             --accent-teal: #00F2FE;
             --accent-purple: #6B21A8;
             --accent-pink: #BD00FF;
             --text-primary: #ffffff;
             --text-secondary: #a0aec0;
-            --text-muted: #4a5568;
-            --glass-border: rgba(0, 242, 254, 0.15);
-            --glow-color: rgba(189, 0, 255, 0.4);
+            --glass-border: rgba(107, 33, 168, 0.2);
+            --glow-color: rgba(107, 33, 168, 0.5);
         }
 
         body {
@@ -42,8 +41,7 @@ HTML_TEMPLATE = """
             font-family: 'Inter', sans-serif;
             overflow: hidden;
             background-image: 
-                radial-gradient(circle at 15% 50%, rgba(107, 33, 168, 0.15), transparent 45%),
-                radial-gradient(circle at 85% 30%, rgba(0, 242, 254, 0.12), transparent 40%);
+                radial-gradient(circle at 50% 50%, rgba(107, 33, 168, 0.18), transparent 60%);
         }
 
         header {
@@ -59,7 +57,7 @@ HTML_TEMPLATE = """
 
         h1 {
             margin: 0;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -69,14 +67,14 @@ HTML_TEMPLATE = """
         }
 
         .subtitle {
-            font-size: 10px;
-            color: var(--accent-teal);
+            font-size: 9px;
+            color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 1.5px;
             border: 1px solid var(--glass-border);
             padding: 4px 10px;
             border-radius: 20px;
-            background: rgba(0, 242, 254, 0.05);
+            background: rgba(107, 33, 168, 0.1);
             backdrop-filter: blur(8px);
         }
 
@@ -117,18 +115,18 @@ HTML_TEMPLATE = """
             display: flex;
             flex-direction: column;
             gap: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
             animation: borderPulse 8s infinite alternate;
         }
 
         @keyframes borderPulse {
-            0% { border-color: rgba(0, 242, 254, 0.15); }
-            50% { border-color: rgba(189, 0, 255, 0.25); }
-            100% { border-color: rgba(0, 242, 254, 0.15); }
+            0% { border-color: rgba(107, 33, 168, 0.25); }
+            50% { border-color: rgba(0, 242, 254, 0.25); }
+            100% { border-color: rgba(107, 33, 168, 0.25); }
         }
 
         .sidebar-header {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -140,7 +138,6 @@ HTML_TEMPLATE = """
             align-items: center;
         }
 
-        /* Search Bar styling */
         .search-box {
             position: relative;
             display: flex;
@@ -174,20 +171,20 @@ HTML_TEMPLATE = """
         }
 
         .detail-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
             padding: 18px;
             border-radius: 16px;
             transition: all 0.3s ease;
         }
 
         .detail-card:hover {
-            background: rgba(255, 255, 255, 0.04);
-            border-color: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.06);
         }
 
         .detail-label {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-secondary);
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -195,13 +192,13 @@ HTML_TEMPLATE = """
         }
 
         .detail-value {
-            font-size: 13.5px;
+            font-size: 13px;
             line-height: 1.6;
         }
 
         .badge {
             display: inline-block;
-            font-size: 10px;
+            font-size: 9px;
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
@@ -210,23 +207,22 @@ HTML_TEMPLATE = """
         }
 
         .badge-godmode {
+            background: rgba(107, 33, 168, 0.2);
+            color: #b794f4;
+            border: 1px solid rgba(107, 33, 168, 0.4);
+        }
+
+        .badge-project {
             background: rgba(0, 242, 254, 0.1);
             color: var(--accent-teal);
             border: 1px solid rgba(0, 242, 254, 0.25);
         }
 
-        .badge-project {
-            background: rgba(189, 0, 255, 0.1);
-            color: #BD00FF;
-            border: 1px solid rgba(189, 0, 255, 0.25);
-        }
-
-        /* Helper controls overlay */
         .controls-overlay {
             position: absolute;
             bottom: 24px;
             left: 24px;
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-secondary);
             display: flex;
             gap: 15px;
@@ -238,19 +234,13 @@ HTML_TEMPLATE = """
             pointer-events: none;
             letter-spacing: 0.5px;
         }
-
-        .controls-overlay span {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>memB OS SuperBrain</h1>
-        <div class="subtitle">Neural Knowledge Graph</div>
+        <h1>memB OS Neural Graph</h1>
+        <div class="subtitle">Structured Flower Layout</div>
     </header>
 
     <div id="graph-container">
@@ -285,12 +275,9 @@ HTML_TEMPLATE = """
         let width = canvas.clientWidth;
         let height = canvas.clientHeight;
 
-        // Resize handler
         function resize() {
             width = window.innerWidth;
             height = window.innerHeight;
-            
-            // Adjust for HighDPI screens
             const dpr = window.devicePixelRatio || 1;
             canvas.width = width * dpr;
             canvas.height = height * dpr;
@@ -307,16 +294,15 @@ HTML_TEMPLATE = """
         let hoveredNode = null;
         let searchFilter = "";
 
-        // Set up zoom behavior
         const zoomBehavior = d3.zoom()
-            .scaleExtent([0.15, 3])
+            .scaleExtent([0.1, 4])
             .on("zoom", (event) => {
                 transform = event.transform;
                 ticked();
             });
         d3.select(canvas).call(zoomBehavior);
 
-        // Fetch graph data
+        // Fetch data
         fetch('/api/graph')
             .then(res => res.json())
             .then(data => {
@@ -326,81 +312,115 @@ HTML_TEMPLATE = """
             });
 
         function initSimulation() {
-            // Pre-calculate node degrees
+            const centerX = width / 2;
+            const centerY = height / 2;
+
+            // 1. Separate hub nodes (topics) and leaf nodes
+            const hubNodes = nodes.filter(n => n.type === 'hub');
+            const projectHubs = hubNodes.filter(h => h.id !== 'hub_godmode');
+            const numProjects = projectHubs.length;
+
+            // 2. Position Hubs radially around the center to force the flower petal anchors
+            // Godmode hub sits directly at the center
+            const centerHub = nodes.find(n => n.id === 'hub_godmode');
+            if (centerHub) {
+                centerHub.fx = centerX;
+                centerHub.fy = centerY;
+            }
+
+            // Radial distribution of project hubs
+            const radialDistance = 220; // Radius of the flower center
+            projectHubs.forEach((hub, idx) => {
+                const angle = (2 * Math.PI * idx) / (numProjects || 1);
+                hub.fx = centerX + radialDistance * Math.cos(angle);
+                hub.fy = centerY + radialDistance * Math.sin(angle);
+            });
+
+            // 3. Link each leaf node to its parent hub and coordinate radial pull coordinates
+            nodes.forEach(n => {
+                if (n.type === 'leaf') {
+                    // Find which hub this leaf connects to
+                    const link = links.find(l => l.target === n.id);
+                    if (link) {
+                        const parentHubId = typeof link.source === 'object' ? link.source.id : link.source;
+                        const parentHub = nodes.find(h => h.id === parentHubId);
+                        if (parentHub) {
+                            n.hubX = parentHub.fx;
+                            n.hubY = parentHub.fy;
+                            n.parentHubId = parentHubId;
+                        }
+                    }
+                }
+            });
+
+            // Calculate degrees
             nodes.forEach(n => {
                 n.degree = links.filter(l => l.source === n.id || l.target === n.id).length;
             });
 
-            // Set up forces following Technical Architect formulas
+            // 4. Custom D3 forces configured for dense petal-like structures
             simulation = d3.forceSimulation(nodes)
+                // Mild repulsion inside the petal cloud to keep them puffy
                 .force("charge", d3.forceManyBody()
-                    .strength(d => -300 * Math.pow((d.degree || 1) + 1, 1.1)) // Repulsion scaled by degree
-                    .distanceMax(600)
+                    .strength(d => d.type === 'hub' ? -600 : -25)
+                    .distanceMax(250)
                 )
+                // Links pull leaves tightly to their parent hub to form circular clusters
                 .force("link", d3.forceLink(links)
                     .id(d => d.id)
                     .distance(link => {
-                        const srcNode = nodes.find(n => n.id === link.source || n.id === link.source.id);
                         const tgtNode = nodes.find(n => n.id === link.target || n.id === link.target.id);
-                        const srcD = srcNode ? srcNode.degree : 1;
-                        const tgtD = tgtNode ? tgtNode.degree : 1;
-                        return 120 + 15 * (srcD + tgtD); // Expanded distances to prevent tight balling
+                        return tgtNode && tgtNode.type === 'leaf' ? 35 : 180; // Short links inside clusters
                     })
-                    .strength(link => {
-                        const srcNode = nodes.find(n => n.id === link.source || n.id === link.source.id);
-                        const tgtNode = nodes.find(n => n.id === link.target || n.id === link.target.id);
-                        const srcD = srcNode ? srcNode.degree : 1;
-                        const tgtD = tgtNode ? tgtNode.degree : 1;
-                        return 0.85 / Math.min(srcD, tgtD); // Softer attraction on complex links
-                    })
+                    .strength(0.85)
                 )
+                // Collision prevents nodes from directly layering over each other
                 .force("collide", d3.forceCollide()
-                    .radius(d => {
-                        const baseR = d.type === 'hub' ? 18 : 8;
-                        return baseR + 25; // Dynamic boundary separation padding
-                    })
-                    .iterations(2)
+                    .radius(d => d.type === 'hub' ? 30 : 6.5)
+                    .strength(0.9)
                 )
-                .force("x", d3.forceX(width / 2).strength(0.04))
-                .force("y", d3.forceY(height / 2).strength(0.04))
+                // Force X/Y pulling leaves towards their specific cluster sub-hub anchor
+                .force("clusterX", d3.forceX(d => d.type === 'leaf' ? d.hubX : centerX).strength(d => d.type === 'leaf' ? 0.35 : 0.05))
+                .force("clusterY", d3.forceY(d => d.type === 'leaf' ? d.hubY : centerY).strength(d => d.type === 'leaf' ? 0.35 : 0.05))
                 .on("tick", ticked);
 
-            // Pre-warm the simulation ticks to prevent chaotic jiggling at startup
+            // Pre-warm the simulation so the flower layout settles perfectly on load
             simulation.stop();
-            for (let i = 0; i < 110; ++i) {
+            for (let i = 0; i < 180; ++i) {
                 simulation.tick();
             }
-            simulation.alpha(0.08).restart();
+            simulation.alpha(0.05).restart();
 
-            // Set up event handlers
             setupEventHandlers();
         }
 
-        // Render Canvas Tick Frame
         function ticked() {
             ctx.save();
             ctx.clearRect(0, 0, width, height);
             ctx.translate(transform.x, transform.y);
             ctx.scale(transform.k, transform.k);
 
-            // 1. Draw Connection Links
-            ctx.lineWidth = 1;
+            // 1. Draw Links
+            ctx.lineWidth = 0.8;
             links.forEach(l => {
                 const source = typeof l.source === 'object' ? l.source : nodes.find(n => n.id === l.source);
                 const target = typeof l.target === 'object' ? l.target : nodes.find(n => n.id === l.target);
                 if (!source || !target) return;
 
-                // Edge transparency / highlight focus
-                let alpha = 0.08;
+                // Ultra-translucent edges to emphasize the cluster cloud
+                let alpha = 0.06;
                 if (selectedNode) {
                     const isConnected = (source.id === selectedNode.id || target.id === selectedNode.id);
-                    alpha = isConnected ? 0.35 : 0.02;
+                    alpha = isConnected ? 0.4 : 0.01;
                 } else if (hoveredNode) {
                     const isConnected = (source.id === hoveredNode.id || target.id === hoveredNode.id);
-                    alpha = isConnected ? 0.45 : 0.03;
+                    alpha = isConnected ? 0.45 : 0.015;
                 }
 
-                ctx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+                ctx.strokeStyle = source.type === 'hub' && target.type === 'hub'
+                    ? `rgba(107, 33, 168, ${alpha * 2})` // Spine lines
+                    : `rgba(255, 255, 255, ${alpha})`;  // Petal links
+
                 ctx.beginPath();
                 ctx.moveTo(source.x, source.y);
                 ctx.lineTo(target.x, target.y);
@@ -414,53 +434,59 @@ HTML_TEMPLATE = """
                 const isHovered = hoveredNode && hoveredNode.id === n.id;
                 const isSearchMatch = searchFilter && n.payload && n.payload.data.toLowerCase().includes(searchFilter.toLowerCase());
 
-                let radius = isHub ? 10 : 5;
-                if (isHovered) radius *= 1.25;
-                if (isSelected) radius *= 1.35;
+                // Nodes styled as dense silver-white glowing dots
+                let radius = isHub ? (n.id === 'hub_godmode' ? 14 : 9) : 3.8;
+                if (isHovered) radius *= 1.3;
+                if (isSelected) radius *= 1.4;
 
-                // Fading unselected nodes
-                let opacity = 1.0;
+                let opacity = isHub ? 0.95 : 0.8;
                 if (selectedNode) {
                     const isConnected = n.id === selectedNode.id || links.some(l => 
                         (l.source.id === selectedNode.id && l.target.id === n.id) ||
                         (l.target.id === selectedNode.id && l.source.id === n.id)
                     );
-                    opacity = isConnected ? 1.0 : 0.25;
+                    opacity = isConnected ? 1.0 : 0.15;
                 }
 
                 ctx.save();
                 ctx.globalAlpha = opacity;
 
-                // Draw neon glow for search matches or selected nodes
+                // Glowing shadows for hover, selection, and search matches
                 if (isSearchMatch || isSelected || isHovered) {
-                    ctx.shadowBlur = isSearchMatch ? 20 : 12;
-                    ctx.shadowColor = isSearchMatch ? "#ff007f" : (isHub ? "#00F2FE" : "#BD00FF");
+                    ctx.shadowBlur = isSearchMatch ? 18 : 10;
+                    ctx.shadowColor = isSearchMatch ? "#ff007f" : (isHub ? "#6B21A8" : "#ffffff");
                 }
 
-                // Draw Shape Fills
-                ctx.fillStyle = isSearchMatch ? "#ff007f" : n.color;
-                ctx.beginPath();
-                ctx.arc(n.x, n.y, radius, 0, 2 * Math.PI);
-                ctx.fill();
-
-                // Inner core for hub nodes
+                // Core Fills matching Orca color scheme
                 if (isHub) {
-                    ctx.strokeStyle = "rgba(255, 255, 255, 0.8)";
-                    ctx.lineWidth = 1.5;
+                    ctx.fillStyle = n.color;
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, radius, 0, 2 * Math.PI);
+                    ctx.fill();
+                    
+                    // Outer neon border ring for hubs
+                    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+                    ctx.lineWidth = 1;
                     ctx.stroke();
+                } else {
+                    // Leaf nodes are dense silver-white particles
+                    ctx.fillStyle = isSearchMatch ? "#ff007f" : "rgba(240, 240, 255, 0.9)";
+                    ctx.beginPath();
+                    ctx.arc(n.x, n.y, radius, 0, 2 * Math.PI);
+                    ctx.fill();
                 }
 
                 ctx.restore();
             });
 
-            // 3. Draw Labels (Layered on top of nodes to avoid overlapping rendering artifacts)
+            // 3. Draw Labels (Fades in on hover/select or search match)
             nodes.forEach(n => {
                 const isHub = n.type === 'hub';
                 const isSelected = selectedNode && selectedNode.id === n.id;
                 const isHovered = hoveredNode && hoveredNode.id === n.id;
                 const isSearchMatch = searchFilter && n.payload && n.payload.data.toLowerCase().includes(searchFilter.toLowerCase());
                 
-                // Visibility rules: Hubs and Search Matches always show, leaf labels show only on hover/select
+                // Show label only if hub or active hover/selection
                 const showLabel = isHub || isHovered || isSelected || isSearchMatch;
 
                 if (showLabel) {
@@ -470,27 +496,27 @@ HTML_TEMPLATE = """
                             (l.source.id === selectedNode.id && l.target.id === n.id) ||
                             (l.target.id === selectedNode.id && l.source.id === n.id)
                         );
-                        opacity = isConnected ? 1.0 : 0.2;
+                        opacity = isConnected ? 1.0 : 0.15;
                     }
 
                     ctx.save();
                     ctx.globalAlpha = opacity;
-                    ctx.font = isHub ? "bold 11px 'Inter'" : "400 10.5px 'Inter'";
-                    ctx.fillStyle = isHub ? "#ffffff" : "#cbd5e0";
-
-                    // Text bounds sizing
+                    ctx.font = isHub ? "bold 10px 'Inter'" : "300 10px 'Inter'";
+                    
                     const text = n.label;
                     const textWidth = ctx.measureText(text).width;
 
-                    // Draw clean dark back pill behind the text to avoid overlaps with edge lines
-                    ctx.fillStyle = "rgba(10, 10, 15, 0.85)";
+                    // Draw pill background
+                    ctx.fillStyle = "rgba(5, 5, 8, 0.9)";
                     ctx.beginPath();
-                    ctx.roundRect(n.x + 12 - 6, n.y - 8, textWidth + 12, 16, 8);
+                    ctx.roundRect(n.x + 10 - 5, n.y - 7, textWidth + 10, 14, 6);
                     ctx.fill();
 
-                    // Render text
-                    ctx.fillStyle = isHub ? "#00F2FE" : "#ffffff";
-                    ctx.fillText(text, n.x + 12, n.y + 3);
+                    // Text fill colors
+                    ctx.fillStyle = isHub 
+                        ? (n.id === 'hub_godmode' ? "#b794f4" : "#00F2FE") 
+                        : "#ffffff";
+                    ctx.fillText(text, n.x + 10, n.y + 3);
                     ctx.restore();
                 }
             });
@@ -498,9 +524,7 @@ HTML_TEMPLATE = """
             ctx.restore();
         }
 
-        // Dragging & Click Event Handler Setup
         function setupEventHandlers() {
-            // Drag configurations
             d3.select(canvas).call(d3.drag()
                 .container(canvas)
                 .subject(getEventNode)
@@ -509,13 +533,11 @@ HTML_TEMPLATE = """
                 .on("end", dragended)
             );
 
-            // Node selection on click
             canvas.addEventListener("click", (event) => {
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = event.clientX - rect.left;
                 const mouseY = event.clientY - rect.top;
 
-                // Map screen coordinate to canvas coordinate space
                 const x = (mouseX - transform.x) / transform.k;
                 const y = (mouseY - transform.y) / transform.k;
 
@@ -530,7 +552,6 @@ HTML_TEMPLATE = """
                 ticked();
             });
 
-            // Hover node trigger
             canvas.addEventListener("mousemove", (event) => {
                 const rect = canvas.getBoundingClientRect();
                 const mouseX = event.clientX - rect.left;
@@ -546,7 +567,6 @@ HTML_TEMPLATE = """
                 }
             });
 
-            // Search Filter updates
             document.getElementById("search-input").addEventListener("input", (e) => {
                 searchFilter = e.target.value;
                 ticked();
@@ -565,7 +585,7 @@ HTML_TEMPLATE = """
         }
 
         function dragstarted(event) {
-            if (!event.active) simulation.alphaTarget(0.1).restart();
+            if (!event.active) simulation.alphaTarget(0.05).restart();
             event.subject.fx = event.subject.x;
             event.subject.fy = event.subject.y;
         }
@@ -668,7 +688,7 @@ def get_graph():
     
     # Static hub nodes
     hubs = {
-        "hub_godmode": {"id": "hub_godmode", "label": "General Knowledge", "type": "hub", "color": "#00F2FE", "size": 18},
+        "hub_godmode": {"id": "hub_godmode", "label": "GODMODE ALL NODES", "type": "hub", "color": "#6B21A8", "size": 18}, # Purple center as in screenshot
     }
     
     for row_id, payload_str in rows:
@@ -686,8 +706,8 @@ def get_graph():
             "id": row_id,
             "label": text,
             "type": "leaf",
-            "color": "#a0a0a0",
-            "size": 6,
+            "color": "rgba(240, 240, 255, 0.95)", # Dense white particles
+            "size": 4,
             "payload": payload
         }
         nodes.append(leaf_node)
@@ -695,9 +715,7 @@ def get_graph():
         # Link to Hub
         if category == "godmode":
             links.append({"source": "hub_godmode", "target": row_id})
-            leaf_node["color"] = "#00F2FE" # Cyan accent for global
         else:
-            # Map dynamic project leaves
             proj_key = f"hub_{project_id}" if project_id else "hub_other"
             proj_label = project_id if project_id else "Other Projects"
             
@@ -706,17 +724,16 @@ def get_graph():
                     "id": proj_key,
                     "label": proj_label,
                     "type": "hub",
-                    "color": "#BD00FF", # Purple neon accent for projects
-                    "size": 14
+                    "color": "#00F2FE", # Cyan sub-hubs (petals)
+                    "size": 12
                 }
             
             links.append({"source": proj_key, "target": row_id})
-            leaf_node["color"] = "#BD00FF" # Purple/pink accent for project facts
             
     # Combine hubs and leaf nodes
     combined_nodes = list(hubs.values()) + nodes
     
-    # Add a root link between Project hubs and Godmode center to form the flower layout
+    # Add spine link between project sub-hubs and the central godmode core
     for h_id in hubs:
         if h_id != "hub_godmode":
             links.append({"source": "hub_godmode", "target": h_id})
