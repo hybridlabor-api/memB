@@ -1,0 +1,181 @@
+:root {
+    --bg-color: #030303;
+    --text-color: #444;
+    --text-hover: #eaeaea;
+    --accent: #8c1c13;
+    --accent-glow: rgba(140, 28, 19, 0.5);
+    --node-base: #1a1a1a;
+    --node-glow: rgba(255, 255, 255, 0.05);
+    --node-hover: #fff;
+    --edge-color: #111;
+    --edge-hover: #444;
+    --edge-active: #8c1c13;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    user-select: none;
+    /* Subtle dark radial gradient for depth */
+    background: radial-gradient(circle at center, #0a0a0a 0%, #000000 100%);
+}
+
+#ui-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 2.5rem;
+    z-index: 10;
+    pointer-events: none;
+}
+
+h1 {
+    font-weight: 300;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    color: #222;
+    transition: color 0.5s ease;
+}
+
+#ui-container:hover h1 {
+    color: var(--text-hover);
+}
+
+.highlight {
+    color: var(--accent);
+    text-shadow: 0 0 15px var(--accent-glow);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.5rem;
+    color: #555;
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: translateY(-5px);
+}
+
+#ui-container:hover .subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#info-panel {
+    margin-top: 3rem;
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid #1a1a1a;
+    border-left: 2px solid var(--accent);
+    padding: 1.5rem;
+    border-radius: 4px;
+    width: 320px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+#info-panel.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#info-title {
+    font-size: 1.2rem;
+    color: var(--text-hover);
+    margin-bottom: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+}
+
+#info-desc {
+    font-size: 0.85rem;
+    color: #888;
+    line-height: 1.6;
+}
+
+#graph-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
+/* D3 Graph Styles */
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: var(--node-base);
+    stroke: #000;
+    stroke-width: 1.5px;
+    transition: fill 0.4s ease, stroke 0.4s ease, filter 0.4s ease, r 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.node:hover circle {
+    fill: var(--node-hover);
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 10px var(--accent-glow));
+    r: calc(attr(r) + 2);
+}
+
+.node-label {
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    fill: #aaa;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, fill 0.4s ease;
+    text-shadow: 0 2px 4px rgba(0,0,0,1), 0 0 8px rgba(0,0,0,0.8);
+}
+
+.node.active-hover circle {
+    fill: var(--node-hover);
+    stroke: var(--accent);
+    filter: drop-shadow(0 0 15px var(--accent-glow));
+}
+
+.node.active-hover .node-label {
+    opacity: 1;
+    fill: #fff;
+}
+
+.node.dimmed circle {
+    fill: #050505;
+    stroke: #020202;
+    filter: none;
+}
+
+.node.dimmed .node-label {
+    opacity: 0;
+}
+
+.link {
+    stroke: var(--edge-color);
+    stroke-opacity: 0.4;
+    transition: stroke-opacity 0.4s ease, stroke 0.4s ease;
+}
+
+.link.active {
+    stroke: var(--edge-active);
+    stroke-opacity: 0.8;
+}
+
+.link.dimmed {
+    stroke-opacity: 0.05;
+}

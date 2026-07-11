@@ -63,7 +63,9 @@ To prevent context leakage between isolated projects, memory queries leverage a 
 
 ## 📈 Visual Graph Pipeline
 
-The interactive graph visualizer (`scripts/visualizer.py`) reads directly from the `memb_vectors` table and translates SQLite records into a D3.js Canvas force simulation:
+The interactive graph visualizer is fully decoupled into a REST API and a Vanilla JS frontend:
+- **Backend (`src/backend/server.py`)**: Exposes `/api/nodes` and `/api/edges` via FastAPI.
+- **Frontend (`src/frontend/`)**: Renders a D3.js Canvas force simulation fetching from the REST API.
 - **GODMODE ALL NODES** acts as the central purple gravitational hub.
 - **Project IDs** act as sub-hub anchors distributed radially in a circle.
 - **Leaf nodes** (memory statements) are attracted to their parent hubs, forming dense stardust clouds (flower petals).

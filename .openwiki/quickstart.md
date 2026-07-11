@@ -61,11 +61,11 @@ Match: ID=test-id-1, Score=1.0, Payload={'text': 'This is a BDB test string', 'c
 
 ## 🎨 Running the Graph Visualizer
 
-To run the interactive Obsidian-style D3.js Canvas graph visualizer locally:
+To run the interactive Orca-style D3.js Canvas graph visualizer locally:
 
 ```bash
-# Start the FastAPI visualizer server
-python3 scripts/visualizer.py
+# Start the FastAPI visualizer server and mount the frontend
+./start.sh
 ```
 
 Open your browser and navigate to:
