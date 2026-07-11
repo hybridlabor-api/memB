@@ -33,19 +33,19 @@ It acts as the persistent semantic brain for your agents, storing learned prefer
 To prevent context pollution between different tasks (e.g., separating TouchDesigner scripts from React frontend patterns), `memB` models memory in a hierarchical flower-like node structure:
 
 ```
-                  ┌───────────────────────────────┐
-                  │      "GOD MODE" MEMORY        │
-                  │   Global preferences, rules,  │
-                  │   BDB standards & patterns    │
-                  └───────────────┬───────────────┘
-                                  │
-         ┌────────────────────────┼────────────────────────┐
-         ▼                        ▼                        ▼
-┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
-│ MEDIA PROJECTS  │      │  WEB PROJECTS   │      │ SOFTWARE PROJ.  │
-│  TouchDesigner  │      │  Next.js/React  │      │  Python APIs    │
-│  specific facts │      │  specific facts │      │  specific facts │
-└─────────────────┘      └─────────────────┘      └─────────────────┘
+                      ┌───────────────────────────────┐
+                      │   "GOD MODE" GENERAL KNOWLEDGE │
+                      │   (category="godmode",         │
+                      │    project_id=None)           │
+                      └──────────────┬───────────────┘
+                                      │
+             ┌────────────────────────┼────────────────────────┐
+             ▼                        ▼                        ▼
+    ┌─────────────────┐      ┌─────────────────┐      ┌─────────────────┐
+    │   PROJECT A     │      │   PROJECT B     │      │   PROJECT C     │
+    │ (project_id=    │      │ (project_id=    │      │ (project_id=    │
+    │ "VisualSelect") │      │ "litha-gather") │      │ "hybrid-api")   │
+    └─────────────────┘      └─────────────────┘      └─────────────────┘
 ```
 
 When an agent executes a search, the SQLite query automatically filters:
