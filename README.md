@@ -1,8 +1,6 @@
-# memB: Local Offline Long-Term Agentic Memory (BDB OS Utility v1.0.0)
+![memB: Local Offline Long-Term Agentic Memory](header.png)
 
-<p align="center">
-  <strong>100% Local, Offline-First, Privacy-Hardened Memory Layer for Google Antigravity & BDB OS v2.0</strong>
-</p>
+# memB: Local Offline Long-Term Agentic Memory (BDB OS Utility v1.0.0)
 
 ---
 
