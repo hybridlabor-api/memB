@@ -5,7 +5,7 @@ import hashlib
 from datetime import datetime, timezone
 
 # Ensure we can import memb
-sys.path.insert(0, "/Users/timrennings/agent-Projects/memB")
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from memb import Memory
 
 def main():

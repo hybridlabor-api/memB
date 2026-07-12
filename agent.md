@@ -16,6 +16,6 @@ Welcome, developer agent. Please follow these rules and system designs when modi
 
 ## 🔒 Crucial Rules (Must Follow)
 
-1. **Absolute Privacy:** Under no circumstances should absolute paths containing local usernames (e.g. `/Users/timrennings/...`) be written to repository files, documentation, README, or wiki markdown files. Always use relative paths (`.openwiki/quickstart.md`) or generic home folder variables (e.g. `~/.MemBDB/` or `$HOME/...`).
+1. **Absolute Privacy:** Under no circumstances should absolute paths containing local usernames (e.g. `/Users/<username>/...`) be written to repository files, documentation, README, or wiki markdown files. Always use relative paths (`.openwiki/quickstart.md`) or generic home folder variables (e.g. `~/.MemBDB/` or `$HOME/...`).
 2. **Zero Telemetry:** Ensure that no tracking, PostHog logs, analytics, or remote logging calls are introduced during edits.
 3. **No Key Leakage:** Do not commit or document API keys, passwords, or credentials in any file. Use placeholders.

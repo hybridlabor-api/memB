@@ -153,10 +153,10 @@ The core BDB `installer.js` script clones `hybridlabor-api/memB` to your local e
   "mcpServers": {
     "memb-mcp": {
       "command": "python3",
-      "args": ["/Users/timrennings/.gemini/antigravity-cli/mcp/memb-mcp/run.py"],
+      "args": ["~/.gemini/antigravity-cli/mcp/memb-mcp/run.py"],
       "env": {
         "GEMINI_API_KEY": "${GEMINI_API_KEY}",
-        "MEMB_DATA_DIR": "/Users/timrennings/.MemBDB"
+        "MEMB_DATA_DIR": "~/.MemBDB"
       }
     }
   }
