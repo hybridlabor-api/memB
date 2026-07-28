@@ -4,6 +4,13 @@ Changelog and development progress tracker for **memB**.
 
 ---
 
+## 🚀 Version 1.1.0 (July 28, 2026)
+- **AI-First Physical Vault Generation**: Core ingestion logic now autonomously generates a hierarchical Top-Down Radial flat-file Markdown vault during execution for zero-compute context macro-navigation.
+- **`agent.md` Manual**: Replaced standard vault config with a universal operating manual designed to provide instant, zero-cost semantic context to local 30MB inference models and small SLMs for precision RAG operations.
+- **Top-Level Entity Parameter Patch**: Updated `memory.get_all` logic across ecosystem scripts to strictly use dictionary `filters={...}` parameters, averting `ValueError`.
+
+---
+
 ## 🚀 Version 1.0.0 (July 11, 2026)
 
 First major stable release of `memB` as a local, whitelabeled long-term memory engine integrated with BDB OS.
