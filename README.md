@@ -25,14 +25,6 @@
 
 ---
 
-## 📦 Installation (NPM)
-
-```bash
-npx -y @hybridlabor-api/memb@latest
-```
-
----
-
 ## 🎯 Overview
 
 It acts as the persistent semantic brain for your agents, storing learned preferences, project-specific details, and system styling guidelines without leaking sensitive data to cloud database providers.
@@ -98,9 +90,15 @@ WHERE collection = :collection_name
 
 ---
 
-## 🛠️ Local Installation & Development
+## 📦 Installation
 
-### 1. Prereqs
+### Option A: Quick Install (via NPM/NPX)
+The easiest way to install and configure memB globally is via our NPM installer:
+```bash
+npx -y @hybridlabor-api/memb@latest
+```
+
+### Option B: Local Development (Python)
 Ensure you have Python 3.10+ installed.
 
 ### 2. Setup Virtual Environment
