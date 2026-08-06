@@ -29,6 +29,8 @@
 
 It acts as the persistent semantic brain for your agents, storing learned preferences, project-specific details, and system styling guidelines without leaking sensitive data to cloud database providers.
 
+![Offline Pipeline Workflow](memb_offline_pipeline_sketch.jpg)
+
 ---
 
 ## 📚 Documentation Wiki
@@ -60,6 +62,8 @@ Comprehensive developer manuals and design specifications are maintained in the 
 
 ### 2. Clustered "God Mode" Memory Layout
 To prevent context pollution between different tasks (e.g., separating TouchDesigner scripts from React frontend patterns), `memB` models memory in a hierarchical flower-like node structure:
+
+![God Mode Topology](memb_godmode_topology_sketch.jpg)
 
 ```
                       ┌───────────────────────────────┐
