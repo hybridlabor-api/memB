@@ -1,12 +1,31 @@
 ![memB: Local Offline Long-Term Agentic Memory](header.png)
 
-# memB: Local Offline Long-Term Agentic Memory (BDB OS Utility v1.0.0)
+---
+
+```text
+██████╗ ██████╗ ██████╗      █████╗  ██████╗ ███████╗███╗   ██╗████████╗     ██████╗ ███████╗
+██╔══██╗██╔══██╗██╔══██╗    ██╔══██╗██╔════╝ ██╔════╝████╗  ██║╚══██╔══╝    ██╔═══██╗██╔════╝
+██████╔╝██║  ██║██████╔╝    ███████║██║  ███╗█████╗  ██╔██╗ ██║   ██║       ██║   ██║███████╗
+██╔══██╗██║  ██║██╔══██╗    ██╔══██║██║   ██║██╔══╝  ██║╚██╗██║   ██║       ██║   ██║╚════██║
+██████╔╝██████╔╝██████╔╝    ██║  ██║╚██████╔╝███████╗██║ ╚████║   ██║       ╚██████╔╝███████║
+╚═════╝ ╚═════╝ ╚═════╝     ╚═╝  ╚═╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝   ╚═╝        ╚═════╝ ╚══════╝
+
+                              L O C A L   M E M O R Y   E N G I N E
+```
+
+# 🚀 memB - Local Offline Long-Term Agentic Memory
+
+[![CI](https://github.com/hybridlabor-api/memB/actions/workflows/ci.yml/badge.svg)](https://github.com/hybridlabor-api/memB/actions)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/hybridlabor-api/memB)
+[![runtime](https://img.shields.io/badge/python-3.10+-blue.svg)](https://github.com/hybridlabor-api/memB)
+[![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
+[![database](https://img.shields.io/badge/database-SQLite-brightgreen.svg)](https://github.com/hybridlabor-api/memB)
+
+> **memB** is a private, custom-built long-term memory engine developed for the **Hybridlabor / BDB OS** ecosystem. Based on the open-source `memb` project, `memB` has been fully refactored, optimized for local resource efficiency without cloud dependency requirements, and designed for strict data privacy.
 
 ---
 
 ## 🎯 Overview
-
-**memB** is a private, custom-built long-term memory engine developed for the **Hybridlabor / BDB OS** ecosystem. Based on the open-source `memb` project, `memB` has been fully refactored, optimized for local resource efficiency without cloud dependency requirements, and designed for strict data privacy.
 
 It acts as the persistent semantic brain for your agents, storing learned preferences, project-specific details, and system styling guidelines without leaking sensitive data to cloud database providers.
 
