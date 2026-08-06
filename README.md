@@ -25,6 +25,14 @@
 
 ---
 
+## 📦 Installation (NPM)
+
+```bash
+npx -y @hybridlabor-api/memb@latest
+```
+
+---
+
 ## 🎯 Overview
 
 It acts as the persistent semantic brain for your agents, storing learned preferences, project-specific details, and system styling guidelines without leaking sensitive data to cloud database providers.
