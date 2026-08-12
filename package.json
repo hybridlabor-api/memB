@@ -1,6 +1,6 @@
 {
   "name": "@hybridlabor-api/memb",
-  "version": "1.0.0",
+  "version": "2.2.1",
   "description": "memB - Local Offline Long-Term Agentic Memory",
   "main": "installer.js",
   "bin": "installer.js",
