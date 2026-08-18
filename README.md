@@ -1,4 +1,4 @@
-![memB: Local Offline Long-Term Agentic Memory](header.png)
+🌐 **Language / Sprache / Idioma**: **English**
 
 ---
 
@@ -15,12 +15,9 @@
 
 # 🚀 memB - Local Offline Long-Term Agentic Memory
 
-
 [![CI](https://github.com/hybridlabor-api/memB/actions/workflows/ci.yml/badge.svg)](https://github.com/hybridlabor-api/memB/actions)
 [![NPM Version](https://img.shields.io/npm/v/@hybridlabor-api/memb.svg)](https://www.npmjs.com/package/@hybridlabor-api/memb)
-
-[![CI](https://github.com/hybridlabor-api/memB/actions/workflows/ci.yml/badge.svg)](https://github.com/hybridlabor-api/memB/actions)
-[![Version](https://img.shields.io/badge/version-2.2.1-blue.svg)](https://github.com/hybridlabor-api/memB)
+[![Version](https://img.shields.io/badge/version-2.2.2-blue.svg)](https://github.com/hybridlabor-api/memB)
 [![runtime](https://img.shields.io/badge/python-3.10+-blue.svg)](https://github.com/hybridlabor-api/memB)
 [![license](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 [![database](https://img.shields.io/badge/database-SQLite-brightgreen.svg)](https://github.com/hybridlabor-api/memB)
