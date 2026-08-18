@@ -94,7 +94,7 @@ jobs:
       - name: Load cached venv
         if: needs.check_changes.outputs.memb_changed == 'true'
         id: cached-hatch-dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .venv
           key: venv-memb-${{ runner.os }}-${{ hashFiles('**/pyproject.toml') }}
