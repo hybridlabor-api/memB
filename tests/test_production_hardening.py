@@ -60,8 +60,38 @@ def test_scoped_delete_safety():
     run.delete_all_memories(user_id="safety_test_user", project_id="proj_B")
     print("✅ test_scoped_delete_safety PASSED: Scoped deletion safely preserved unrelated projects.")
 
+def test_ingest_deduplication():
+    """Verify that memb_ingest skips duplicate document chunks across runs via flat content_hash."""
+    import memb_ingest
+    mem = memb_ingest.init_memory()
+    
+    docs = [
+        {
+            "project": "dedup_test_suite",
+            "type": "unit_test_doc",
+            "source": "test_file.md",
+            "content": "This is unique content for testing cross-run deduplication."
+        }
+    ]
+    
+    # Run 1: Should ingest 1
+    memb_ingest.ingest_to_memb(mem, docs, category="testing_patterns", purge_project="dedup_test_suite")
+    items_after_run1 = mem.vector_store.list(filters={"project_id": "dedup_test_suite"})
+    assert len(items_after_run1) == 1, f"Expected 1 item, got {len(items_after_run1)}"
+    
+    # Run 2: Should detect content_hash and skip
+    memb_ingest.ingest_to_memb(mem, docs, category="testing_patterns")
+    items_after_run2 = mem.vector_store.list(filters={"project_id": "dedup_test_suite"})
+    assert len(items_after_run2) == 1, f"Expected still 1 item due to deduplication, got {len(items_after_run2)}"
+    
+    # Cleanup
+    for item in items_after_run2:
+        mem.delete(getattr(item, "id"))
+    print("✅ test_ingest_deduplication PASSED: Cross-run deduplication successfully skipped identical chunks.")
+
 if __name__ == "__main__":
     test_concurrent_writes()
     test_hybrid_search()
     test_scoped_delete_safety()
+    test_ingest_deduplication()
     print("\n🎉 ALL PRODUCTION HARDENING TESTS PASSED!")
