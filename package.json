@@ -3,7 +3,19 @@
   "version": "2.3.0",
   "description": "memB - Local Offline Long-Term Agentic Memory",
   "main": "installer.js",
-  "bin": "installer.js",
+  "bin": {
+    "memb": "installer.js"
+  },
+  "files": [
+    "installer.js",
+    "memb/",
+    "memb_ingest.py",
+    "memb_auto_inject.py",
+    "run.py",
+    "pyproject.toml",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "Hybridlabor",
   "license": "UNLICENSED",
   "publishConfig": {

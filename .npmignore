@@ -1,0 +1,10 @@
+tests/
+.github/
+.venv/
+__pycache__/
+*.pyc
+uv.lock
+server/
+.openwiki/
+production_artifacts/
+MEMB_MASTER_IMPLEMENTATION_SPEC.md
