@@ -388,7 +388,7 @@ def get_memory_title(data: str, mid: str) -> str:
 def build_ai_vault(memory: Any):
     """Generates an AI-first flat-file markdown vault for native agent access."""
     print("🌸 Generating physical AI-first Vault (God Mode Topology)...")
-    vault_dir = os.path.join(os.environ.get("MEMB_DATA_DIR", os.path.expanduser("~/.MemBDB")), "memB_Vault")
+    vault_dir = os.path.normpath(os.path.join(os.environ.get("MEMB_DATA_DIR", os.path.expanduser("~/.MemBDB")), "memB_Vault"))
     shutil.rmtree(vault_dir, ignore_errors=True)
     os.makedirs(vault_dir, exist_ok=True)
     os.makedirs(os.path.join(vault_dir, "Projects"), exist_ok=True)
