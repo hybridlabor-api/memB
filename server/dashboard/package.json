@@ -4,9 +4,9 @@
   "private": true,
   "packageManager": "pnpm@10.34.2",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 7790",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 7790",
     "lint": "prettier --check .",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit"
