@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "memb"
-version = "2.2.1"
+version = "2.3.0"
 description = "BDB whitelabeled local persistent memory system for Antigravity"
 authors = [
     { name = "BDB", email = "support@hybridlabor.dev" }
